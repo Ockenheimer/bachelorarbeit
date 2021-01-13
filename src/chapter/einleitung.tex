@@ -1,0 +1,33 @@
+\chapter{Einleitung}
+\markboth{Einleitung}{}
+\label{sec:Einleitung}
+
+\blindtext
+
+\begin{lstlisting}[caption={Fehler durch Änderung in der Nachbarschaft.}, label={lst:newenum}]
+enum ExampleEnum {
+    A, B, C //Neu
+}
+int doSomething(ExampleEnum anEnum) {
+    switch (anEnum) {
+        case A: return 24 * 60 * 60;
+        case B: return 1000 * 1000;
+        default:
+            throw new RuntimeException("Not implemented yet.");
+    }
+}
+long someMethod() { // in irgendeiner anderen Klasse
+    long product = 1L;
+    for (ExampleEnum anEnum : ExampleEnum.values()) {
+        product *= doSomething(anEnum);
+    }
+    return product;
+}
+\end{lstlisting}
+
+\blindtext
+
+
+\begin{displaymath}
+a_{ i j } - b_{ i j } = x^{27}
+\end{displaymath}

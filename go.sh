@@ -1,0 +1,4 @@
+pdflatex bachelorthesis
+biber bachelorthesis
+pdflatex bachelorthesis
+pdflatex bachelorthesis
