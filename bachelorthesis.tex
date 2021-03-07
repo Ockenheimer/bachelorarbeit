@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage[T1]{fontenc}
+\usepackage[nohyperlinks, printonlyused]{acronym}
 
 % Hauptdatei des Projektes. Von hier aus werden die anderen Seiten eingebunden
 \input{src/konfiguration.tex}
@@ -50,9 +51,10 @@
 \newpage
 
 % Rudi will kein Abbildungsverzeichnis
-%\listoffigures
+\input{src/acronym.tex}
+\listoffigures
 %\listoftables
-%\lstlistoflistings
+%\listlistoflistings
 
 %\cleardoublepage
 

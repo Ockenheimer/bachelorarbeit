@@ -23,32 +23,35 @@ Kurze Darstellung der KitaNet-Software. Überblick über Funktionen von HumHub (
 
 \section{LDAP}
 Begriffserklärung und Funktionsbeschreibung Nutzerverzeichnis. 
-Wie arbeitet LDAP mit KitaNet zusammen?
+Wie arbeitet das \ac{ldap} mit KitaNet zusammen?
 
-\chapter{SMTP-Server}
+\chapter{Mail-Server}
 
-\section{Anforderungen}
-Welche Szenarien soll der Mailserver abdecken? Welche Funktionen sind notwendig? 
+\section{Anforderungen/Nutzungsszenarien}
+\subsection{Nutzungsszenarien}
+Welche Szenarien soll der \ac{mta} abdecken? Welche Funktionen sind notwendig (\zb nur interne Mails, keine Erreichbarkeit von außen)? Was ist bei der Lizensierung zu beachten? Gibt es weitere wichtige Aspekte? Der SMTP-Server soll mit dem eingesetzten IMAP-Client Dovecot zusammenarbeiten.
+\subsection{Testfälle}
+Aufgrund der beschriebenen Nutzungsszenarien werden Testfälle formuliert, die den Erfolg des Projektes kennzeichnen. 
 
-\section{Wie funktioniert E-Mail?}
-Beschreibung der Grundfunktionalität
+\section{SMTP-Software}
+Vergleich von SMTP-Server-Software für den Einsatz auf Ubuntu. 
+\subsection{postfix}
+Erfüllt die Software die gestellten Anforderungen? Was spricht gegen einen Einsatz?
+\subsection{EmailSuccess}
+Inhaltlich wie oben.
 
+\subsection{Entscheidung}
+Welche SMTP-Software wurde gewählt? 
 
-\section{SMTP-Server}
-Vergleich von SMTP-Server-Software für den Einsatz auf Ubuntu
+\chapter{Installation und Tests}
 
 \section{Einrichtung und Anbindung SMTP an LDAP}
-Wie "steuert" das LDAP den SMTP-Server? Wie funktioniert der Informationsaustausch (neue Nutzer, etc)?
+Wie steuert das \ac{ldap} den SMTP-Server? Wie funktioniert der Informationsaustausch (neue Nutzer, etc)?
 
-\chapter{E-Mail aus Nutzersicht}
-
-\section{IMAP-Client}
-Vergleich von Dovecot und Roundcube auf Kompatibiliät mit System
-
-\section{Einrichtung IMAP}
-"Gewinner" des Vergleichs wird implementiert.
-Anknüpfung an LDAP (ggf. eigenes Unterkapitel?)
-
+\section{Tests}
+Allgmeines zu den durchgeführten Tests. Kam es zu Problemen bei der Testung?
+\subsection{Dokumenation der einzelnen Tests}
+Wurde der Test bestanden? Musste der Test unerwartet an die Gegebenheiten angepasst werden?
 
 \chapter{Fazit}
 
