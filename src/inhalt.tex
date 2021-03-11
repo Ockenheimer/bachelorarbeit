@@ -4,19 +4,62 @@
 \chapter{Einleitung}
 \markboth{Einleitung}{}
 \label{sec:Einleitung}
+\section{Kontext}
+Im Rahmen des Studiums wurde in der \ac{kita} Schloss Ardeck in Gau-Algesheim ein lokales soziales Netzwerk als Kommunikations- und Dokumentenmanagementsystem eingeführt. In dem \textit{KitaNet} genannten System können durch die Leitung und Mitarbeitenden der Einrichtung beispielsweise Elternbriefe ausgetauscht und erarbeitet werden oder Terminabsprachen und Diskussionen geführt werden, auch wenn die Kolleginnen aufgrund von Schichtdiensten nicht immer direkten Kontakt haben. \\ Das Projekt wurde innerhalb von zwei Jahren realisiert und in der \ac{kita} implementiert.
 
-\blindtext
+Technisch besteht KitaNet aus einer \ac{vm} auf einem NAS-System der Firma QNAP. Auf der \ac{vm} läuft die php-basierte Software \textit{HumHub}. Diese arbeitet mit einer durch QNAP bereitgestellten Variante eines \ac{ldap} zur Benutzerverwaltung zusammen. Dies war notwendig, um der Leitung der Kita eine Möglichkeit zu bieten, Nutzerpasswörter grundzustellen und neue Nutzer anzulegen. Gerade das Grundstellen von Passwörtern ist in der täglichen Arbeit leider häufiger notwendig, als von den Projektdurchführenden geplant und bindet somit einen nicht unerheblichen Teil der Arbeitszeit der Leitung.
 
+HumHub selbst bietet die Möglichkeit, das vom Nutzer vergessene Passwort mit Hilfe einer hinterlegen E-Mail-Adresse zu ändern. Diese Funktion wurde im Rahmen des IT-Projektes nicht genutzt. Im Rahmen dieser Bachelorarbeit soll nun der Frage nachgegangen werden, wie die Implementierung eines Mailservers in die Umgebung aus \ac{vm}, \ac{ldap} und HumHub durchgeführt werden kann. Hierfür soll die in der \ac{kita} vorliegende Umgebung auf einem separaten Server nachgestellt werden, um den Produktivbetrieb in der \ac{kita} nicht zu gefährden.
+
+\section{Aufbau der Arbeit}
+
+In dieser Bachelor-Thesis soll zunächst KitaNet sowie die hier vorliegende Hardwareumgebung und das Einsatzszenario erläutert werden. Hier sollen auch Hinderungsgründe genannt werden, die eine Umsetzung der in dieser Thesis beschriebenen Lösung in den Produktivbetrieb der Kita verhindern. In diesem Kapitel wird auch die Funktionalität eines \ac{ldap} beschrieben.
+
+Das nächste Kapitel behandelt zunächst die Funktionsweise eines \ac{smtp}-Servers. Im Anschluss werden die Anforderungen und Nutzungsszenarien des Mailservers für KitaNet festgelegt. Die Anforderungen umfassen dabei zum Einen Punkte wie die Zusammenarbeit mit einem Nutzerverzeichnis, verbunden mit einer möglichen Automation des Anlegens von Mail-Nutzern, sollen aber zum Anderen auch nichtfunktionale Aspekte, wie den zu erwartenden Pflegeaufwand oder die finanzielle Belastung durch etwaige Lizenzkosten, beachten.
+
+Die benannten Nutzungsszenarien bilden die Grundlage zur Formulierung von Tests, die die Funktionalität und Praxistauglichkeit der späteren Installation sicherstellen sollen. Die Beschreibung dieser Tests bildet den Abschluss  dieses Kapitels.
+
+Anschließend werden die zur Wahl stehenden Softwarepakete \textit{postfix} und die kommerzielle Software \textit{EmailSuccess} vorgestellt. Die im vorherigen Kapitel formulierten Anforderungen werden mit dem Funktionsumfang der Softwarepakete abgeglichen. Aufgrund der Ergebnisse dieses Abgleichs erfolgt die Entscheidung. 
+
+Dessen Installation bildet das nächste Kapitel. Es wird dargestellt, ob und welche Anpassungen durchzuführen sind, um den \ac{smtp}-Server in die vorliegende Umgebung zu integrieren. Auch die Anbindung an das \ac{ldap} wird beschrieben.
+Die Dokumentation der durchgeführten Tests schließt das Kapitel ab. An dieser Stelle soll auch kritisch hinterfragt werden, ob die im Vorfeld formulierten Tests ausreichend spezifisch waren oder Anpassungen an diesen vorzunehmen waren.
+
+Ein persönliches Fazit schließt diese Bachelor-Thesis ab.
+
+\section{Methodik}
+
+Wie im vorherigen Abschnitt beschrieben, erfolgt die Auswahl der zu installierenden Software aufgrund des Abgleichs mit festgelegten Anforderungen .
+
+Hierzu werden die Angaben des jeweiligen Herstellers, respektive bei nicht kommerzieller Software der Projektverantwortlichen, herangezogen um eine objektive Vergleichbarkeit der Softwareprodukte sicherzustellen. Die Entscheidung wird somit grundsätzlich aufgrund objektiver Grundlagen getroffen.  Da beispielsweise die finanzielle Situation der \ac{kita} nur einen geringen Spielraum für Investitionen zulässt, können die formulierten Anforderungen nicht vollständig gleichwertig behandelt werden. Werden Anforderungen , \zb aufgrund wirtschaftlicher Erwägungen, unterschiedlich gewichtet, wird dies gesondert im Text erwähnt.
+
+Es findet somit eine Mischung aus qualitativer und quantitativer Forschung statt.
+
+Die Implementierung erfolgt anschließend im Rahmen eines Experiments in einer KitaNet nachempfunden Umgebung statt.
+
+Die Funktionsweise von KitaNet und sein Nutzen für die \ac{kita} sollen im nächsten Kapitel erläutert werden.
 
 \chapter{KitaNet}
 
-Kurze Beschreibung von technischer Basis von KitaNet. Was sind soziale Netzwerke?
-Ablauf beim Grundstellen von Passwörtern wird erläutert.
+%Kurze Beschreibung von technischer Basis von KitaNet. Was sind soziale Netzwerke?
+%Ablauf beim Grundstellen von Passwörtern wird erläutert.
+
+KitaNet ist der Arbeitstitel eines IT-Projektes, das im Rahmen des Studiums der Sozialinformatik vom Autor dieser Thesis mit einem Kommilitonen durchgeführt wurde. Hierfür wurde in Zusammenarbeit mit der \ac{kita} \textit{Schloss Ardeck} in Gau-Algesheim ein soziales Netzwerk installiert, über welches die Bediensteten der Kita eine Plattform zum Austausch und Kommunikation erhalten. 
+
+Die \ac{kita} betreut ca. 170 Kinder im Alter von einem bis sechs Jahren. Hierfür beschäftigt sie 30 pädagogische Fachkräfte, welche die ihnen anvertrauten Kinder in acht Gruppen betreuen. Die Kita befindet sich in kommunaler Trägerschaft.
+
+Für die Umsetzung der Idee eines sozialen Netzwerkes konnten die Studenten unter anderem von dem Umstand profitieren, dass jede Gruppe der Kita mit Notebooks ausgestattet ist, über welche die Kinder Lernspiele spielen, aber auch unter Betreuung der Erzieher erste Erfahrungen mit dem Internet sammeln.
+
+Die technische Umgebung in der Kita, sowie die Umsetzung des sozialen Netzwerks sollen nun genauer beschrieben werden. 
 
 \section{Hardware}
-Beschreibt den technischen Aufbau von KitaNet in der Kita selbst.
-Abweichungen vom Aufbau für Studienprojekt werden erläutert. Was weicht ab?
-Verhindert die für dieses Bachelorarbeit eingesetzte Hardware eine Umsetzung in der Kita?
+%Beschreibt den technischen Aufbau von KitaNet in der Kita selbst.
+%Abweichungen vom Aufbau für Studienprojekt werden erläutert. Was weicht ab?
+%Verhindert die für dieses Bachelorarbeit eingesetzte Hardware eine Umsetzung in der Kita?
+In der \ac{kita} wurde im Rahmen einer Elterninitiative ein lokales Netzwerk bestehend aus fünf WLAN-Routern installiert. Dieses \ac{lan} vernetzt nicht nur die vier Gebäudeteile der Kita miteinander, es stellt zugleich die telefonische Erreichbarkeit der einzelnen Gruppen sicher. Diese Vernetzung wurde bereits in der Vergangenheit in der Art genutzt, dass Erzieher Dokumente am zentralen Netzwerkdrucker im Büro der Leitung ausdrucken konnten.
+
+Die Studierenden entschieden sich zur Umsetzung des Projektes KitaNet für die im Anschluss näher erläuterte Software HumHub.
+Einer der Vorteile war, dass diese kostenlos auf einem privaten Server installiert werden konnte. 
+
 
 \section{HumHub}
 Kurze Darstellung der KitaNet-Software. Überblick über Funktionen von HumHub (Module, Spaces, etc.)
@@ -25,22 +68,36 @@ Kurze Darstellung der KitaNet-Software. Überblick über Funktionen von HumHub (
 Begriffserklärung und Funktionsbeschreibung Nutzerverzeichnis. 
 Wie arbeitet das \ac{ldap} mit KitaNet zusammen?
 
-\chapter{Mail-Server}
 
-\section{Anforderungen/Nutzungsszenarien}
-\subsection{Nutzungsszenarien}
-Welche Szenarien soll der \ac{mta} abdecken? Welche Funktionen sind notwendig (\zb nur interne Mails, keine Erreichbarkeit von außen)? Was ist bei der Lizensierung zu beachten? Gibt es weitere wichtige Aspekte? Der SMTP-Server soll mit dem eingesetzten IMAP-Client Dovecot zusammenarbeiten.
-\subsection{Testfälle}
+\chapter{SMTP}
+Was macht das \ac{smtp}? Beschreibung der Funktion von E-Mail
+
+\chapter{Anforderungen/Nutzungsszenarien}
+\section{Anforderungen}
+Beschreibt die Anforderungen an den SMTP-Server, z.B.:
+\begin{itemize}
+	\item Lauffähig auf Ubuntu
+	\item Zusammenarbeit mit LDAP
+	\item Automatisierung der Nutzerverwaltung
+	\item geringer (im besten Fall gar kein) Wartungsaufwand
+	\item Kostengünstig
+	\item etc.
+\end{itemize}
+
+
+\section{Nutzungsszenarien}
+Welche Szenarien soll der \ac{mta} abdecken? Welche Funktionen sind notwendig (\zb nur interne Mails, keine Erreichbarkeit von außen)? Was ist bei der Lizenzierung zu beachten? Gibt es weitere wichtige Aspekte? Der SMTP-Server soll mit dem eingesetzten IMAP-Client Dovecot zusammenarbeiten.
+\section{Testfälle}
 Aufgrund der beschriebenen Nutzungsszenarien werden Testfälle formuliert, die den Erfolg des Projektes kennzeichnen. 
 
-\section{SMTP-Software}
+\chapter{Zur Auswahl stehende SMTP-Software}
 Vergleich von SMTP-Server-Software für den Einsatz auf Ubuntu. 
-\subsection{postfix}
+\section{postfix}
 Erfüllt die Software die gestellten Anforderungen? Was spricht gegen einen Einsatz?
-\subsection{EmailSuccess}
+\section{EmailSuccess}
 Inhaltlich wie oben.
 
-\subsection{Entscheidung}
+\chapter{Entscheidung}
 Welche SMTP-Software wurde gewählt? 
 
 \chapter{Installation und Tests}
