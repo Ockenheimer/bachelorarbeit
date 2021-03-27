@@ -158,10 +158,94 @@ Das \ac{ldap} wird periodisch über einen sogenannten \textit{Cronjob} ausgelese
 
 Dies schließt die Beschreibung des \textit{IST-Zustand} von Kitanet und der Testumgebung ab. Im folgenden sollen nun die Grundlagen zum E-Mail-Versand dargestellt werden.
 
-\chapter{SMTP}
-Was macht das \ac{smtp}? Beschreibung der Funktion von E-Mail
+\chapter{Der Standard \textit{SMTP}}
+
+Bereits in den Anfängen des \ac{arpanet} wurde die erste Software zum Versenden und Empfangen einer E-Mail zwischen Rechnern innerhalb eines Netzwerks entwickelt. \textquote{In March [1972] Ray Tomlinson at BBN wrote the basic email message send and read software, motivated by the need of the ARPAnet developers for an easy coordination mechanism. In July, Roberts expanded its utility by writing the first email utility program to list, selectively read, file, forward, and respond to messages. From there email took off as the largest network application for over a decade} \citep[][]{historyinternet}.
+
+Hieraus entwickelte Jonathan Postel 1982 das \acf{smtp}.
+
+Mit \ac{smtp} verband Postel den Wunsch, ein System zu schaffen, dass E-Mail unabhängig von der Transporttechnologie verlässlich und effizient transferiert \citep[vgl.][1]{rfc821}. Wie das Protokoll aufgebaut ist, soll nun anhand eines \textit{Gesprächs} zwischen zwei SMTP-Servern dargestellt und erläutert werden. Dieser Dialog wird in abgewandelter Form von Heinlein beschrieben \citep[vgl.][S. 24 ff.]{Heinlein2004}. 
+
+\section{SMTP}
 
 \textquote{The main purpose of SMTP is to deliver messages to user‘s mailboxes} \citep[][11]{rfc821}.
+Wie von Postel formuliert, soll eine E-Mail via \ac{smtp} unabhängig vom Transportweg (\zb \ac{tcp}) von einem Nutzer versendet und vom Adressaten empfangen werden können. Sender ist in hier betrachtetem Dialog \verb+admin@kitanet+, Empfänger der E-Mail soll \verb+user@example.org+ sein. Den Datenaustausch vollziehen die SMTP-Server \verb+mail.kitanet+ als \textit{Client} und \verb+mail.example.org+ als \textit{Host}. Zur besseren Übersichtlichkeit werden Nachrichten des SMTP-Hosts mit H: eingeleitet, die des SMTP-Clients mit C:.
+
+Das Design von \ac{smtp} sieht in seinem Kontext zwei Teilnehmer die Daten austauschen. Diese werden von ihm als \textit{Sender-SMTP} und \textit{Empfänger-SMTP} bezeichnet \citep[vgl.][2]{rfc821}. Dabei ist unabhängig, ob der Sender tatsächlich der Startpunkt für die Daten ist, oder ob der Empfänger der Endpunkt der Übertragung ist. Beide können auch nur Zwischenstationen innerhalb der Übertragung zwischen den Nutzern sein. \textquote{The receiver-SMTP may either be the ultimate destination or an intermediate} \citep[][2]{rfc821}.
+
+Nach dem Herstellen der Verbindung meldet sich zunächst der Host:\\
+\verb+H: Connected to mail.example.org+ \\ 
+\verb+H: Escape Character ist '^]'+ \\
+\verb+H: 220 mail.example.org SMTP Postfix on SuSE Linux 9.0 (i386)+
+
+Der Host meldet mit Code 220 \textquote{Service ready} \citep[][38]{rfc821} dem Client, dass er zur Kommunikation bereit ist. 
+
+Nun ist es am Client, sich zu identifizieren. \\
+\verb+C: HELO mail.kitanet+ \\ 
+\verb+H: 250 mail.example.org+
+
+Mit Code 250 \textquote{Requested mail action okay, completed} \citep [][38]{rfc821} gibt der Host den Kommunikationskanal wieder frei.
+
+Der Client meldet anschließend \\
+\verb+C: MAIL FROM: <admin@kitanet>+ welches vom Host mit einem \\
+\verb+H: 250 OK+ bestätigt wird.\\
+Der Client verwendet den Befehl MAIL um die E-Mail-Transaktion zu starten. Er teilt dem Host mit, welchen Pfad das Datenpaket bisher genommen hat, bzw. welchen Weg eine eventuelle Antwort des Hosts nehmen muss um beim ursprünglichen Absender der Nachricht anzukommen. Postal spricht hier vom \textquote{reverse-path}. \textquote{When the list of hosts is present, it is a „reverse“ source route and indicates that the mail was relayed through each host on the list (the first host in the list was the most recent relay)}\citep[vgl.][20]{rfc821}.
+
+Mit dem \ac{smtp}-Befehl\\
+\verb+C: RCPT TO: <user@example.org>+ \\ 
+und der Antwort des Hosts \\
+\verb+H: 250 OK+\\
+werden die einzelnen Empfänger der Mail gegenüber dem Host bekanntgegeben. Heinlein interpretiert die Antwort \verb+250 OK+ des Hosts damit, dass dieser sich für diese Nachricht \textquote{zuständig fühlt} \citep[vgl.][25]{Heinlein2004}.
+
+Als nächstes folgt der Befehl \verb+DATA+. Die Antwort des Servers teilt dem Client zugleich mit, wie dieser anzeigen muss, wann der Datenblock übertragen wurde. Im Anschluss überträgt der Client die Nachricht und signalisiert das Ende der Daten mit dem Signal, in diesem Fall mit einem einzelnen Punkt.\\
+\\
+\verb+C: DATA+ \\
+\verb+H: 354 End data with <CR><LF> . <CR><LF>+\\
+\verb+C: Subject: Ein Betreff+ \\
+\verb+C:+\\
+\verb+C: Hallo Welt!+ \\
+\verb+C:+\\ 
+\verb+C:.+
+
+Die Daten wurden nun vom Client an den Host übertragen. Dieser muss nun die Daten der Mail zur weiteren Verarbeitung vorbereiten und abspeichern. Als Antwort meldet er dem Client zurück, \textquote{unter welcher Kennung die E-Mail bei ihm erfolgreich gespeichert wurde} \citep[][25]{Heinlein2004}.\\
+\verb+H: 250 Ok: queued as A6B701E890+ \\
+Dies ist sogleich das Signal für den Client, die Mail aus seinem eigenen Speicher zu löschen, da Sie erfolgreich weitergeleitet wurde. Allerdings löscht er die Mail natürlich nur, wenn nicht die Mail nicht über einen anderen SMTP-Host an weitere Adressaten versendet werden muss.
+
+Zum Beenden der Verbindung sendet der Client das Kommando \\
+\verb+C: QUIT+, welches vom Host mit \\
+\verb+H: 221 bye+ bestätigt wird. 
+
+Hier war nur ein sehr vereinfachter Diealog zwischen Host und Client dargestellt. Postel stattete die Spezifikation mit weiteren, heute teils obsoleten, Optionen aus, wie z.B. der Möglichkeit Mails an ein Terminal zu verschicken, statt in ein Postfach \citep[vgl.][11]{rfc821} oder notwendigen Funktionalitäten wie dem Befehl EXPAND (EXPN) um die Teilnehmer einer Mailingliste anzeigen zu können \citep[vgl.][8]{rfc821}.
+
+Auch musste der Host in der Lage sein, Verarbeitungsfehler mitzuteilen oder dem Client zu signalisieren, dass er den Empfänger nicht kannte. Der Umfang der gesamten Spezifikation würde hier den Rahmen sprengen, es sei insoweit auf \cite[][S. 37 ff.]{rfc821} verwiesen. Hier stellt Postel die möglichen Antworten für die SMTP-Kommandos dar.
+
+SMTP in seiner Urform ist ein ASCII-basiertes System, also nur für die Weitergabe von Text spezifiziert. \textquote{The mail data may contain any of the 128 ASCII character codes}\citep[][21]{rfc821}. Entwicklungen wie MIME \citep[vgl.][]{rfc1521} lösten zwar das Problem der Datei-Anhänge, aber es entstand der Eindruck, der Veränderungs- und Erweiterungsdruck auf SMTP könnte die hohe Qualität des Standards gefährden. Man erkannte den Bedarf für einen Standard für Erweiterung von SMTP. So entstand der \ac{rfc} 1869.
+
+\section{Enhanced SMTP}
+
+1995 beschrieben Klensin u.a. im \ac{rfc} 1869 die \ac{esmtp}.
+Sie wollten hierbei jedoch nicht einzelne Erweiterungen für SMTP beschreiben, sondern einen Rahmen schaffen, an den sich kommende SMTP-Erweiterungen orientieren können, aber auch müssen. \textquote{Rather than describing these extensions as separate and haphazard entities, this document enhances SMTP in an straightforward fashion that provides a framework in which all future extensions can be built in a single consistent way} \citep[][1]{rfc1869}. 
+
+Gleichzeitig war es nicht ihre Absicht, es neuen Erweiterungen besonders einfach zu machen, SMTP als Unterbau zu verwenden. \textquote{This means that each and every extension, regardless of its benefits, must be carefully scrutinized [geprüft (Anm. d. Autors)] with respect to its implemetnation, deployment, and interoperability costs. In many cases, the cost of extending the SMTP serice will likely outweigh the benefit} \citep[][2]{rfc1869}. 
+
+%\subsection{ESMTP-Framework}
+
+Klensin u.a. führen in \ac{rfc} 1869 drei neue Faktoren in \ac{smtp} ein, um Erweiterungen des Standards zu vereinheitlichen.
+
+\begin{itemize}
+	\item{Den SMTP-Befehl \verb+EHLO+}\\
+	Der Client, der \ac{esmtp} unterstützt soll den Dialog nicht mit dem Befehl \verb+HELO+, sondern mit \verb+EHLO+ (Extended HELO) einleiten, um damit zu prüfen, ob auch der SMTP-Host \ac{esmtp} unterstützt. Hierdurch ergab sich auch die Notwendigkeit, \ac{rfc} 821 zu erweitern, da als initialer Befehl nunmehr \verb+HELO+ und \verb+EHLO+ zugelassen sein mussten. Unterstützt der Host \ac{esmtp} nicht, sendet er auf den Befehl \verb+EHLO+ eine Fehlermeldung. Dies signalisiert dem Client, dass er mit dem Host nur ohne Erweiterungen sprechen kann \citep[vgl.][S. 3 ff.]{rfc1869}.
+	\item{Zentrale Registrierung}\\
+	Erweiterungen für \ac{esmtp} müssen zentral registriert und verwaltet werden. Hierfür sehen Klensin u.a. ein Zentralregister bei der \ac{iana} vor und schlagen zugleich die ersten Befehle vor \citep[vgl.][7]{rfc1869}. Hierbei handelt es sich um die von Postal 1982 vorgeschlagenen Befehle \verb+SEND+, \verb+SOML+, \verb+SAML+, \verb+EXPN+, \verb+HELP,+ und \verb+TURN+ \citep[für die Befehle vgl.][S. 23 ff.]{rfc821}.
+	\item{erweiterte Parameter für \verb+MAIL FROM+ und \verb+RCPT TO+}\\
+	Hier nehmen Klensin u.a. Bezug auf die bereits absehbaren Erweiterungen zu \ac{smtp}. \textquote{It is recognized that several of the extensions plannes for SMTP will make use of additional parameters associated with the MAIL FROM and RCPT TO command} \citep[][7]{rfc1869}. Im weiteren erläutern Sie die erforderliche Syntax für Befehle innerhalb von \verb+MAIL FROM+ und \verb+RCPT TO+ und betonen erneut die Notwendigkeit der Registrierung der Erweiterungen bei der \ac{iana}.
+\end{itemize}
+
+Durch die Erweiterungen und deren Registrierung entwickelte sich \ac{esmtp} zu einer sinnvollen Ergänzung. Dies mündete schließlich in der Übernahme des Systems in den Standard selbst \citep[vgl. u.a.][S. 7 ff]{rfc2821}.
+
+Nachdem nun die theoretischen Grundlagen betrachtet wurden, sollen im nächsten Kapitel die Anforderungen an den SMTP-Server im Rahmen des KitaNet formuliert werden. 
+
+
 
 \chapter{Anforderungen/Nutzungsszenarien}
 \section{Anforderungen}
@@ -205,3 +289,5 @@ Wurde der Test bestanden? Musste der Test unerwartet an die Gegebenheiten angepa
 \chapter{Fazit}
 
 \blindtext
+
+
