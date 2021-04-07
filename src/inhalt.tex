@@ -9,15 +9,15 @@ Im Rahmen des Studiums der Sozialinformatik wurde in der \ac{kita} \textit{Schlo
 
 Technisch besteht KitaNet aus einer \ac{vm} auf einem NAS-System der Firma QNAP. Auf der \ac{vm} läuft die auf der Skriptsprache \ac{php} basierende Software \textit{HumHub}. Diese arbeitet mit einer durch QNAP bereitgestellten Variante eines \ac{ldap} zur Benutzerverwaltung zusammen. Dies war notwendig, um der Leitung der Kita eine Möglichkeit zu bieten, Nutzerpasswörter grundzustellen und neue Nutzer anzulegen. Gerade das Grundstellen von Passwörtern ist in der täglichen Arbeit leider häufiger notwendig, als von den Projektdurchführenden geplant und bindet somit einen nicht unerheblichen Teil der Arbeitszeit der Leitung.
 
-HumHub selbst bietet die Möglichkeit, beim Nutzer eine E-Mail-Adresse zu hinterlegen, über die dann ein Grundstellen des Passwortes möglich ist. Hierfür wäre allerdings ein E-Mail-Server innerhalb des Netzwerkes notwendig. Diese Funktion wurde im Rahmen des IT-Projektes nicht genutzt. Im Rahmen dieser Bachelorarbeit soll nun der Frage nachgegangen werden, wie die Implementierung eines Mailservers in die Umgebung aus \ac{vm}, \ac{ldap} und HumHub durchgeführt werden kann. Hierfür soll die in der \ac{kita} vorliegende Umgebung auf einem separaten Server nachgestellt werden, um den Produktivbetrieb in der \ac{kita} nicht zu gefährden.
+HumHub selbst bietet die Möglichkeit, beim Nutzer eine E-Mail-Adresse zu hinterlegen, über die dann ein Grundstellen des Passwortes möglich ist. Hierfür wäre allerdings ein E-Mail-Server innerhalb des Netzwerkes notwendig. Diese Funktion wurde im Rahmen des IT-Projektes nicht genutzt. Im Rahmen dieser Bachelorarbeit wird nun der Frage nachgegangen werden, wie die Implementierung eines Mailservers in die Umgebung aus \ac{vm}, \ac{ldap} und HumHub durchgeführt werden kann. Hierfür wird die in der \ac{kita} vorliegende Umgebung auf einem separaten Server nachgestellt werden, um den Produktivbetrieb in der \ac{kita} nicht zu gefährden.
 
 \section{Aufbau und Gestaltung der Arbeit}
 
-In dieser Bachelor-Thesis soll zunächst KitaNet sowie die hier vorliegende Hardwareumgebung und das Einsatzszenario erläutert werden. Hier sollen auch Hinderungsgründe genannt werden, die eine Umsetzung der in dieser Thesis beschriebenen Lösung in den Produktivbetrieb der Kita verhindern. In diesem Kapitel wird auch die Funktionalität eines \ac{ldap} beschrieben.
+In dieser Bachelor-Thesis wird zunächst KitaNet sowie die hier vorliegende Hardwareumgebung und das Einsatzszenario erläutert werden. Hier werden auch Hinderungsgründe genannt, die eine Umsetzung der in dieser Thesis beschriebenen Lösung in den Produktivbetrieb der Kita verhindern. In diesem Kapitel wird auch die Funktionalität eines \ac{ldap} beschrieben.
 
-Das nächste Kapitel behandelt zunächst die Funktionsweise eines \ac{smtp}-Servers. Im Anschluss werden die Anforderungen und Nutzungsszenarien des Mailservers für KitaNet festgelegt. Die Anforderungen umfassen dabei zum Einen Punkte wie die Zusammenarbeit mit einem Nutzerverzeichnis, verbunden mit einer möglichen Automation des Anlegens von Mail-Nutzern, sollen aber zum Anderen auch nichtfunktionale Aspekte, wie den zu erwartenden Pflegeaufwand oder die finanzielle Belastung durch etwaige Lizenzkosten, beachten.
+Das nächste Kapitel behandelt zunächst die Funktionsweise eines \ac{smtp}-Servers. Im Anschluss werden die Anforderungen und Nutzungsszenarien des Mailservers für KitaNet festgelegt. Die Anforderungen umfassen dabei zum Einen Punkte wie die Zusammenarbeit mit einem Nutzerverzeichnis, verbunden mit einer möglichen Automation des Anlegens von Mail-Nutzern, werden aber zum Anderen auch nichtfunktionale Aspekte, wie den zu erwartenden Pflegeaufwand oder die finanzielle Belastung durch etwaige Lizenzkosten, beachten. \textbf{Hinweis auf RE einarbeiten!}
 
-Die benannten Nutzungsszenarien bilden die Grundlage zur Formulierung von Tests, die die Funktionalität und Praxistauglichkeit der späteren Installation sicherstellen sollen. Die Beschreibung dieser Tests bildet den Abschluss  dieses Kapitels.
+Die benannten Nutzungsszenarien bilden die Grundlage zur Formulierung von Tests, die die Funktionalität und Praxistauglichkeit der späteren Installation sicherstellen werden. Die Beschreibung dieser Tests bildet den Abschluss  dieses Kapitels.
 
 Anschließend werden die zur Wahl stehenden Softwarepakete \textit{postfix} und die kommerzielle Software \textit{EmailSuccess} vorgestellt. Die im vorherigen Kapitel formulierten Anforderungen werden mit dem Funktionsumfang der Softwarepakete abgeglichen. Aufgrund der Ergebnisse dieses Abgleichs erfolgt die Entscheidung. 
 
@@ -38,20 +38,20 @@ Es findet somit eine Mischung aus qualitativer und quantitativer Forschung statt
 
 Die Implementierung erfolgt anschließend im Rahmen eines Experiments in einer KitaNet nachempfunden Umgebung statt.
 
-Die Funktionsweise von KitaNet und sein Nutzen für die \ac{kita} sollen im nächsten Kapitel erläutert werden.
+Die Funktionsweise von KitaNet und sein Nutzen für die \ac{kita} werden nun im nächsten Kapitel erläutert.
 
 \chapter{KitaNet}
 
 %Kurze Beschreibung von technischer Basis von KitaNet. Was sind soziale Netzwerke?
 %Ablauf beim Grundstellen von Passwörtern wird erläutert.
 
-KitaNet ist der Arbeitstitel eines IT-Projektes, das im Rahmen des Studiums der Sozialinformatik vom Autor dieser Thesis mit einem Kommilitonen durchgeführt wurde. Hierfür wurde in Zusammenarbeit mit der \ac{kita} Schloss Ardeck in Gau-Algesheim ein soziales Netzwerk installiert, über welches die Bediensteten der Kita eine Plattform zum Austausch und Kommunikation erhalten. 
+KitaNet ist der Arbeitstitel eines IT-Projektes, das im Rahmen des Studiums der Sozialinformatik vom Autor dieser Thesis mit einem Kommilitonen durchgeführt wurde. Hierfür wurde in Zusammenarbeit mit der \ac{kita} Schloss Ardeck in Gau-Algesheim ein soziales Netzwerk installiert, über welches die Bediensteten der Kita eine Plattform zum Austausch und zur Kommunikation erhalten. 
 
 Die \ac{kita} betreut ca. 170 Kinder im Alter von einem bis sechs Jahren. Hierfür beschäftigt sie 30 pädagogische Fachkräfte, welche die ihnen anvertrauten Kinder in acht Gruppen betreuen. Die Kita befindet sich in kommunaler Trägerschaft \citep[vgl.][]{kitaweb}.
 
 Für die Umsetzung der Idee eines sozialen Netzwerkes konnten die Studenten unter anderem von dem Umstand profitieren, dass jede Gruppe der Kita mit Notebooks ausgestattet ist, über welche die Kinder Lernspiele spielen, aber auch unter Betreuung der Erzieher erste Erfahrungen mit dem Internet sammeln.
 
-Die technische Umgebung in der Kita, sowie die Umsetzung des sozialen Netzwerks sollen nun genauer beschrieben werden. Auch sollen hier Unterschiede zur Testumgebung dieser Bachelor-Arbeit aufgezeigt werden.
+Die technische Umgebung in der Kita, sowie die Umsetzung des sozialen Netzwerks werden nun genauer beschrieben. Auch werden hier Unterschiede zur Testumgebung dieser Bachelor-Arbeit aufgezeigt.
 
 \section{Hardware}
 %Beschreibt den technischen Aufbau von KitaNet in der Kita selbst.
@@ -66,9 +66,9 @@ Im Vergleich zum Produktivaufbau ergibt sich hier der erste Unterschied zum Vers
 
 Die Nutzung einer \ac{vm} im Rahmen des Projektes war damit begründet, dass die Softwareinstallation auf dem NAS selbst nur in einem engen Rahmen möglich war. Die Nutzung einer Ubuntu-VM ermöglichte es den Studenten, die Installation in einer standardisierten Umgebung vornehmen zu können, ohne etwaige Besonderheiten des QNAP-Betriebssystems berücksichtigen zu müssen.
 
-Im Rahmen dieser Bachelorarbeit wird, wie eingangs beschrieben, die Produktivumgebung bestmöglich nachgebildet. Hierfür dient ein Fujitsu Esprimo C5730 E als Hardware, auf der Ubuntu 20.04 LTS als Betriebssystem installiert wurde. Nach Ansicht des Autors hat die verwendete Hardware keine nennenswerte Auswirkung auf die Funktionalität des beschriebenen Versuchsaufbaus. \\ Einzige zu beachtende Besonderheit ist, dass das später beschriebene \ac{ldap} in der Produktivumgebung nicht auf der \ac{vm} sondern auf dem \ac{nas} selbst ausgeführt wird. Hier wäre die Konfiguration für eine Übernahme ins Produktivsystem entsprechend anzupassen.
+Im Rahmen dieser Bachelorarbeit wird, wie eingangs beschrieben, die Produktivumgebung bestmöglich nachgebildet. Hierfür dient ein Fujitsu Esprimo C5730 E als Hardware, auf der Ubuntu 20.04 LTS als Betriebssystem installiert wurde. Nach Ansicht des Autors hat die verwendete Hardware keine nennenswerte Auswirkung auf die Funktionalität des beschriebenen Versuchsaufbaus. \\ Einzige zu beachtende Besonderheit ist, dass das später beschriebene \ac{ldap} in der Produktivumgebung nicht auf der \ac{vm} sondern auf dem \ac{nas} selbst ausgeführt wird. Hier ist dann die Konfiguration für eine Übernahme ins Produktivsystem entsprechend anzupassen.
 
-Wie bereits erwähnt kommt innerhalb der \ac{vm} die Software HumHub zum Einsatz. Der Umfang und die Funktionen dieser Software soll nun kurz erläutert werden.
+Wie bereits erwähnt, kommt innerhalb der \ac{vm} die Software HumHub zum Einsatz. Der Umfang und die Funktionen dieser Software wird nun kurz erläutert.
 
 \section{HumHub}
 
@@ -79,33 +79,36 @@ Die Grundfunktionen von HumHub und die Möglichkeit der Erweiterung der Grundfun
 \subsection{Spaces}
 
 Spaces geben HumHub seine Grundstruktur. \textquote{A space serves as an independent area within your network with an own set of members, permissions, settings and modules} \citep{spaces}. 
-Eine Nutzerin kann Mitglied mehrerer Spaces sein und innerhalb der Spaces verschiedene Rollen einnehmen. Diese reichen von \textit{Besitzer} des Spaces, der nahezu volle Kontrolle über sämtliche Nutzer und Beiträge innerhalb des jeweiligen Spaces hat, über den \textit{Moderator} der Beiträge verwalten kann, bis hin zum normalen Mitglied, das Beiträge erstellen kann, wenn dies vom Besitzer erlaubt wurde.  
+Eine Nutzerin kann Mitglied mehrerer Spaces sein und innerhalb der Spaces verschiedene Rollen einnehmen. Diese reichen von \textit{Besitzer} des Spaces, der nahezu volle Kontrolle über sämtliche Nutzer und Beiträge innerhalb des jeweiligen Spaces hat, über den \textit{Moderator}, der Beiträge verwalten kann, bis hin zum normalen Mitglied, das Beiträge erstellen kann, wenn dies vom Besitzer erlaubt wurde.  
 
-Zentraler Sammelpunkt für Beiträge ist der Stream, dessen Inhalt sich je nach Kontext verändert. Betrachtet ein Nutzer seine Startseite, werden ihm sämtliche Beiträge aus all seinen Spaces angezeigt. Befindet er sich in einem Space, sind nur dort erstellte Beiträge sichtbar.
+Zentraler Sammelpunkt für Beiträge ist der \textit{Stream}, dessen Inhalt sich je nach Kontext verändert. Betrachtet ein Nutzer seine Startseite, werden ihm sämtliche Beiträge aus all seinen Spaces angezeigt. Befindet er sich in einem Space, sind nur dort erstellte Beiträge sichtbar.
 
 Mit den Spaces bietet Humhub die Möglichkeit, Gruppenstrukturen abzubilden. Jedoch kann in den Gruppen nicht viel mehr getan werden, als Bilder oder Texte zu erstellen und diese zu kommentieren.
-Sein volles Potential kann Humhub mit den Möglichkeiten entfalten, Module zur Funktionserweiterung nachzuladen.
+Sein volles Potential kann Humhub mit den Möglichkeiten entfalten, \textit{Module} zur Funktionserweiterung nachzuladen.
 
 \subsection{Module}
 
 \textquote{The feature set of your HumHub network can be extended by installing additional modules} \citep[][]{modules}. Zur Erweiterung der Funktionalität stehen diverse Module wie Kalender, Dateiablage, Abstimmungen oder ein Wiki zur Verfügung.
 Module können für einzelne Spaces aktiviert werden, um den Bedürfnissen des jeweiligen Kontext gerecht zu werden \citep[vgl.][ff.]{modules}. Ein Space, der zur Organisation des Sommerfestes der Kita eingerichtet wurde, benötigt \zb in der Regel keinen Kalender, sehr wohl aber eine Dateiablagestruktur.
-So wird der einzelne Space nicht mit unnötigen Features überladen, die vom Zweck der Umgebung ablenken würden.
+So wird der einzelne Space nicht mit unnötigen Features überladen, die vom Zweck der Umgebung ablenken würden. 
+
+Die Module werden zum Teil von HumHub selbst bereit gestellt, es besteht jedoch auch die Möglichkeit für Entwickler, eigene Erweiterungen zu schreiben.
 
 Besondere Erwähnung sollte die Erweiterung \textit{Ankündigungen} erhalten. 
-Eine Ankündigung wird im Stream des Spaces grundsätzlich wie eine einfache Mitteilung angezeigt. Einzige Besonderheit ist, dass die Nutzer den Post mit einem Klick zur Kenntnis nehmen können. Diese Kenntnisnahme kann dann vom Ersteller des Beitrags oder einem Moderator \zb als Excel-Datei exportiert werden  \citep[Quellcode unter][]{announcement}. Da dieser Mitteilung auch Dateien angehängt werden können, konnten die Studenten die Forderung der Leitung nach Protokollierung der Einsichtnahme von Dokumenten Rechnung tragen.
+Eine Ankündigung wird im Stream des Spaces grundsätzlich wie eine einfache Mitteilung (ein \textit{Post}) angezeigt. Einzige Besonderheit ist, dass die Nutzer diesen Post mit einem Klick zur Kenntnis nehmen können. Diese Kenntnisnahme kann dann vom Ersteller des Beitrags oder einem Moderator \zb als Excel-Datei exportiert werden  \citep[Quellcode unter][]{announcement}. Da dieser Mitteilung auch Dateien angehängt werden können, konnten die Studenten die Forderung der Leitung nach Protokollierung der Einsichtnahme von Dokumenten Rechnung tragen.
 
 
 \section{LDAP}
 
-Zum Anlegen der Benutzer innerhalb des KitaNet wurde die Benutzerverwaltung des QNAP-NAS auf Basis von LDAP genutzt. Die Funktionsweise von LDAP soll daher ebenfalls kurz erläutert werden.
+Zum Anlegen der Benutzer innerhalb des KitaNet wurde die Benutzerverwaltung des QNAP-NAS auf Basis von LDAP genutzt. Die Funktionsweise von LDAP wird daher ebenfalls kurz erläutert.
 
 \subsection{Funktionsweise und Datenmodell}
 
-Ein \ac{ldap} stellt eine zentrale Verwaltung innerhalb eines Netzwerkes dar.
+Ein \ac{ldap} stellt eine zentrale Ressourcenverwaltung innerhalb eines Netzwerkes dar.
 \textquote{Verzeichnisdienste wie \textquote{OpenLDAP} ermöglichen es Ihnen, die Verwaltung der Ressourcen zentral zu steuern und an mehreren Stellen zu replizieren} \citep[][611]{Deimeke2019}. 
 
-\ac{ldap} besteht jedoch nicht nur aus einer Datenbank, sondern beinhaltet zugleich auch ein passendes Netzwerkprotokoll, um mit der Datenbank interagieren zu können \citep[vgl.][3]{Gietz}.
+Die Ressourcen innerhalb des \ac{ldap} stellen die Nutzer dar. Das \ac{ldap} bildet ihre Attribute, wie Namen oder Gruppenzugehörigkeiten, aber auch ihre Beziehung zu- und untereinander dar. Dies wird im weiteren noch näher erläutert. 
+\ac{ldap} besteht aus einer Datenbank, beinhaltet aber zugleich auch ein passendes Netzwerkprotokoll, um mit der Datenbank interagieren zu können \citep[vgl.][3]{Gietz}.
 
 Deimeke \ua führen weiter aus, dass der Vorteil des Einsatzes eines \ac{ldap} darin besteht, dass jeder Nutzer nur noch ein Konto besitzt, dessen Passwort dann zentral verwaltet und geändert werden kann. \textquote{Um diese zentrale Verwaltung der Ressourcen realisieren zu können, wurde das \textit{Lightweight Directory Access Protocol} (LDAP) entwickelt} \citep[][611]{Deimeke2019}.
 
@@ -115,7 +118,7 @@ Angesprochen werden diese Objekte über seinen \ac{dn}, einen für jedes Objekt 
 
 Die Mitgliedschaft der Blatt-Objekte in Gruppen kann über Suchanfragen an \ac{ldap} ausgelesen werden. Beispielsweise gibt die Suchanfrage \verb+ldapsearch -x  "(uid=admin)"+ in der Konsole eines Servers den Eintrag im \ac{ldap} zurück, der den Login-Namen \textit{admin} besitzt.
 
-Wie HumHub \bzw KitaNet nun mit dem \ac{ldap} zusammenarbeiten, soll im nächsten Abschnitt an ausgewählten Beispielen erläutert werden.
+Wie HumHub \bzw KitaNet nun mit dem \ac{ldap} zusammenarbeiten, wird im nächsten Abschnitt an ausgewählten Beispielen erläutert.
 
 \subsection{LDAP und HumHub}
 
@@ -137,7 +140,7 @@ In der Zeile \textit{Benutzername} ist ein Beispiel für eine \ac{dn} zu sehen. 
   \label{fig:LDAP Kitanet Teil 2}
 \end{figure}
 
-Im unteren Teil der Einstellungen wird zunächst der \textit{Basis DN} festgelegt. Dieser legt fest in welchem Pfad des LDAP nach neuen Nutzern gesucht werden soll. Im hier vorliegenden Fall sollen zunächst alle Objekte erfasst werden, sie sich in der \ac{dn} \textit{kitanet} befinden.
+Im unteren Teil der Einstellungen wird zunächst der \textit{Basis DN} festgelegt. Dieser legt fest in welchem Pfad des LDAP nach neuen Nutzern gesucht werden soll. Im hier vorliegenden Fall werden zunächst alle Objekte erfasst werden, sie sich in der \ac{dn} \textit{kitanet} befinden.
 
 Der \textit{Anmelde-Filter} legt fest, welches Attribut gegen den beim Login eingegebenen Nutzernamen geprüft wird. Dies steht auch in direkter Verbindung zu den Feldern \textit{Benutzernamen Attribut} und \textit{ID Attribut} die auch beide aus dem Attribut \textit{uid} ihre Informationen beziehen. 
 
@@ -156,7 +159,7 @@ Das Auslesen des \ac{ldap} führt somit zu nachfolgender Nutzerliste.
 
 Das \ac{ldap} wird periodisch über einen sogenannten \textit{Cronjob} ausgelesen. Neue Nutzer werden entsprechend den oben dargestellten Kriterien angelegt und können sich ab diesem Moment mit dem in \ac{ldap} vergebenen Kennwort anmelden.
 
-Dies schließt die Beschreibung des \textit{IST-Zustand} von Kitanet und der Testumgebung ab. Im folgenden sollen nun die Grundlagen zum E-Mail-Versand dargestellt werden.
+Dies schließt die Beschreibung des \textit{IST-Zustand} von Kitanet und der Testumgebung ab. Im folgenden werden nun die Grundlagen zum E-Mail-Versand dargestellt.
 
 \chapter{Der Standard \textit{SMTP}}
 
@@ -164,7 +167,7 @@ Bereits in den Anfängen des \ac{arpanet} wurde die erste Software zum Versenden
 
 Hieraus entwickelte Jonathan Postel 1982 das \acf{smtp}.
 
-Mit \ac{smtp} verband Postel den Wunsch, ein System zu schaffen, dass E-Mail unabhängig von der Transporttechnologie verlässlich und effizient transferiert \citep[vgl.][1]{rfc821}. Wie das Protokoll aufgebaut ist, soll nun anhand eines \textit{Gesprächs} zwischen zwei SMTP-Servern dargestellt und erläutert werden. Dieser Dialog wird in abgewandelter Form von Heinlein beschrieben \citep[vgl.][S. 24 ff.]{Heinlein2004}. 
+Mit \ac{smtp} verband Postel den Wunsch, ein System zu schaffen, dass E-Mail unabhängig von der Transporttechnologie verlässlich und effizient transferiert \citep[vgl.][1]{rfc821}. Wie das Protokoll aufgebaut ist, wird nun anhand eines \textit{Gesprächs} zwischen zwei SMTP-Servern dargestellt und erläutert werden. Dieser Dialog wird in abgewandelter Form von Heinlein beschrieben \citep[vgl.][S. 24 ff.]{Heinlein2004}. 
 
 \section{SMTP}
 
@@ -215,7 +218,7 @@ Zum Beenden der Verbindung sendet der Client das Kommando \\
 \verb+C: QUIT+, welches vom Host mit \\
 \verb+H: 221 bye+ bestätigt wird. 
 
-Hier war nur ein sehr vereinfachter Diealog zwischen Host und Client dargestellt. Postel stattete die Spezifikation mit weiteren, heute teils obsoleten, Optionen aus, wie z.B. der Möglichkeit Mails an ein Terminal zu verschicken, statt in ein Postfach \citep[vgl.][11]{rfc821} oder notwendigen Funktionalitäten wie dem Befehl EXPAND (EXPN) um die Teilnehmer einer Mailingliste anzeigen zu können \citep[vgl.][8]{rfc821}.
+Hier war nur ein sehr vereinfachter Dialog zwischen Host und Client dargestellt. Postel stattete die Spezifikation mit weiteren, heute teils obsoleten, Optionen aus, wie z.B. der Möglichkeit Mails an ein Terminal zu verschicken, statt in ein Postfach \citep[vgl.][11]{rfc821} oder notwendigen Funktionalitäten wie dem Befehl EXPAND (EXPN) um die Teilnehmer einer Mailingliste anzeigen zu können \citep[vgl.][8]{rfc821}.
 
 Auch musste der Host in der Lage sein, Verarbeitungsfehler mitzuteilen oder dem Client zu signalisieren, dass er den Empfänger nicht kannte. Der Umfang der gesamten Spezifikation würde hier den Rahmen sprengen, es sei insoweit auf \cite[][S. 37 ff.]{rfc821} verwiesen. Hier stellt Postel die möglichen Antworten für die SMTP-Kommandos dar.
 
@@ -243,11 +246,121 @@ Klensin u.a. führen in \ac{rfc} 1869 drei neue Faktoren in \ac{smtp} ein, um Er
 
 Durch die Erweiterungen und deren Registrierung entwickelte sich \ac{esmtp} zu einer sinnvollen Ergänzung. Dies mündete schließlich in der Übernahme des Systems in den Standard selbst \citep[vgl. u.a.][S. 7 ff]{rfc2821}.
 
-Nachdem nun die theoretischen Grundlagen betrachtet wurden, sollen im nächsten Kapitel die Anforderungen an den SMTP-Server im Rahmen des KitaNet formuliert werden. 
+Nachdem nun die theoretischen Grundlagen betrachtet wurden, werden im nächsten Kapitel die Anforderungen an den SMTP-Server im Rahmen des KitaNet formuliert. 
+
+
 
 
 
 \chapter{Anforderungen/Nutzungsszenarien}
+
+Das Formulieren von Anforderungen zu Beginn eines Projektes ist, wie im Folgenden dargestellt, von entscheidender Bedeutung. \textquote{Requirement engineering is a technical process. Writing requirements is therefore not like other kinds of writing} \citep[][77]{Hull2010}. Zunächst wird nun die Theorie kurz erläutert, bevor anschließend diese Theorie auf das vorliegende Projekt angewandt und konkrete Anforderungen an die \ac{smtp}-Software formuliert werden.
+
+\section{Theorie des Requirement Engineering}
+
+\subsection{Begriffsdefinition}
+
+Die Erwartungen eines Kunden zu einem fertigen Produkt werden zu lassen, ist die zentrale Aufgabe in der Entwicklung. Ein wichtiger Schritt steht hier bereits am Anfang des Projekts: Das Formulieren der Anforderungen.
+\textquote{Die Anforderungen an ein neues Softwareprodukt zu ermitteln, zu spezifizieren, zu analysieren, zu validieren und daraus eine fachliche Lösung abzuleiten bzw. ein Produktmodell zu entwickeln, gehört mit zu den anspruchsvollsten Aufgaben innerhalb der Softwaretechnik} \citep[][434]{Balzert2010}. 
+Balzert verwendet hierbei den, wie er ausführt, allgemein gebräuchlichen Begriff des \ac{re} \citep[vgl.][434]{Balzert2010}, der auch in dieser Arbeit Verwendung findet. Andere, in hier zitierten Publikationen verwendete synonyme Begriffe sind \zb das \textit{Anforderungsmanagement}.
+\textquote{Anforderungen sorgen dafür, dass sowohl der Kunde als auch Ihre Organisation das Produkt bekommt, das sie wirklich wünschen und benötigen} \citep[][6]{Grande2014}.
+
+\textquote{Erst die Anforderungen geben Ihrem Projekt das Fundament, um gezielt das Ist der Lösung mit dem Soll der Anforderungen zu vergleichen und auf diese Weise nachweisbar das Projektziel zu erfüllen} \citep[Fahney und Hermann in][10]{Herrmann2013}.
+Fahney und Hermann beschreiben aber auch die Risiken schlecht formulierter Anforderungen. \textquote{Hat man ein Projekt begonnen, die Anforderungen jedoch unvollständig, widersprüchlich oder mehrdeutig erhoben, so läuft man Gefahr, das „falsche“ Projekt zu machen, selbst wenn man das Projekt „richtig“ macht} \citep[Fahney und Hermann in][10]{Herrmann2013}. 
+Es bleibt somit festzuhalten, dass bereits die Anforderungen sorgsam behandelt werden müssen.
+
+Laut Balters können Projekte einige Eigenschaften besitzen, die die Anforderungsermittlung beeinflussen. 
+\blockquote{\textquote{Eine Vorgehensweise, um systematisch von der Anforderungsermittlung bis zum fertigen Produktmodell zu gelangen, hängt von vielen Randbedingungen ab:
+	\begin{itemize}
+		\item Liegt eine Ausschreibung vor, dann gibt es in der Regel bereits ein vom Auftraggeber erstelltes Lastenheft.
+		\item Beauftragt eine Fachabteilung die interne IT-Abteilung mit der Softwareherstellung, dann gibt es außer Ideen der Fachabteilung vielleicht noch keine strukturierte schriftliche Unterlage.
+		\item Gibt es bereits ein eingesetztes Softwaresystem, das abgelöst oder verbessert werden soll?
+		\item Ist eine Individualsoftware zu entwickeln oder sind kundenspezifische Anpassungen an Standardsoftware vorzunehmen?
+		\item Handelt es sich um eine innovative Softwareentwicklung, für die es keine Vorbilder gibt?
+	\end{itemize}
+Diese Rahmenbedingungen beeinflussen die Methodik} \citep[][435]{Balzert2010}.}
+
+Einen Risikobereich für das \ac{re} wird von Dahm beschrieben. Dem Autor geht es hier um Probleme bei der Kommunikation mit dem Kunden. \textquote{Dabei wird häufig unterstellt, daß diese Kommunikation problemlos erfolgt, d.h., das durch die Kommunikation selbst keine Probleme erzeugt werden} \citep[][S. 174 f.]{Dahme2000}.
+Der Autor führt dies anschließend weiter aus. 
+
+	\blockquote{\textquote{So ist es meist falsch, anzunehmen, daß \\
+	1. der Anwender bei Projektbeginn genau weiß, was er will, \\
+ 	2. der Anwender das, wovon er weiß, daß er es will, vollständig mitteilen kann, \\
+ 	3. der Entwickler ausreichend verstanden hat, was der Anwender mitteilen konnte,\\
+ 	4. das kommunizierte Wissen ausreicht, um die vom Anwender gewollten Funktionen produzieren zu können, \\
+ 	5. der Anwender versteht, was der Entwickler außer den vorgelegten Beispielen noch leisten könnte,\\
+ 	6. der Anwender wüßte, welche Software möglich wäre, wenn der Entwickler besser über seine Bedürfnisse unterrichtet wäre} \citep[][175]{Dahme2000}.}
+
+Eine gute und genaue Kommunikation zwischen Kunden und Entwickler ist somit auch beim Festlegen der Anforderungen unerlässlich. 
+Balzert bringt es auf den Punkt. 
+\textquote{Anforderungen (\textit{requirements} [Hervorhebung im Original]) legen fest, was man von einem Softwaresystem als Eigenschaft erwartet} \citep[][455]{Balzert2010}.
+
+Für die Formulierung von Anforderungen nennt Balzert neun Regeln. Sie sollen zunächst nach \cite[][S. 100 ff.]{Pohl2007} kurz und prägnant formuliert sein und den Akteur klar benennen. Darüber hinaus sollen die Anforderungen klar überprüfbare Ziele formulieren. Sofern dies nicht möglich ist, sollen die Ziele soweit verfeinert werden, dass die Teilziele überprüft werden können. \\
+Es soll ferner beschrieben werden, welchen Nutzen das Ziel verfolgt, im Beispiel ist die Verkürzung der Bearbeitungszeit genannt. Durch die Begründung des Ziels soll die Identifikation weiterer Ziele erleichtert werden, jedoch soll bei der Formulierung kein Lösungsansatz angegeben werden. Des weiteren ergänzt Balzert nach \cite[][S. 100 f.]{Rupp2007}, dass es wichtig sei, einschränkende Rahmenbedingungen mit zu benennen und die Ziele realistisch zu formulieren \citep[vgl.][S. 457 ff.]{Balzert2010}.
+
+
+Balzert beschreibt verschiedene Rahmenbedingungen, die die Auswahl und Entwicklung von Software beeinflussen. \textquote{Eine \textbf{Rahmenbedingung} \textit{(constraint)} [Hervorhebungen im Original]  - auch Restriktion genannt - legt organisatorische und/oder technische Restriktionen für das Softwaresystem und/oder den Entwicklungsprozess fest}\citep[][459]{Balzert2010}.
+Hierunter zählen zum Einen \textit{organisatorische Rahmenbedingungen} wie der \textit{Anwendungsbereich} oder die \textit{Zielgruppe} für die eingesetzte Software. Auch \textit{Betriebsbedingungen}, wie die tägliche Nutzungszeit des Produktes oder ob das Produkt \zb für mobiles Arbeiten vorbereitet sein muss \citep[vgl.][S. 459 f.]{Balzert2010} gehören zu den organisatorischen Rahmenbedingungen. 
+Zum Anderen nennt Balzert \textit{technische Rahmenbedingungen}, die eine Software erfüllen muss, um eingesetzt werden zu können. Diese sind die \textit{technische Produktumgebung}, also auf welcher Hardware und unter welchem Betriebssystem die Software funktionieren soll und die \textit{Anforderungen an die Entwicklungsumgebung}, in denen \ua festgelegt wird, welche Schnittstellen die Software bereitstellen muss oder welche Programmierumgebung verwendet werden muss \citep[vgl.][S. 460 f.]{Balzert2010}.
+
+Weiteren Einfluss auf die Anforderungen nimmt der Nutzungskontext. Hierunter versteht Balzert die \textquote{materielle und immaterielle Umgebung} \citep[][461]{Balzert2010} in der das Softwaresystem zum Einsatz kommt. 
+Unterschieden wird hier zwischen der für das System relevante Umgebung, den \textit{Kontext}, der bei der Systementwicklung zu betrachten sei, und der durch eine \textit{Grauzone} abgegrenzten irrelevanten Umgebung, wie in der folgenden Abbildung dargestellt \citep[vgl.][462]{Balzert2010}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{res/Anforderung1.png}
+  \caption{Das System und seine Umgebung \citep[][462]{Balzert2010})}
+  \label{fig:Systemumgebung}
+\end{figure}
+
+Bisher wurden nur die \textit{funktionalen Anforderungen} beschrieben. Was soll das Produkt am Ende leisten, aus welchem Grund wird es entwickelt? Daneben gibt es eine weitere Art, nämlich die \textit{nichtfunktionalen Anforderungen}. \\ \textquote{\textbf{Nicht-funktionale Anforderungen} [Hervorhebung im Original] lassen sich qualitativ unterscheiden in \\
+- Qualitätsattribute der gewünschten Funktionen \\ 
+- Anforderungen an das implementierte System als Ganzes, \\ 
+- Vorgaben für die Durchführung des Systemerstellung \\ 
+- Anforderungen an Prüfung, Einführung, Betreuung und Betrieb} \citep[][S. 27 f.]{Partsch2010}.
+Hierunter fallen somit sämtliche Aspekte, die nicht direkt einer Anforderung zuzuordnen sind, sondern das Produkt als ganzes betreffen \citep[vgl.][463]{Balzert2010}. Balzert nennt in diesem Zusammenhang \textquote{\ua Genauigkeit, Verfügbarkeit, Nebenläufigkeit, Konsumierbarkeit (eine Obermenge der Benutzbarkeit),[...], Zuverlässigkeit, Sicherheit, Service-Anforderungen, Support [...]} \citep[][463]{Balzert2010}. 
+Partsch gibt im weiteren zu Bedenken, dass nichtfunktionale Anforderungen zumeist \textquote{wenn überhaupt, dann meist nicht präzise formuliert [werden]} \citep[][30]{Partsch2010}. Er begründet dies mit der Aussage bezüglich der Anforderung \textquote{(„Das weiß man ja“)} \citep[][30]{Partsch2010}.
+
+Während die funktionalen Anforderungen beschreiben \textit{was} ein Produkt leisten muss, beschreiben nicht-funktionale Anforderungen \textit{wie} diese Leistung erbracht werden soll \citep[vgl.][30]{Partsch2010}.
+
+\subsection{Priorisierung}
+
+Anforderungen an ein Produkt sind nie gleichwertig zueinander. 
+\textquote{Some requirements are non-negotiable. If they are not met, the product is of no use} \citep[][83]{Hull2010}. Wie die Priorisierung der Anforderungen gestaltet werden kann, wird nun kurz dargestellt.
+
+Hull u.a. schlagen vor, Anforderungen mit verschiedenen Werten auszustatten. Sie beschreiben in einem Beispiel die Werte M (mandatory limit), D (desired value) und B (best value) \citep[vgl.][83]{Hull2010}. \textquote{These three values can be held in separate attributes, or represented within the text in a labelled form, such as „The system shall support [M:50, D:100, B:200] simultaneous users“} \citep[][83]{Hull2010}.
+Diese Methode gibt einzelnen Anforderungen eine gewisse Flexibilität, indem die Grenze für das Erreichen des Zieles klarer herausgestellt ist. Im genannten Beispiel sind 50 gleichzeitige Nutzer die Mindestgrenze, 100 Nutzer sind erstrebenswert, bestenfalls sind 200 gleichzeitige Nutzer möglich. Unterstützt die Lösung nun nur 99 Nutzer, \textquote{then it is most likely still of some value to the customer} \citep[][83]{Hull2010}.
+
+Eine Aussage über die Wertigkeit der Anforderungen zueinander wird hier jedoch nicht getroffen. 
+
+%Zur Lösung dieses Problems schlägt Balzert vor, die Anforderungen nach Ihrer Wichtigkeit zu bewerten. Er gibt dabei jedoch zu bedenken, dass Wichtigkeit von unterschiedlichen Seiten betrachtet werden kann. \textquote{Wichtigkeit bezogen auf die Funktionalität des Systems, Wichtigkeit bezogen auf die Benutzerfreundlichkeit, Wichtigkeit bezogen auf die frühzeitige Verfügbarkeit usw} \citep[][543]{Balzert2010}. Auch seien andere Kriterien wie \zb Kosten oder dem verursachten Schaden bei Nichtberücksichtigung denkbar \citep[vgl.][543]{Balzert2010}.
+
+Das \ac{ieee} ist eine der Institutionen, die sich mit der Standardisierung technischer Vorgänge beschäftigen. Ähnlich den bereits erwähnten \ac{rfc}, die unter der Schirmherrschaft der \ac{ietf} verwaltet werden, gibt das \ac{ieee} Standardisierungsvorschriften heraus. Eine dieser Schriften, die \ac{ieee} Std 830-1998, beschreibt die empfohlene Vorgehensweise bei der Spezifikation von Software Anforderungen (\ac{srs}).
+
+In besagtem Standard schlägt das \ac{ieee} vor, die Anforderungen nach ihrer Notwendigkeit einzuordnen. \textquote{Another way to rank requirements is to distinguish classes of requirements as essential, conditional, and optional} \citep[][7]{ieee1998}. Balzert steht dieser Einordnung kritisch gegenüber. \textquote{Erfahrungen haben gezeigt, dass die Verwendung dieser Ausprägungen dazu führt, dass die meisten Anforderungen mit \textbf{essenziel} [Hervorhebung im Original] gekennzeichnet werden, während optionale Anforderungen nur selten vorkommen} \citep[][543]{Balzert2010}.
+
+Als Alternative schlägt Balzert die Verwendung des Kano-Modells vor. Dieses Modell bezieht sich auf die \textit{Theory of Attractive Quality} des japanischen Professors Noriaki Kano, dessen Studien einen Zusammenhang zwischen dem Erfüllen von Qualitätsmerkmalen einerseits und der Kundenzufriedenheit andererseits belegen \citep[vgl.][77]{Hoelzing2008}. \textquote{Durch eine Kundenbefragung im Rahmen einer Produktentwicklung werden nur geringfügige Mängel an den bisher angebotenen Modellen festgestellt. Daraus wird die Annahme abgeleitet, dass der Schlüssel zum Erfolg in eher latenten, nicht explizit artikulierten oder bewussten Kundenbedürfnissen liegt} \citep[][78]{Hoelzing2008}. Hölzing beschreibt im weitern wie Kano fünf Qualitätsattribute herausarbeitet \citep[vgl.][82]{Hoelzing2008}. Drei dieser fünf Eigenschaften bespricht dann auch Balzert.
+\textquote{Die Produkteigenschaften werden in Kategorien eingeteilt:\\
+- \textbf{Basiseigenschaften:} Vom Kunden selbstverständlich vorausgesetzte Eigenschaften (implizite Erwartung). Fehlt eine Basiseigenschaft, dann entsteht Unzufriedenheit. Werden sie erfüllt, dann entsteht aber \textit{keine} Zufriedenheit. \\
+- \textbf{Leistungseigenschaften:} Vom Kunden bewusst geforderte Eigenschaften (Sonderausstattung!). Sie schaffen beim Kunden Zufriedenheit bzw. beseitigen Unzufriedenheit - je nach Ausmaß. \\
+- \textbf{Begeisterungseigenschaften:} Eigenschaften die der Kunde \textit{nicht} erwartet hat. Die Kundenzufriedenheit wächst überproportional, wenn die Eigenschaft vorhanden ist [alle Hervorhebungen im Original]} \citep[][544]{Balzert2010}.
+
+Die nicht durch Balzert benannten Eigenschaften sind von Hölzing nach Kano beschrieben. Es handelt sich um \textit{indifferent quality elements}, also Eigenschaften des Produktes, die weder Zufriedenheit noch Unzufriedenheit beim Kunden auslösen, sowie \textit{reverse quality elements}, welche eine höhere Zufriedenheit beim Kunden auslösen, je schlechter sie die Erwartungen des Kunden erfüllen \citep[vgl.][83]{Hoelzing2008}.
+
+Das Verhältnis der Kundenzufriedenheit im Verhältnis zum Erfüllungsgrad der jeweiligen Produkteigenschaft ist in der folgenden Grafik visualisiert.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{res/kano.png}
+  \caption{Die Entwicklung der Kundenzufriedenheit im Kano-Modell \citep[][545]{Balzert2010})}
+  \label{fig:Kanomodell}
+\end{figure}
+
+Es wurden nun verschiedene Ansätze der Priorisierung und Wertung von Anforderungen besprochen. Der Autor dieser Bacherlorarbeit ist im Rahmen seiner Tätigkeit bereitts mit der Unterteilung der \ac{ieee} vertraut. Aus eigener Erfahrung kann er die Kritik von Balzert durchaus nachvollziehen, ist sich jedoch sicher, die Anforderungen sinnvoll abstufen zu können. Für die Priorisierung dern Anforderungen pm Rahmen dieses Projekts sollen daher die Voragben der \ac{ieee} genutzt werden.
+
+In der Folge wird nun das erarbeitete Wissen auf das vorliegende Projekt angewandt und die Anforderungen formuliert. 
+
+
 \section{Anforderungen}
 Beschreibt die Anforderungen an den SMTP-Server, z.B.:
 \begin{itemize}
