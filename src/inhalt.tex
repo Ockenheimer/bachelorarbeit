@@ -519,7 +519,9 @@ Unterscheidungskriterien bilden die aus den Anforderungen gebildeten Unterpunkte
 	\item keine Lizenzkosten
 \end{itemize}
 
-\section{postfix}
+Zunächst wird nun die Software Postfix betrachtet. Hier werden auch die grundlegenden Begrifflichkeiten erläutert.
+
+\section{Postfix}
 Postfix ist ein SMTP-Server-Programm, dass 1997  von Wietse Venema bei IBM entwickelt wurde, um als Alternative für das weit verbreitete Programm \textit{sendmail} zu dienen \citep[vgl.][307]{Deimeke2019}.
 
 Postfix ist in Linux-Distributionen weit verbreitet. \textquote{Nahezu jede ernstzunehmende Linux-Distribution bringt natürlich auch ein vorkonfiguriertes Postfix-Paket mit, das sich wie jede andere Software per Tastendruck fertig kompiliert installieren lässt} \citep[][53]{Heinlein2004}.
@@ -529,7 +531,27 @@ Installationsanleitungen und Hilfe zu den Einstellungen der Software sind über 
 
 \textquote{There is also a Debian Wiki Postfix page that’s a bit more up to date; they also have a set of Postfix Tutorials for different Debian versions} \citep[][]{ubuntupostfix}. Da Ubuntu von dem Betriebssystem \textit{Debian} abgeleitet ist, können auch Beiträge im Debian-Wiki genutzt werden \citep[vgl.][]{debianpostfix}. 
 
+Postfix ist LDAP-fähig.
 Eine Anleitung zur Anbindung von Postfix an ein bestehendes LDAP findet sich beispielsweise in der in dieser Arbeit verwendeten Fachliteratur bei \cite[S. 689 ff.]{Deimeke2019} oder \cite[S. 106 f.]{Heinlein2004}. Aber auch im Wiki von Ubuntu gibt es eine, wenn auch nicht mehr ganz aktuelle, Anleitung zu diesem Thema \citep[vgl.][]{ubuntudovecotLDAPwiki}.
+
+Auch Dovecot ist für die Zusammenarbeit mit Postfix vorbereitet. 
+Gemäß Deimeke handelt es sich bei Dovecot um den \textquote{Shooting-Star unter den IMAP-Server: In den letzten Jahren hat er sich vom späten Newcomer zum technologisch führenden IMAP-Server entwickelt. Mächtig, robust, übersichtlich, logisch: Dovecot ist Admins Liebling} \citep[][338]{Deimeke2019}. 
+So nimmt auch die Dokumentation von Dovecot regelmäßig Bezug auf Postfix \citep[vgl. z.B.][]{DovecotPostfix}.
+
+Die Dokumentation von Postfix ist öffentlich einsehbar \citep[vgl.][]{postfixdoku}. Leider ist nicht ersichtlich, wie gut die umfangreiche Dokumentation gepflegt wurde, das einzige auffindbare Datum befand sich im Abschnitt \textit{Work in Progress} und gab das letzte Update mit \textquote{November 2013} an \citep[vgl.][]{postfixwip}. Jedoch wird die Software permanent weiterentwickelt. \\
+Zum Zeitpunkt der Erstellung dieser Arbeit trägt der \textit{stable release} von Postfix die Versionsnummer 3.5.10, der \textit{Postfix 3.6 experimental release} wurde zuletzt mit am 11.04.2021 aktualisiert \citep[vgl.][]{postfixsource}. \\
+Dass die Dokumentation dennoch dauerhaft gepflegt wird schließt der Autor beispielsweise aus der Tatsache, dass die im \textit{changelog} zu Version 3.5 angekündigte Unterstützung für mehrere \textit{relayhosts} \citep[vgl.][]{postfixcl35} im entsprechenden Abschnitt der Dokumentation vermerkt sind \citep[vgl.][]{postfixrelayhost}.
+
+\textquote{Unter Portierung versteht man das Übertragen [eines Programms] auf ein anderes System} \citep[][26]{Habelitz2016}.
+Habelitz führt weiter aus, dass der \textit{Quellcode} der Software für den Prozessor bzw. das entsprechende Betriebssystem kompiliert werden muss \citep[vgl.][27]{Habelitz2016}. 
+Ist dieser Quellcode nicht verfügbar, kann das Programm nur auf den Betriebssystemen eingesetzt werden, die der Entwickler vorgesehen hat. 
+Der Quellcode für Postfix ist öffentlich verfügbar \citep[vgl.][]{postfixsource}. 
+Soweit dies durch die Lizenz der Software abgedeckt ist, in diesem Fall die \ac{epl} und \ac{ipl} \citep[vgl.][]{postfixsource}, kann diese in der Programmiersprache \textit{C} geschriebene Software auf jedem Betriebssystem eingesetzt werden, das C-Programme ausführen kann.
+\textquote{C-Code kann portabel d. h. maschinenunabhängig sein. Er stimmt dann streng mit dem Standard überein (engl. \textbf{strictly conforming program} [Hervorhebung im Original])} \citep[][6]{Goll2014}. Im weiteren Verlauf geht Goll auch darauf ein, dass C auch maschinenspezifischen Code zulässt, der somit nicht portierbar sei. Der Autor sieht diesen Umstand jedoch im vorliegenden Fall für irrelevant, da Postfix bereits auf die meisten Server-Betriebssystemen portiert wurde \citep[vgl.][]{postfixpackages}.
+
+Postfix steht wie bereits erwähnt unter der \ac{epl} und \ac{ipl}. Diese Open-Source-Lizenzen erlauben die kostenfreie private und kommerzielle Nutzung \citep[vgl.][]{postfixlizenz}. Somit fallen beim Einsatz von Postfix, wie gefordert, keine zusätzlichen Kosten an.
+
+Nach der Betrachtung von Postfix werden nun die Eigenschaften von EmailSuccess untersucht.
 
 \section{EmailSuccess}
 Inhaltlich wie oben.
