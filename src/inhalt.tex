@@ -1,5 +1,7 @@
 %!TEX root = ../bachelorthesis.tex
 
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \chapter{Einleitung}
 \markboth{Einleitung}{}
@@ -41,7 +43,8 @@ Die Implementierung erfolgt anschließend im Rahmen eines Experiments in einer K
 Die Funktionsweise von KitaNet und sein Nutzen für die \ac{kita} werden nun im nächsten Kapitel erläutert.
 
 \chapter{KitaNet}
-
+\markboth{KitaNet}{}
+\label{sec:KitaNet}
 %Kurze Beschreibung von technischer Basis von KitaNet. Was sind soziale Netzwerke?
 %Ablauf beim Grundstellen von Passwörtern wird erläutert.
 
@@ -162,7 +165,8 @@ Das \ac{ldap} wird periodisch über einen sogenannten \textit{Cronjob} ausgelese
 Dies schließt die Beschreibung des \textit{IST-Zustand} von Kitanet und der Testumgebung ab. Im folgenden werden nun die Grundlagen zum E-Mail-Versand dargestellt.
 
 \chapter{Der Standard \textit{SMTP}}
-
+\markboth{Der Standard \textit{SMTP}}{}
+\label{sec:Der Standard}
 Bereits in den Anfängen des \ac{arpanet} wurde die erste Software zum Versenden und Empfangen einer E-Mail zwischen Rechnern innerhalb eines Netzwerks entwickelt. \textquote{In March [1972] Ray Tomlinson at BBN wrote the basic email message send and read software, motivated by the need of the ARPAnet developers for an easy coordination mechanism. In July, Roberts expanded its utility by writing the first email utility program to list, selectively read, file, forward, and respond to messages. From there email took off as the largest network application for over a decade} \citep[][]{historyinternet}.
 
 Hieraus entwickelte Jonathan Postel 1982 das \acf{smtp}.
@@ -222,7 +226,9 @@ Hier war nur ein sehr vereinfachter Dialog zwischen Host und Client dargestellt.
 
 Auch musste der Host in der Lage sein, Verarbeitungsfehler mitzuteilen oder dem Client zu signalisieren, dass er den Empfänger nicht kannte. Der Umfang der gesamten Spezifikation würde hier den Rahmen sprengen, es sei insoweit auf \cite[][S. 37 ff.]{rfc821} verwiesen. Hier stellt Postel die möglichen Antworten für die SMTP-Kommandos dar.
 
-SMTP in seiner Urform ist ein ASCII-basiertes System, also nur für die Weitergabe von Text spezifiziert. \textquote{The mail data may contain any of the 128 ASCII character codes}\citep[][21]{rfc821}. Entwicklungen wie MIME \citep[vgl.][]{rfc1521} lösten zwar das Problem der Datei-Anhänge, aber es entstand der Eindruck, der Veränderungs- und Erweiterungsdruck auf SMTP könnte die hohe Qualität des Standards gefährden. Man erkannte den Bedarf für einen Standard für Erweiterung von SMTP. So entstand der \ac{rfc} 1869.
+Für die Kommunikation zwischen dem letzten SMTP-Server und dem \ac{mda} \citep[vgl.][28]{Heinlein2004} der die Mail letztendlich im lokalen Postfach ablegt, wurde das \ac{lmtp} entwickelt. \textquote{Es ist aber nicht dazu gedacht, SMTP/ESMTP zu ersetzen, es soll auch nicht gegenüber anderen Mailservern eingesetzt werden. Es soll allein für die lokale Kommunikation zum MDA eingesetzt werden und einen erheblichen Performancegewinn in Hochleistungsumgebungen bringen} \citep[][39]{Heinlein2004}. Im in dieser Bachelorarbeit eingesetzten Umfeld wird der  \ac{mda} vom IMAP-Client Dovecot bereitgestellt \citep[vgl.][]{dovecotlmtp}. Der \ac{smtp}-Server, der den Transport der Daten zwischen Sender und Empfänger verwaltet, wird auch als \ac{mta} bezeichnet \citep[vgl.][28]{Heinlein2004}.
+
+SMTP in seiner Urform ist ein ASCII-basiertes System, also nur für die Weitergabe von Text spezifiziert. \textquote{The mail data may contain any of the 128 ASCII character codes}\citep[][21]{rfc821}. Entwicklungen wie \ac{mime} \citep[vgl.][]{rfc1521} lösten zwar das Problem der Datei-Anhänge, aber es entstand der Eindruck, der Veränderungs- und Erweiterungsdruck auf SMTP könnte die hohe Qualität des Standards gefährden. Man erkannte den Bedarf für einen Standard für Erweiterung von SMTP. So entstand der \ac{rfc} 1869.
 
 \section{Enhanced SMTP}
 
@@ -252,13 +258,13 @@ Nachdem nun die theoretischen Grundlagen betrachtet wurden, werden im nächsten 
 
 
 
-\chapter{Anforderungen/Nutzungsszenarien}
-
+\chapter{Anforderungen an den SMTP-Server}
+\markboth{Anforderungen an den SMTP-Server}{}
+\label{sec:Anforderung}
 Das Formulieren von Anforderungen zu Beginn eines Projektes ist, wie im Folgenden dargestellt, von entscheidender Bedeutung. \textquote{Requirement engineering is a technical process. Writing requirements is therefore not like other kinds of writing} \citep[][77]{Hull2010}. Zunächst wird nun die Theorie kurz erläutert, bevor anschließend diese Theorie auf das vorliegende Projekt angewandt und konkrete Anforderungen an die \ac{smtp}-Software formuliert werden.
 
 \section{Theorie des Requirement Engineering}
 
-\subsection{Begriffsdefinition}
 
 Die Erwartungen eines Kunden zu einem fertigen Produkt werden zu lassen, ist die zentrale Aufgabe in der Entwicklung. Ein wichtiger Schritt steht hier bereits am Anfang des Projekts: Das Formulieren der Anforderungen.
 \textquote{Die Anforderungen an ein neues Softwareprodukt zu ermitteln, zu spezifizieren, zu analysieren, zu validieren und daraus eine fachliche Lösung abzuleiten bzw. ein Produktmodell zu entwickeln, gehört mit zu den anspruchsvollsten Aufgaben innerhalb der Softwaretechnik} \citep[][434]{Balzert2010}. 
@@ -323,7 +329,108 @@ Partsch gibt im weiteren zu Bedenken, dass nichtfunktionale Anforderungen zumeis
 
 Während die funktionalen Anforderungen beschreiben \textit{was} ein Produkt leisten muss, beschreiben nicht-funktionale Anforderungen \textit{wie} diese Leistung erbracht werden soll \citep[vgl.][30]{Partsch2010}.
 
-\subsection{Priorisierung}
+
+
+\section{Anforderungsdokument nach dem IEEE}
+Das \ac{ieee} ist eine der Institutionen, die sich mit der Standardisierung technischer Vorgänge beschäftigen. Ähnlich den bereits erwähnten \ac{rfc}, die unter der Schirmherrschaft der \ac{ietf} verwaltet werden, gibt das \ac{ieee} Standardisierungsvorschriften heraus. Eine dieser Schriften, die \ac{ieee} Std 830-1998, beschreibt die empfohlene Vorgehensweise bei der Spezifikation von Software Anforderungen (\ac{srs}).
+
+Das \ac{ieee} gibt seinen Mitgliedern neben den Vorschriften auch ein Muster für \ac{srs} an die Hand. Da im Rahmen dieser Arbeit ebenfalls ein solches Anforderungsdokument erstellt wird, wird der Inhalt nun kurz erläutert \citep[vgl.][S. 11 ff.]{ieee1998}.
+\begin{itemize}
+	\item Einführung \citep[vgl.][S. 11 - 12]{ieee1998}
+	\begin{itemize}
+		\item Zweck des Dokuments \\
+		Beschreibt den Grund, weshalb das Anforderungsdokument erstellt wird und an welche Zielgruppe sich das Dokument richtet.
+		\item Umfang \\
+		Beschreibt das Softwareprodukt und seinen Einsatzzweck. Wenn nötig beschreibt es auch, wofür das Produkt nicht gedacht ist. Hier werden erwartete Vorteile und Ziele des Projektes beschrieben.
+		\item Definitionen, Akronyme, Abkürzungen \\
+		Erläutert nicht geläufige Abkürzungen und Akronyme, liefert Definitionen soweit im allgemeinen Sprachgebrauch notwendig.
+		\item Referenzen \\
+		Verweist auf weiterführende Dokumentationen, die innerhalb des Anforderungsdokuments referenziert werden.
+		\item Übersicht \\
+		Erläutert, was das Dokument außer dem vorher genannten beinhaltet, sowie die Organisation innerhalb des Dokuments.
+	\end{itemize}
+	\item Produktübersicht \citep[vgl.][S. 12 - 15]{ieee1998}
+	\begin{itemize}
+		\item Produktperspektive \\
+		Beschreibt das Produkt innerhalb der eingesetzten Umgebung und zeigt auf, wie es mit ihr interagiert, \zb verschiedene \textit{Interfaces} zur Nutzung von Hardware oder anderer Software.
+		\item Produktfunktionen \\
+		Beschreibt die Hauptfunktionen der Software
+		\item Nutzereigenschaften \\
+		Beschreibt, welcher Nutzer mit der Software interagiert. Hierbei wird der Schwerpunkt auf die Qualifikation, Schulung und Fortbildung des Nutzers gelegt.
+		\item Einschränkungen \\
+		Soll jegliche Einschränkungen erläutern, die das Produkt in seiner Umgebung beachten muss.
+		\item Annahmen und Abhängigkeiten \\
+		Beschreibt die Faktoren, die sich auf die Erstellung des Anforderungsdokuments ausgewirkt haben.
+		\item verzögerte Anforderungen \\
+		Beschreibt Anforderungen, die erst in der Zukunft realisiert werden können oder sollen.
+	\end{itemize}
+	\item Spezifische Funktionen \citep[vgl.][S. 15 - 20]{ieee1998}\\
+	geht so detailliert auf Anforderungen ein, dass ein Systemdesigner das System entsprechend auf die Anforderung vorbereiten kann und ein Tester dies auch bestätigen kann. Jede Anforderung sollte zumindest eine Beschreibung jedes \textit{Inputs} und jedes damit in Zusammenhang stehenden \textit{Outputs} des Systems enthalten. Dieser Unterpunkt hängt stark von der Art des jeweiligen Produktes ab. Daher werden im Anhang des Standards mehrere Vorlagen für unterschiedliche Einsatzzwecke bereitgestellt. Ohne hier genauer auf die einzelnen Unterarten einzugehen, entscheidet sich der Autor für die Vorlage im Anhang 5, die die Anforderung nach \textit{Feature} unterteilt \citep[vgl.][23]{ieee1998}. Die einzelnen Unterpunkte sind:
+	\begin{itemize}
+		\item externe Schnittstellen \\
+		detaillierte Beschreibung der Ein- und Ausgabe-Schnittstellen des Produkts (Es soll die Produktübersicht ergänzen, ohne sie unnötig zu wiederholen). Unterteilt werden sie in:
+		\begin{itemize}
+			\item Benutzerschnittstellen
+			\item Hardwareschnittstellen
+			\item Softwareschnittstellen
+			\item Kommunikationsschnittstellen
+		\end{itemize}
+		\item Funktionen \\
+		Hier werden die einzelnen Funktionen beschrieben. Der Standard gibt vor, die einzelnen Beschreibungen mit \textquote{The system shall...}(Das System soll... [Übersetzung des Autors]) \citep[][16]{ieee1998} einzuleiten.
+		\begin{itemize}
+			\item Funktion 1
+			\begin{itemize}
+				\item Zweck der Funktion
+				\item Auslösung/Reaktion der Funktion \\
+				Wie wird die spezifische Funktion ausgelöst, welches Ergebnis ist zu erwarten?
+				\item Mit Funktion verbundene Anforderungen\\
+				Welche Anforderung wird mit der Funktion erfüllt?
+			\end{itemize}
+			\item Funktion 2
+			\item Funktion \textit{n}
+		\end{itemize}
+	\item Leistungsanforderung \\
+	Beschreibt \zb wieviele gleichzeitige Anfragen das System verarbeiten muss.
+	\item Design-Einschränkungen \\
+	Beschreibt Einschränkungen die durch andere Standards oder Vorgaben des Unternehmens gegeben sind.
+	\item Softwaresystem-Eigenschaften \\
+	Beschreibt überprüfbare Parameter, um die Eignung der Software für den späteren Einsatzzweck zu verifizieren. Sie sind nochmal unterteilt in:
+	\begin{itemize}
+		\item Zuverlässigkeit 
+		\item Verfügbarkeit
+		\item Sicherheit
+		\item Wartbarkeit
+		\item Portierbarkeit
+	\end{itemize} 
+	\item andere Anforderungen \\
+	Hier sind nicht funktionale Anforderungen beschrieben, die sich nicht unter die anderen Punkte einordnen ließen.
+	\end{itemize}
+
+\end{itemize}
+
+
+
+In der Folge werden nun die erarbeiteten Grundlagen auf das vorliegende Projekt angewandt und die Anforderungen formuliert. 
+
+\section{textliche Anforderungen}
+
+\textquote{Bevor ein Softwaresystem entwickelt werden kann, muss festgestellt werden, welche Anforderungen es erfüllen soll} \citep[][454]{Balzert2010}.
+Zunächst werden die Anforderungen im Freitext formuliert, bevor Sie anschließend in ein Anforderungsdokument überführt.  
+
+Wie in Kapitel 2 beschrieben, arbeitet der Server mit dem Betriebssystem Ubuntu 20.04 LTS. Auf dem Server sind ferner ein \ac{ldap} installiert, dass die Informationen zu den Nutzern verwaltet. Das \ac{ldap} ist insoweit auch für den SMTP-Server von Bedeutung, da dieser Nutzern die Möglichkeit geben soll, sich beim SMTP-Server anzumelden um Mails zu versenden oder abzuholen. Der Abgleich und die Registrierung neuer Nutzer muss automatisch stattfinden.
+Bereits entschieden wurde die Frage nach dem zu verwendenden Mail-Client. 
+Da nicht abzusehen war, wie sich die technische Ausstattung der \ac{kita}, gerade in Hinsicht auf neu anzuschaffende Tablets, weiterentwickelt, sollte ein Webmail-Client verwendet werden, der keine zusätzlichen Ressourcen auf dem Endgerät verbraucht. Die Wahl fiel hier auf den \ac{imap}-Client \textit{Dovecot} \citep[vgl.][]{dovecotmain}. 
+
+Wie Eingangs erwähnt befindet sich die \ac{kita} in Trägerschaft der Stadt Gau-Algesheim. Bereits bei der Anschaffung der Hardware für \textit{KitaNet} mussten die Studenten wert auf eine kostengünstige Anschaffung und geringe laufende Kosten legen. Auch bei der Auswahl der SMTP-Server-Software soll daher eine kostengünstige Lösung gefunden werden.
+
+Technische Unterstützung erhält die  \ac{kita} grundsätzlich über die Verbandsgemeindeverwaltung Gau-Algesheim. Da die zwei dort beschäftigen Administratoren aber für alle Kindertagesstätten der Verbandsgemeinde zuständig sind, muss die Software wartungsarm angelegt sein. Im Störungsfall soll eine detaillierte Dokumentation die Fehlersuche vereinfachen.
+
+Über das System sollen interne E-Mails ausgetauscht werden. Ein Mail-Verkehr mit dem Internet ist zunächst nicht geplant, sollte aber grundsätzlich möglich sein.
+Da E-Mail ein asynchrones Kommunikationsmittel darstellt \citep[vgl.][10]{Duerscheid2003}, ist die Übertragungsgeschwindigkeit nach Meinung des Autors nicht von übermäßiger Bedeutung. Eine schnellere, als die Übertragungsdauer von 15 Stunden und 39 Minuten \citep[vgl.][]{maildauer}, die die \textit{erste deutsche E-Mail} von Laura Breeden an Michael Rotert erzielte, ist zu erwarten.
+
+Aufgrund der oben genannten Anforderungen wurde ein Anforderungsdokument erstellt, wie vom \ac{ieee} vorgegeben (vgl. \autoref{ch:Anhang}). 
+
+\section{Priorisierung}
 
 Anforderungen an ein Produkt sind nie gleichwertig zueinander. 
 \textquote{Some requirements are non-negotiable. If they are not met, the product is of no use} \citep[][83]{Hull2010}. Wie die Priorisierung der Anforderungen gestaltet werden kann, wird nun kurz dargestellt.
@@ -333,10 +440,6 @@ Diese Methode gibt einzelnen Anforderungen eine gewisse Flexibilität, indem die
 
 Eine Aussage über die Wertigkeit der Anforderungen zueinander wird hier jedoch nicht getroffen. 
 
-%Zur Lösung dieses Problems schlägt Balzert vor, die Anforderungen nach Ihrer Wichtigkeit zu bewerten. Er gibt dabei jedoch zu bedenken, dass Wichtigkeit von unterschiedlichen Seiten betrachtet werden kann. \textquote{Wichtigkeit bezogen auf die Funktionalität des Systems, Wichtigkeit bezogen auf die Benutzerfreundlichkeit, Wichtigkeit bezogen auf die frühzeitige Verfügbarkeit usw} \citep[][543]{Balzert2010}. Auch seien andere Kriterien wie \zb Kosten oder dem verursachten Schaden bei Nichtberücksichtigung denkbar \citep[vgl.][543]{Balzert2010}.
-
-Das \ac{ieee} ist eine der Institutionen, die sich mit der Standardisierung technischer Vorgänge beschäftigen. Ähnlich den bereits erwähnten \ac{rfc}, die unter der Schirmherrschaft der \ac{ietf} verwaltet werden, gibt das \ac{ieee} Standardisierungsvorschriften heraus. Eine dieser Schriften, die \ac{ieee} Std 830-1998, beschreibt die empfohlene Vorgehensweise bei der Spezifikation von Software Anforderungen (\ac{srs}).
-
 In besagtem Standard schlägt das \ac{ieee} vor, die Anforderungen nach ihrer Notwendigkeit einzuordnen. \textquote{Another way to rank requirements is to distinguish classes of requirements as essential, conditional, and optional} \citep[][7]{ieee1998}. Balzert steht dieser Einordnung kritisch gegenüber. \textquote{Erfahrungen haben gezeigt, dass die Verwendung dieser Ausprägungen dazu führt, dass die meisten Anforderungen mit \textbf{essenziel} [Hervorhebung im Original] gekennzeichnet werden, während optionale Anforderungen nur selten vorkommen} \citep[][543]{Balzert2010}.
 
 Als Alternative schlägt Balzert die Verwendung des Kano-Modells vor. Dieses Modell bezieht sich auf die \textit{Theory of Attractive Quality} des japanischen Professors Noriaki Kano, dessen Studien einen Zusammenhang zwischen dem Erfüllen von Qualitätsmerkmalen einerseits und der Kundenzufriedenheit andererseits belegen \citep[vgl.][77]{Hoelzing2008}. \textquote{Durch eine Kundenbefragung im Rahmen einer Produktentwicklung werden nur geringfügige Mängel an den bisher angebotenen Modellen festgestellt. Daraus wird die Annahme abgeleitet, dass der Schlüssel zum Erfolg in eher latenten, nicht explizit artikulierten oder bewussten Kundenbedürfnissen liegt} \citep[][78]{Hoelzing2008}. Hölzing beschreibt im weitern wie Kano fünf Qualitätsattribute herausarbeitet \citep[vgl.][82]{Hoelzing2008}. Drei dieser fünf Eigenschaften bespricht dann auch Balzert.
@@ -344,62 +447,112 @@ Als Alternative schlägt Balzert die Verwendung des Kano-Modells vor. Dieses Mod
 - \textbf{Basiseigenschaften:} Vom Kunden selbstverständlich vorausgesetzte Eigenschaften (implizite Erwartung). Fehlt eine Basiseigenschaft, dann entsteht Unzufriedenheit. Werden sie erfüllt, dann entsteht aber \textit{keine} Zufriedenheit. \\
 - \textbf{Leistungseigenschaften:} Vom Kunden bewusst geforderte Eigenschaften (Sonderausstattung!). Sie schaffen beim Kunden Zufriedenheit bzw. beseitigen Unzufriedenheit - je nach Ausmaß. \\
 - \textbf{Begeisterungseigenschaften:} Eigenschaften die der Kunde \textit{nicht} erwartet hat. Die Kundenzufriedenheit wächst überproportional, wenn die Eigenschaft vorhanden ist [alle Hervorhebungen im Original]} \citep[][544]{Balzert2010}.
+Übersetzt auf die Vorgaben des \ac{ieee}, entsprächen \textit{essential} somit \textit{Basiseigenschaften}, \textit{conditionell} wären mit den \textit{Leistungseigenschaften} gleichzusetzen und \textit{optional} bilden das Äquivalent zu \textit{Begeisterungseigenschaften}.
 
 Die nicht durch Balzert benannten Eigenschaften sind von Hölzing nach Kano beschrieben. Es handelt sich um \textit{indifferent quality elements}, also Eigenschaften des Produktes, die weder Zufriedenheit noch Unzufriedenheit beim Kunden auslösen, sowie \textit{reverse quality elements}, welche eine höhere Zufriedenheit beim Kunden auslösen, je schlechter sie die Erwartungen des Kunden erfüllen \citep[vgl.][83]{Hoelzing2008}.
 
 Das Verhältnis der Kundenzufriedenheit im Verhältnis zum Erfüllungsgrad der jeweiligen Produkteigenschaft ist in der folgenden Grafik visualisiert.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{res/kano.png}
+  \includegraphics[width=0.6\textwidth]{res/kano.png}
   \caption{Die Entwicklung der Kundenzufriedenheit im Kano-Modell \citep[][545]{Balzert2010})}
   \label{fig:Kanomodell}
 \end{figure}
 
-Es wurden nun verschiedene Ansätze der Priorisierung und Wertung von Anforderungen besprochen. Der Autor dieser Bacherlorarbeit ist im Rahmen seiner Tätigkeit bereitts mit der Unterteilung der \ac{ieee} vertraut. Aus eigener Erfahrung kann er die Kritik von Balzert durchaus nachvollziehen, ist sich jedoch sicher, die Anforderungen sinnvoll abstufen zu können. Für die Priorisierung dern Anforderungen pm Rahmen dieses Projekts sollen daher die Voragben der \ac{ieee} genutzt werden.
+Es wurden nun verschiedene Ansätze der Priorisierung und Wertung von Anforderungen besprochen. Der Autor dieser Bachelorarbeit ist im Rahmen seiner Tätigkeit bereits mit der Unterteilung der \ac{ieee} vertraut. Aus eigener Erfahrung kann er die Kritik von Balzert durchaus nachvollziehen, ist sich jedoch sicher, die Anforderungen sinnvoll abstufen zu können. Für die Priorisierung deren Anforderungen im Rahmen dieses Projekts sollen daher die Vorgaben der \ac{ieee} genutzt werden.
 
-In der Folge wird nun das erarbeitete Wissen auf das vorliegende Projekt angewandt und die Anforderungen formuliert. 
-
-
-\section{Anforderungen}
-Beschreibt die Anforderungen an den SMTP-Server, z.B.:
+Gemäß der Definition innerhalb des Anforderungsdokuments (vgl. \autoref{ch:Definition}) sind folgende Anforderungen der ersten Priorität zuzuordnen:
 \begin{itemize}
-	\item Lauffähig auf Ubuntu
-	\item Zusammenarbeit mit LDAP
-	\item Automatisierung der Nutzerverwaltung
-	\item Gute Dokumentation
-	\item geringer (im besten Fall gar kein) Wartungsaufwand
-	\item Kostengünstig
-	\item etc.
+	\item (E)SMTP-Kommunikation
+	\item Zusammenarbeit mit Dovecot
+	\item Keine Anschaffungskosten
+	\item keine Lizenzkosten
+\end{itemize}
+
+Das Anforderungsdokument bildet die Grundlage für die Entscheidung, welche Software für den \ac{smtp}-Server ausgewählt wird.
+
+\section{Testformulierung}
+
+\textquote{Das Hauptziel des Freigabetestens ist, den Anbieter des Systems davon zu überzeugen, dass das System gut genug für die Benutzung ist} \citep[][266]{Sommerville2012}. 
+Diese können je nach Projekt und Auftrag unterschiedlich ausgestaltet werden.  
+
+Kleuker umschreibt einen Testfall als das simple Ausprobieren von Software \citep[vgl.][26]{Kleuker2019}. 
+\textquote{Möchte man dies präzisieren, kommt man darauf, dass man drei Teilschritte erfassen muss: die Vorbedingungen, die Ausführung und die Nachbedingungen} \citep[][26]{Kleuker2019}.
+
+Eine Form der Formulierung von Tests ist das anforderungsbasierte Testen.
+\textquote{Bei anforderungsbasiertem Testen handelt es sich [...] um eine systematische Herangehensweise an den Testentwurf, in der Sie jede Anforderung in Betracht ziehen und eine Testreihe für sie gestalten} \citep[][266]{Sommerville2012}.
+Sommerville gibt im weiteren zu Bedenken, dass zum Testen einer Anforderung unter Umständen ein einzelner Test ungenügend ist und verweist auch auf die Notwendigkeit Aufzeichnungen über die Tests zu führen \citep[vgl.][27]{Kleuker2019}.
+
+\textquote{Bei der Testbeschreibung empfiehlt es sich, den Standard-Geschäftsprozess ohne Störungen zuerst zu beschreiben. Dann kann man in der Testbeschreibung den Prozess variieren, aber immer nur ein Detail} \citep[][161]{Witte2019}. Aufgrund der im vorigen Abschnitt formulierten Anforderungen sind unter anderem folgende Geschäftsprozesse denkbar:
+\begin{itemize}
+	\item Eine E-Mail wird geschrieben\\
+	Die Anforderung an die Software mit der höchsten Priorität ist das Versenden von E-Mails als Kernaufgabe des Systems. Der Test wird  in der Art abgewandelt, dass eine Mail an einen nicht existenten Nutzer versendet wird.
+	\item Ein Nutzer wird neu aufgenommen\\
+	Eine weitere Anforderung stellt die Zusammenarbeit mit dem bereits im System verankerten LDAP dar. Hier muss getestet werden, ob eine neuer Nutzer zeitnah und ohne Zutun eines Administrators als Mail-Empfänger verfügbar ist. Eine Abwandlung dieses Test stellt das Löschen dieses Nutzers dar.
+	\item Das System wird neu gestartet \\
+	Die Anforderung \textit{Zuverlässigkeit} formuliert die Forderung, dass das System nach einem Serverneustart automatisch wieder startet. Hier werden zwei Szenarien abgebildet, nämlich der kontrollierte Neustart und der Neustart nach Stromausfall.
 \end{itemize}
 
 
-\section{Nutzungsszenarien}
-Welche Szenarien soll der \ac{mta} abdecken? Welche Funktionen sind notwendig (\zb nur interne Mails, keine Erreichbarkeit von außen)? Was ist bei der Lizenzierung zu beachten? Gibt es weitere wichtige Aspekte? Der SMTP-Server soll mit dem eingesetzten IMAP-Client Dovecot zusammenarbeiten.
-\section{Testfälle}
-Aufgrund der beschriebenen Nutzungsszenarien werden Testfälle formuliert, die den Erfolg des Projektes kennzeichnen. 
+Mit diesen Grundlagen wurden anhand der Anforderungen Tests für das System formuliert, die nach der Implementation durchgeführt werden. 
+Wie von Witte gefordert, achtete der Autor darauf die Tests möglichst kleinteilig zu beschreiben \citep[vgl.][S. 162 f.]{Witte2019}. Es soll auch einem fremden Dritten möglich sein, die Tests im Nachhinein nachvollziehen zu können. 
+Die Tests wurden im Anhang dieser Arbeit zusammen mit der Dokumentation der Testdurchführung beigefügt (vgl. \autoref{ch:Testfaelle}). Der Aufbau der einzelnen Testfälle orientierte sich ebenfalls an Witte \citep[vgl.][162]{Witte2019}.
+
 
 \chapter{Zur Auswahl stehende SMTP-Software}
-Vergleich von SMTP-Server-Software für den Einsatz auf Ubuntu. 
+\markboth{Zur Auswahl stehende SMTP-Software}{}
+\label{sec:Auswahl}
+In diesem Kapitel werden nun die zur Auswahl stehenden Softwarelösungen mit dem Anforderungsdokument verglichen und ihre Unterschiede aufgezeigt. 
+
+Beide Softwarelösungen wurden vom Autor ausgewählt, da es sich um SMTP-Serversoftware handelt. Somit wird die primäre Anforderung, die Kommunikation über und Verarbeitung von (E)SMTP-Befehlen als gegeben vorausgesetzt.
+
+Unterscheidungskriterien bilden die aus den Anforderungen gebildeten Unterpunkte:
+\begin{itemize}
+	\item Lauffähigkeit auf Ubuntu
+	\item LDAP-Anbindung
+	\item Dovecot-Unterstützung
+	\item Wartungsfreier Betrieb
+	\item Ausführliche Dokumentation
+	\item Portierbarkeit auf andere Plattform
+	\item keine Anschaffungskosten
+	\item keine Lizenzkosten
+\end{itemize}
+
 \section{postfix}
-Erfüllt die Software die gestellten Anforderungen? Was spricht gegen einen Einsatz?
+Postfix ist ein SMTP-Server-Programm, dass 1997  von Wietse Venema bei IBM entwickelt wurde, um als Alternative für das weit verbreitete Programm \textit{sendmail} zu dienen \citep[vgl.][307]{Deimeke2019}.
+
+Postfix ist in Linux-Distributionen weit verbreitet. \textquote{Nahezu jede ernstzunehmende Linux-Distribution bringt natürlich auch ein vorkonfiguriertes Postfix-Paket mit, das sich wie jede andere Software per Tastendruck fertig kompiliert installieren lässt} \citep[][53]{Heinlein2004}.
+
+Auch für Ubuntu 20.04 gibt es ein entsprechendes Paket. Tatsächlich stellt Postfix den Standard-\ac{mta} auf der Plattform dar \citep[vgl.][]{ubuntupostfix}.
+Installationsanleitungen und Hilfe zu den Einstellungen der Software sind über das Wiki der Community verfügbar \citep[vgl.][]{ubuntupostfixwiki}. 
+
+\textquote{There is also a Debian Wiki Postfix page that’s a bit more up to date; they also have a set of Postfix Tutorials for different Debian versions} \citep[][]{ubuntupostfix}. Da Ubuntu von dem Betriebssystem \textit{Debian} abgeleitet ist, können auch Beiträge im Debian-Wiki genutzt werden \citep[vgl.][]{debianpostfix}. 
+
+Eine Anleitung zur Anbindung von Postfix an ein bestehendes LDAP findet sich beispielsweise in der in dieser Arbeit verwendeten Fachliteratur bei \cite[S. 689 ff.]{Deimeke2019} oder \cite[S. 106 f.]{Heinlein2004}. Aber auch im Wiki von Ubuntu gibt es eine, wenn auch nicht mehr ganz aktuelle, Anleitung zu diesem Thema \citep[vgl.][]{ubuntudovecotLDAPwiki}.
+
 \section{EmailSuccess}
 Inhaltlich wie oben.
 
 \chapter{Entscheidung}
+\markboth{Entscheidung}{}
+\label{sec:Entscheidung}
 Welche SMTP-Software wurde gewählt? 
 
 \chapter{Installation und Tests}
+\markboth{Installation und Tests}{}
 
 \section{Einrichtung und Anbindung SMTP an LDAP}
 Wie steuert das \ac{ldap} den SMTP-Server? Wie funktioniert der Informationsaustausch (neue Nutzer, etc)?
 
 \section{Tests}
 Allgmeines zu den durchgeführten Tests. Kam es zu Problemen bei der Testung?
-\subsection{Dokumenation der einzelnen Tests}
+\subsection{Dokumentation der einzelnen Tests}
 Wurde der Test bestanden? Musste der Test unerwartet an die Gegebenheiten angepasst werden?
 
 \chapter{Fazit}
+\markboth{Fazit}{}
+\label{sec:Fazit}
 
 \blindtext
 
