@@ -21,7 +21,7 @@ Das nächste Kapitel behandelt zunächst die Funktionsweise eines \ac{smtp}-Serv
 
 Die benannten Nutzungsszenarien bilden die Grundlage zur Formulierung von Tests, die die Funktionalität und Praxistauglichkeit der späteren Installation sicherstellen werden. Die Beschreibung dieser Tests bildet den Abschluss  dieses Kapitels.
 
-Anschließend werden die zur Wahl stehenden Softwarepakete \textit{postfix} und die kommerzielle Software \textit{EmailSuccess} vorgestellt. Die im vorherigen Kapitel formulierten Anforderungen werden mit dem Funktionsumfang der Softwarepakete abgeglichen. Aufgrund der Ergebnisse dieses Abgleichs erfolgt die Entscheidung. 
+Anschließend werden die zur Wahl stehenden Softwarepakete \textit{postfix} und \textit{Exim} vorgestellt. Die im vorherigen Kapitel formulierten Anforderungen werden mit dem Funktionsumfang der Softwarepakete abgeglichen. Aufgrund der Ergebnisse dieses Abgleichs erfolgt die Entscheidung. 
 
 Dessen Installation bildet das nächste Kapitel. Es wird dargestellt, ob und welche Anpassungen durchzuführen sind, um den \ac{smtp}-Server in die vorliegende Umgebung zu integrieren. Auch die Anbindung an das \ac{ldap} wird beschrieben.
 Die Dokumentation der durchgeführten Tests schließt das Kapitel ab. An dieser Stelle soll auch kritisch hinterfragt werden, ob die im Vorfeld formulierten Tests ausreichend spezifisch waren oder Anpassungen an diesen vorzunehmen waren.
@@ -191,7 +191,7 @@ Nun ist es am Client, sich zu identifizieren. \\
 \verb+C: HELO mail.kitanet+ \\ 
 \verb+H: 250 mail.example.org+
 
-Mit Code 250 \textquote{Requested mail action okay, completed} \citep [][38]{rfc821} gibt der Host den Kommunikationskanal wieder frei.
+Mit Code 250 \textquote{Requested mail action okay, completed} \citep[][38]{rfc821} gibt der Host den Kommunikationskanal wieder frei.
 
 Der Client meldet anschließend \\
 \verb+C: MAIL FROM: <admin@kitanet>+ welches vom Host mit einem \\
@@ -551,10 +551,15 @@ Soweit dies durch die Lizenz der Software abgedeckt ist, in diesem Fall die \ac{
 
 Postfix steht wie bereits erwähnt unter der \ac{epl} und \ac{ipl}. Diese Open-Source-Lizenzen erlauben die kostenfreie private und kommerzielle Nutzung \citep[vgl.][]{postfixlizenz}. Somit fallen beim Einsatz von Postfix, wie gefordert, keine zusätzlichen Kosten an.
 
-Nach der Betrachtung von Postfix werden nun die Eigenschaften von EmailSuccess untersucht.
+Nach der Betrachtung von Postfix werden nun die Eigenschaften von Exim untersucht.
 
-\section{EmailSuccess}
-Inhaltlich wie oben.
+\section{Exim}
+
+\textquote{Exim is a message transfer agent (MTA) developed at the University of Cambridge for use on Unix systems connected to the Internet} \citep[][]{eximhome}. Die ursprünglich von Philip Hazel entwickelte Serversoftware sich, wie auch Postfix, als Ersatz für das Programm \textit{sendmail} \citep[vgl.][]{eximhome}. Die Software liegt zur Erstellung dieser Bachelorarbeit in Version 4.94 vor \citep[vgl.][]{eximgit}.
+
+Die Installationsanleitung und Einrichtungsdokumentation für Exim auf Ubuntu ist deutlich kleiner als für das bereits vorgestellte Postfix \citep[vgl.][]{eximubuntu}. \textquote{Exim4 can be installed in place of sendmail or Postfix [...]} \citep[][]{eximubuntu}. 
+
+Insgesamt gestaltet sich die Recherche zu Exim schwierig, da auch die Entwickler keinen zentralen Anlaufpunkt pflegen. Die Dokumentation ist auf der offiziellen Homepage zu finden \citep[vgl.][]{eximdoku}, das Wiki und die Entwicklergemeinschaft werden aber auf der Softwareplattform \textit{github} verwaltet \citep[vgl.][]{eximwiki}. 
 
 \chapter{Entscheidung}
 \markboth{Entscheidung}{}
