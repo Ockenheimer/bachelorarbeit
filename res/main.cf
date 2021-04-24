@@ -4,7 +4,7 @@
 inet_interfaces = all
 
 # Use TCP IPv4
-inet_protocols = ipv4
+inet_protocols = all
 
 # Greet connecting clients with this banner
 smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
@@ -37,7 +37,7 @@ mydestination =
     $myhostname
     localhost.$mydomain
     localhost
-
+nano 
 
 ##Virtual Reciepients
 

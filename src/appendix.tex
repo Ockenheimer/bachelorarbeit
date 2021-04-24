@@ -149,7 +149,7 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
 	Mail-Empfänger \verb+testnutzer@kitanet.local+ in System angelegt
 	\item Testbeschreibung:\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+testnutzer@kitanet.local+
+	Versenden einer E-Mail über Roundcube mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+testnutzer@kitanet.local+
 	\item Bezug:\\
 	Anforderung \textit{(E)SMTP-Kommunikation}
 	\item Priorität:\\
@@ -159,11 +159,17 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	\item Soll-Ergebnis:\\
 	E-Mail geht in Postfach des Empfängers ein.
 	\item Ist-Ergebnis:\\
+	E-Mail ging in Postfach des Empfängers ein.
 	\item Bestanden:\\
+	Ja
 	\item Aus welcher Phase stammt der Fehler:\\
+	Kein Fehler
 	\item Kommentar:\\
+	Keine Wartezeit spürbar.
 	\item Tester:\\
+	M. Schäfer
 	\item Datum/Uhrzeit:\\
+	24.04.2021 21:20 Uhr
 \end{itemize}
 
 \subsection{Testfall 1.2}
@@ -175,7 +181,7 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
 	Mail-Empfänger \verb+foobar@kitanet.local+ nicht in System angelegt
 	\item Testbeschreibung:\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+foobar@kitanet.local+
+	Versenden einer E-Mail über Roundcube mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+foobar@kitanet.local+
 	\item Bezug:\\
 	Anforderung \textit{(E)SMTP-Kommunikation}
 	\item Priorität:\\
@@ -185,11 +191,18 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	\item Soll-Ergebnis:\\
 	Sender erhält SMTP-Fehlermeldung 550 oder äquivalente Rückmeldung des Servers \citep[vgl.][16]{rfc821}.
 	\item Ist-Ergebnis:\\
+	Roundcube meldet Fehler \textit{SMTP-Fehler 550 - 5.1.1. recipient address rejected. User unkown in virtual table}
 	\item Bestanden:\\
+	Ja
 	\item Aus welcher Phase stammt der Fehler:\\
+	Kein Fehler
 	\item Kommentar:\\
+	Erwartet wurde Fehlermeldung per Mail von SMTP-Server\\
+	Roundcube prüft selbstständig Gültigkeit des Empfängers
 	\item Tester:\\
+	M. Schäfer
 	\item Datum/Uhrzeit:\\
+	24.04.2021 21:25 Uhr
 \end{itemize}
 
 \section{Testreihe 2 LDAP-Anbindung}
@@ -215,11 +228,17 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	\item Soll-Ergebnis:\\
 	E-Mail geht in Postfach des Empfängers ein.
 	\item Ist-Ergebnis:\\
+	E-Mail ging in Postfach des Empfängers ein.
 	\item Bestanden:\\
+	Ja
 	\item Aus welcher Phase stammt der Fehler:\\
+	Kein Fehler	
 	\item Kommentar:\\
+	keine Wartezeit, Anstoß Cronjob unnötig. Nutzer sofort erreichbar.
 	\item Tester:\\
+	M. Schäfer
 	\item Datum/Uhrzeit:\\
+	24.04.2021 21:30 Uhr
 \end{itemize}
 
 \subsection{Testfall 2.2}
@@ -243,11 +262,17 @@ Löschen eines Benutzers via LDAP und Versenden einer Test-Mail
 	\item Soll-Ergebnis:\\
 	Sender erhält SMTP-Fehlermeldung 550 oder äquivalente Rückmeldung des Servers \citep[vgl.][16]{rfc821}.
 	\item Ist-Ergebnis:\\
+	SMTP-Fehler, korrespondierend zu Testfall 1.2
 	\item Bestanden:\\
+	Ja
 	\item Aus welcher Phase stammt der Fehler:\\
+	Kein Fehler
 	\item Kommentar:\\
+	Löschung zeigt sofortige Wirkung 
 	\item Tester:\\
+	M. Schäfer
 	\item Datum/Uhrzeit:\\
+	24.04.2021 21:32 Uhr
 \end{itemize}
 
 
@@ -272,11 +297,18 @@ Kontrollierter Neustart des Systems
 	\item Soll-Ergebnis:\\
 	Wiederholung von Testfall 1.1 wird erfolgreich durchgeführt
 	\item Ist-Ergebnis:\\
+	Mail geht in Postfach des Empfängers ein.
 	\item Bestanden:\\
+	Ja
 	\item Aus welcher Phase stammt der Fehler:\\
+	Kein Fehler
 	\item Kommentar:\\
+	Server nach 36 Sekunden wieder erreichbar.
+	Webseite erst nach ca. 1:30 Minuten erreichbar.
 	\item Tester:\\
+	M. Schäfer
 	\item Datum/Uhrzeit:\\
+	24.04.2021 21:40 Uhr
 \end{itemize}
 
 \subsection{Testfall 3.2}
@@ -299,11 +331,18 @@ Neustart des Systems nach unkontrollierter Abschaltung
 	\item Soll-Ergebnis:\\
 	Wiederholung von Testfall 1.1 wird erfolgreich durchgeführt
 	\item Ist-Ergebnis:\\
+	Mail geht in Postfach des Empfängers ein.
 	\item Bestanden:\\
+	Ja
 	\item Aus welcher Phase stammt der Fehler:\\
+	Kein Fehler
 	\item Kommentar:\\
+	Server nach 35 Sekunden wieder erreichbar.
+	Webserver nach 92 Sekunden wieder erreichbar.
 	\item Tester:\\
+	M. Schäfer
 	\item Datum/Uhrzeit:\\
+	24.04.2021 21:45 Uhr
 \end{itemize}
 
 

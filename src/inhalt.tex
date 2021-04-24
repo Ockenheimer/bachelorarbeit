@@ -669,13 +669,27 @@ Nach Installation von Roundcube und Anmeldung eines bereits in Kitanet aktiven N
 
 \section{Tests}{}
 Nach der erfolgreichen Einrichtung und den ersten testweise und über die Kommandozeile versendeten E-Mails war es an der Zeit, die in \autoref{sec:test} formulierten Tests durchzuführen. Das Ergebnis der Tests ist bereits in \autoref{ch:Testfaelle} erfasst worden.
-\subsection{Dokumentation der einzelnen Tests}
-Wurde der Test bestanden? Musste der Test unerwartet an die Gegebenheiten angepasst werden?
+
+Die Tests liefen, wie im Anhang dokumentiert schnell und fehlerfrei ab. Für den Autor war zunächst überraschend, dass in Testfall 1.2 die Mail nicht versandt wurde, sondern direkt innerhalb von Roundcube mit dem \ac{smtp}-Fehler 550 abgelehnt wurde. 
+Der Grund hierfür wird im RFC 821 erklärt. 
+Es handelt sich um den Befehl \textit{VRFY} (Verify) mit dem der Sender prüfen kann, ob der Empfänger die Adresse verarbeiten kann \citep[vgl.][8]{rfc821}.
+Dies war vom Autor so nicht erwartet worden, wohl aber nach Studium des \ac{rfc} 821 erwartbar gewesen.
+
+Es bleibt festzustellen, dass das E-Mail-System in seiner jetzigen Ausgestaltung funktioniert. Einer Implementation in der Kindertagesstätte steht nichts im Wege.
 
 \chapter{Fazit}
 \markboth{Fazit}{}
 \label{sec:Fazit}
 
-\blindtext
+\textquote{E-Mail ist ein wesentlich komplexeres Thema, als viele Einsteiger in diese Materie vermuten} \citep[][1109]{Kofler2020}. 
+Hätte der Autor gewusst, was auf ihn zukommt, hätte er vermutlich ein anderes Thema gewählt. 
+Im Nachhinein betrachtet waren es viele Wochen des Lesens und Zweifelns aber letztendlich doch des Lernens und des Erfolgs.
+Das Gefühl, wenn das Terminal auf einmal \verb+250 OK+ meldet, nachdem man zwanzig Mal eine Konfigurationsdatei umgeschrieben und den Postfix-Service neu gestartet hat, entschädigt für vieles.
 
+Das ursprüngliche Ziel des Projektes, die Änderung von Kennwörtern in OpenLDAP zur Anmeldung in Kitanet, konnte leider nicht umgesetzt werden. 
+Dies lag jedoch nicht an der Implementation des Mail-Systems, sondern ist der Tatsache geschuldet, dass Humhub keine Mechanik mitbringt, Daten in OpenLDAP zu ändern. 
+Die LDAP-Anbindung wird lediglich zum Auslesen der Benutzerdaten genutzt. 
+Auch dies wurde dem Autor erst während dem Erstellen der Arbeit bewusst.
 
+Ob unter diesen Voraussetzungen eine Installation von Postfix, Dovecot, Cyrus SASL und Roundcube auf dem System der Kita Schloss-Ardeck erfolgt, bleibt abzuwarten.
+Für den Fall, dass das Team die Funktionalität wünscht, ist die hier vorgestellte Lösung auf jeden Fall bereit.
