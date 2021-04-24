@@ -146,10 +146,10 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	Versenden einer E-Mail an einen existierenden Empfänger
 	\item Testkonfiguration:\\
 	System ohne Last\\
-	Mail-Sender \verb+mail@kitanet+ in System angelegt\\
-	Mail-Empfänger \verb+testnutzer@kitanet+ in System angelegt
+	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
+	Mail-Empfänger \verb+testnutzer@kitanet.local+ in System angelegt
 	\item Testbeschreibung:\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet+ \\ an \verb+testnutzer@kitanet+
+	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+testnutzer@kitanet.local+
 	\item Bezug:\\
 	Anforderung \textit{(E)SMTP-Kommunikation}
 	\item Priorität:\\
@@ -172,10 +172,10 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	Versenden einer E-Mail an einen nicht existierenden Empfänger
 	\item Testkonfiguration:\\
 	System ohne Last\\
-	Mail-Sender \verb+mail@kitanet+ in System angelegt\\
-	Mail-Empfänger \verb+foobar@kitanet+ nicht in System angelegt
+	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
+	Mail-Empfänger \verb+foobar@kitanet.local+ nicht in System angelegt
 	\item Testbeschreibung:\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet+ \\ an \verb+foobar@kitanet+
+	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+foobar@kitanet.local+
 	\item Bezug:\\
 	Anforderung \textit{(E)SMTP-Kommunikation}
 	\item Priorität:\\
@@ -199,12 +199,12 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	Anlegen eines Benutzers via LDAP und Versenden einer Test-Mail
 	\item Testkonfiguration:\\
 	ruhendes System\\
-	Mail-Sender \verb+mail@kitanet+ in System angelegt\\
-	Mail-Empfänger \verb+ldap-test@kitanet+ nicht in System angelegt
+	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
+	Mail-Empfänger \verb+ldap-test3@kitanet.local+ nicht in System angelegt
 	\item Testbeschreibung:\\
-	Nutzer mit LDAP-Attribute \verb+mail = ldap-test@kitanet+ wird im System angelegt\\
+	Nutzer mit LDAP-Attribute \verb+mail = ldap-test3@kitanet.local+ wird im System angelegt\\
 	Wartezeit bis Datenaustausch zwischen LDAP und SMTP-Server stattgefunden hat. (ggf. manuelles Anstoßen des Cronjobs)\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet+ \\ an \verb+ldap-test@kitanet+
+	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet+ \\ an \verb+ldap-test3@kitanet.local+
 	\item Bezug:\\
 	Anforderung \textit{LDAP-Anbindung}
 	\item Priorität:\\
@@ -231,9 +231,9 @@ Löschen eines Benutzers via LDAP und Versenden einer Test-Mail
 	System ruht\\
 	Keine Änderung der Konfiguration
 	\item Testbeschreibung:\\
-	Löschung des Nutzers mit LDAP-Attribut: \verb+mail = ldap-test@kitanet+\\
+	Löschung des Nutzers mit LDAP-Attribut: \verb+mail = ldap-test3@kitanet.local+\\
 	Wartezeit bis Datenaustausch zwischen LDAP und SMTP-Server stattgefunden hat. (ggf. manuelles Anstoßen des Cronjobs)\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet+ \\ an \verb+ldap-test@kitanet+
+	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+ldap-test3@kitanet.local+
 	\item Bezug:\\
 	Anforderung \textit{LDAP-Anbindung}
 	\item Priorität:\\
@@ -268,7 +268,7 @@ Kontrollierter Neustart des Systems
 	\item Priorität:\\
 	unbedingt erforderlich
 	\item Details:\\
-	Aufwand für Wiederinbetriebnahme des Systems soll so gering wie möglich gehalten werden. SMTP-Software woll selbstständig starten.
+	Aufwand für Wiederinbetriebnahme des Systems soll so gering wie möglich gehalten werden. SMTP-Software soll selbstständig starten.
 	\item Soll-Ergebnis:\\
 	Wiederholung von Testfall 1.1 wird erfolgreich durchgeführt
 	\item Ist-Ergebnis:\\
@@ -305,3 +305,166 @@ Neustart des Systems nach unkontrollierter Abschaltung
 	\item Tester:\\
 	\item Datum/Uhrzeit:\\
 \end{itemize}
+
+
+\chapter{Dateien und Datenbankeinträge aus Kitanet}
+\begin{lstlisting}[caption={Ergebnis der LDAP-Abfrage für den Nutzer 'administrator'}, label={ldapabfrage}]
+Enter LDAP Password:
+dn: uniqueIdentifier=administrator,ou=people,dc=kitanet
+mailAlias: admin@kitanet.local
+mailAlias: kitanet@kitanet.local
+mailAlias: postmaster@kitanet.local
+cn: admin
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: PostfixBookMailAccount
+objectClass: extensibleObject
+mailUidNumber: 5000
+givenName: admin
+mailEnabled: TRUE
+mailGidNumber: 5000
+sn: kitanet
+mailQuota: 10240
+uniqueIdentifier: administrator
+userPassword:: e0NSWVBUfSQ2JGZQbGNTaHVaJEpXRnpRcklyT0FNZ2pWN3ZkT1hhekhiZ3JhQ3B
+ MVUlsUFo0OHFCQVpZQ3FDL2MyY0liVkZISmpFT0p1VVJuRU1jeHpnS2Q0WFplR0hNNE84ZFdwREIv
+mail: administrator@kitanet.local
+mailHomeDirectory: /srv/vmail/administrator@kitanet.local
+mailStorageDirectory: maildir:/srv/vmail/administrator@kitanet.local/Maildir
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption={/etc/postfix/main.cf}, label={postfix/main.cf}]
+### Base Settings
+# Listen on all interfaces
+	inet_interfaces = all
+# Use TCP IPv4 and IPv6
+	inet_protocols = all
+# Greet connecting clients with this banner
+	smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+# Fully-qualified hostname
+	myhostname = mail.kitanet.local
+# Trusted networks/hosts (these are allowed to relay without authentication)
+	mynetworks =
+    # Local
+    localhost
+    127.0.0.0/8
+    # External
+    192.168.4.0/24
+
+
+### Local Transport
+	# Disable local transport (so that system accounts can not receive mail)
+		local_transport = error:NO LOCAL
+	# Do not use local maps for alias
+		alias_maps = 
+	# Local domain (could be omitted, since it is automatically derived from $myhostname)
+		mydomain = example.com
+	# Mails for these domains will be transported locally
+		mydestination =
+		  $myhostname
+		  localhost.$mydomain
+		  localhost
+# Virtual Reciepients
+	# Deliver mail for virtual recipients via Dovecot
+		virtual_transport = dovecot
+	# Process one mail at one time
+		dovecot_destination_recipient_limit = 1
+	# accepted virtual domains
+		virtual_mailbox_domains = hash:/etc/postfix/virtual_domains
+	# accepted virtual recipients
+		virtual_mailbox_maps = proxy:ldap:/etc/postfix/ldap_virtual_recipients.cf
+	# accepted aliases
+		virtual_alias_maps = proxy:ldap:/etc/postfix/ldap_virtual_aliases.cf
+
+
+### ESMTP 
+# SASL
+# Enable SASL (required for SMTP authentication)
+	smtpd_sasl_auth_enable = yes
+
+### Session Policies  
+# Who could receive mails
+	smtpd_recipient_restrictions =
+    reject_non_fqdn_recipient
+    reject_unknown_recipient_domain
+  # Allow relaying for SASL authenticated clients and trusted hosts/networks
+  # This can be put to smtpd_relay_restrictions in Postfix 2.10 and later 
+  	permit_sasl_authenticated
+  	permit_mynetworks
+  # If not authenticated or on mynetworks, reject mailing to external addresses
+ 	 reject_unauth_destination
+  # Reject the following hosts
+  # maybe never used
+    check_sender_ns_access cidr:/etc/postfix/drop.cidr
+    check_sender_mx_access cidr:/etc/postfix/drop.cidr
+  # Finally permit (relaying still requires SASL auth)
+  # WARNING: Due to this permit, everyone will be able to send emails to internal addresses without authentication. If this is set to reject though, the server does not receive emails from external addresses. Unfortunately I do not have a solution for this.
+	  permit
+# Reject the request if the sender is the null address and there are multiple recipients
+	smtpd_data_restrictions = reject_multi_recipient_bounce
+# who could send mails
+	smtpd_sender_restrictions =
+    reject_non_fqdn_sender
+    reject_unknown_sender_domain
+# HELO/EHLO Restrictions
+	smtpd_helo_restrictions =
+		# mynetworks can communicate with SMTP
+      permit_mynetworks
+    # look for identitycheck to prevent Hostname abuse
+    # maybe never used, but you never know
+      check_helo_access pcre:/etc/postfix/identitycheck.pcre
+    #reject_non_fqdn_helo_hostname
+      reject_invalid_hostname
+# Deny VRFY recipient checks
+	disable_vrfy_command = yes
+# Require HELO
+	smtpd_helo_required = yes
+# Reject instantly if a restriction applies (do not wait until RCPT TO)
+	smtpd_delay_reject = no
+# Reject the following Clients (Blacklist)
+	smtpd_client_restrictions = check_client_access cidr:/etc/postfix/drop.cidr
+\end{lstlisting}
+
+\begin{lstlisting}[caption={/etc/postfix/ldap\_virtual\_recipients.cf}, label={postfix/recipients.cf}]
+	bind = yes
+# LDAP-User
+	bind_dn = uid=postfix,ou=services,dc=kitanet
+# LDAP-User-PW
+	bind_pw = postfix
+# LDAP-Server
+	server_host = ldap://127.0.0.1:389
+# part of tree, where to search for users
+	search_base = ou=people,dc=kitanet
+# fqdn for users
+	domain = kitanet.local
+# LDAP-Query to find the users
+# %s is the variable representing the "RCPT TO:" adress
+	query_filter = (&(mail=%s)(mailEnabled=TRUE))
+# which attribute should be returned
+	result_attribute = mail
+\end{lstlisting}
+
+\begin{lstlisting}[caption={/etc/postfix/ldap\_virtual\_aliases.cf}, label={postfix/aliases.cf}]
+	bind = yes
+# LDAP-User
+	bind_dn = uid=postfix,ou=services,dc=kitanet
+# LDAP-User-PW
+	bind_pw = postfix
+# LDAP-Server
+	server_host = ldap://127.0.0.1:389
+# part of tree, where to search for users
+	search_base = ou=people,dc=kitanet
+# fqdn for users
+	domain = kitanet.local
+# LDAP-Query to find the users
+# %s is the variable representing the "RCPT TO:" adress
+	query_filter = (&(mailAlias=%s)(mailEnabled=TRUE))
+# which attribute should be returned
+	result_attribute = mail
+\end{lstlisting}
+\begin{lstlisting}[caption={/etc/postfix/sasl/smtpd.conf}, label={postfix/sasl}]
+log_level: 3
+pwcheck_method: saslauthd
+mech_list: PLAIN LOGIN
+\end{lstlisting}

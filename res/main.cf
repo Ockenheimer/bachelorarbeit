@@ -1,0 +1,111 @@
+# Base Settings
+
+# Listen on all interfaces
+inet_interfaces = all
+
+# Use TCP IPv4
+inet_protocols = ipv4
+
+# Greet connecting clients with this banner
+smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+
+# Fully-qualified hostname
+myhostname = mail.kitanet
+
+# Trusted networks/hosts (these are allowed to relay without authentication)
+mynetworks =
+    # Local
+    localhost
+    127.0.0.0/8
+    # External
+    192.168.4.0/24
+
+
+# Local Transport
+
+# Disable local transport (so that system accounts can't receive mail)
+local_transport = error:NO LOCAL
+
+# Do not use local maps for alias
+alias_maps = 
+
+# Local domain (could be omitted, since it is automatically derived from $myhostname)
+mydomain = example.com
+
+# Mails for these domains will be transported locally
+mydestination =
+    $myhostname
+    localhost.$mydomain
+    localhost
+
+
+##Virtual Reciepients
+
+# Deliver mail for virtual recipients via Dovecot
+virtual_transport = dovecot
+# Process one mail at one time
+dovecot_destination_recipient_limit = 1
+# accepted virtual domains
+virtual_mailbox_domains = hash:/etc/postfix/virtual_domains
+# accepted virtual recipients
+virtual_mailbox_maps = proxy:ldap:/etc/postfix/ldap_virtual_recipients.cf
+# accepted aliases
+virtual_alias_maps = proxy:ldap:/etc/postfix/ldap_virtual_aliases.cf
+
+
+#ESMTP 
+## SASL
+
+# Enable SASL (required for SMTP authentication)
+smtpd_sasl_auth_enable = yes
+
+
+# Session Policies 
+# 
+# Who could receive mails
+smtpd_recipient_restrictions =
+        reject_non_fqdn_recipient
+        reject_unknown_recipient_domain
+        # Allow relaying for SASL authenticated clients and trusted hosts/networks
+        # This can be put to smtpd_relay_restrictions in Postfix 2.10 and later 
+        permit_sasl_authenticated
+        permit_mynetworks
+        # If not authenticated or on mynetworks, reject mailing to external addresses
+        reject_unauth_destination
+        # Reject the following hosts
+        # maybe never used
+        check_sender_ns_access cidr:/etc/postfix/drop.cidr
+        check_sender_mx_access cidr:/etc/postfix/drop.cidr
+        # Finally permit (relaying still requires SASL auth)
+        # WARNING: Due to this permit, everyone will be able to send emails to internal addresses without authentication. If this is set to reject though, the server does not receive emails from external addresses. Unfortunately I do not have a solution for this.
+        permit
+
+# Reject the request if the sender is the null address and there are multiple recipients
+smtpd_data_restrictions = reject_multi_recipient_bounce
+
+# who could send mails
+smtpd_sender_restrictions =
+        reject_non_fqdn_sender
+        reject_unknown_sender_domain
+
+# HELO/EHLO Restrictions
+smtpd_helo_restrictions =
+		# mynetworks can communicate with SMTP
+        permit_mynetworks
+        # look for identitycheck to prevent Hostname abuse
+        # maybe never used, but you never know
+        check_helo_access pcre:/etc/postfix/identitycheck.pcre
+        #reject_non_fqdn_helo_hostname
+        reject_invalid_hostname
+
+# Deny VRFY recipient checks
+disable_vrfy_command = yes
+
+# Require HELO
+smtpd_helo_required = yes
+
+# Reject instantly if a restriction applies (do not wait until RCPT TO)
+smtpd_delay_reject = no
+
+# Reject the following Clients (Blacklist)
+smtpd_client_restrictions = check_client_access cidr:/etc/postfix/drop.cidr
