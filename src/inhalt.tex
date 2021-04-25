@@ -6,27 +6,41 @@
 \chapter{Einleitung}
 \markboth{Einleitung}{}
 \label{sec:Einleitung}
-\section{Kontext}
-Im Rahmen des Studiums der Sozialinformatik wurde in der \ac{kita} \textit{Schloss Ardeck} in Gau-Algesheim vom Autor dieser Arbeit ein lokales soziales Netzwerk als Kommunikations- und Dokumentenmanagementsystem eingeführt. In dem \textit{KitaNet} genannten System können durch die Leitung und Mitarbeitenden der Einrichtung beispielsweise Elternbriefe ausgetauscht und erarbeitet werden oder Terminabsprachen und Diskussionen geführt werden, auch wenn die Kolleginnen aufgrund von Schichtdiensten nicht immer direkten Kontakt haben. \\ Das Projekt wurde innerhalb von zwei Jahren realisiert und in der \ac{kita} implementiert.
+\section{Kontext und Forschungsfrage}
+\label{sec:Frage}
+Im Rahmen des Studiums der Sozialinformatik wurde in der \ac{kita} \textit{Schloss Ardeck} in Gau-Algesheim vom Autor dieser Arbeit ein lokales soziales Netzwerk als Kommunikations- und Dokumentenmanagementsystem eingeführt. 
+In dem \textit{KitaNet} genannten System können durch die Leitung und Mitarbeitenden der Einrichtung beispielsweise Elternbriefe ausgetauscht und erarbeitet werden oder Terminabsprachen und Diskussionen geführt werden, auch wenn die Kolleginnen aufgrund von Schichtdiensten nicht immer direkten Kontakt haben. \\ 
+Das Projekt wurde innerhalb von zwei Jahren realisiert und in der \ac{kita} implementiert.
 
-Technisch besteht KitaNet aus einer \ac{vm} auf einem NAS-System der Firma QNAP. Auf der \ac{vm} läuft die auf der Skriptsprache \ac{php} basierende Software \textit{HumHub}. Diese arbeitet mit einer durch QNAP bereitgestellten Variante eines \ac{ldap}-Servers zur Benutzerverwaltung zusammen. Dies war notwendig, um der Leitung der Kita eine Möglichkeit zu bieten, Nutzerpasswörter grundzustellen und neue Nutzer anzulegen. Gerade das Grundstellen von Passwörtern ist in der täglichen Arbeit leider häufiger notwendig, als von den Projektdurchführenden geplant und bindet somit einen nicht unerheblichen Teil der Arbeitszeit der Leitung.
+Technisch besteht KitaNet aus einer \ac{vm} auf einem NAS-System der Firma QNAP. 
+Auf der \ac{vm} läuft die auf der Skriptsprache \ac{php} basierende Software \textit{HumHub}. 
+Diese arbeitet mit einer durch QNAP bereitgestellten Variante eines \ac{ldap}-Servers zur Benutzerverwaltung zusammen. 
+Dies war notwendig, um der Leitung der Kita eine Möglichkeit zu bieten, Nutzerpasswörter grundzustellen und neue Nutzer anzulegen.
+%Gerade das Grundstellen von Passwörtern ist in der täglichen Arbeit leider häufiger notwendig, als von den Projektdurchführenden geplant und bindet somit einen nicht unerheblichen Teil der Arbeitszeit der Leitung.
 
-HumHub selbst bietet die Möglichkeit, beim Nutzer eine E-Mail-Adresse zu hinterlegen, über die dann ein Grundstellen des Passwortes möglich ist. Hierfür wäre allerdings ein E-Mail-Server innerhalb des Netzwerkes notwendig, da das Gesamtsystem KitaNet aus Datenschutzgründen keine direkt eVerbindung zum Internet hat. Die Funktion zum zurücksetzen des Passworts wurde im Rahmen des IT-Projektes nicht genutzt. Im Rahmen dieser Bachelorarbeit wird nun der Frage nachgegangen werden, wie die Implementierung eines Mailservers in die Umgebung aus \ac{vm}, \ac{ldap} und HumHub durchgeführt werden kann. Hierfür wird die in der \ac{kita} vorliegende Umgebung auf einem separaten Server nachgestellt werden, um den Produktivbetrieb in der \ac{kita} nicht zu gefährden.
+HumHub selbst bietet die Möglichkeit, beim Nutzer eine E-Mail-Adresse zu hinterlegen, um Aktivitätsbenachrichtigungen und tägliche Zusammenfassungen über das Geschehen auf der Plattform an die Nutzer zu senden.
+Hierfür wäre allerdings ein E-Mail-Server innerhalb des Netzwerkes notwendig, da das Gesamtsystem KitaNet aus Datenschutzgründen keine direkt eVerbindung zum Internet hat. 
+Diese Funktionalität wurde im Rahmen des IT-Projektes nicht umgesetzt. 
+Es stellt sich nun die Frage, wie die Implementierung eines Mailservers in die Umgebung aus \ac{vm}, \ac{ldap} und HumHub durchgeführt werden kann. 
+Diese Frage wird im Rahmen dieser Bachelor-Thesis behandelt.
+
 
 \section{Aufbau und Gestaltung der Arbeit}
 
-In dieser Bachelor-Thesis wird zunächst KitaNet sowie die hier vorliegende Hardwareumgebung und das Einsatzszenario erläutert werden. Hier werden auch Hinderungsgründe genannt, die eine Umsetzung der in dieser Thesis beschriebenen Lösung in den Produktivbetrieb der Kita verhindern. In diesem Kapitel wird auch die Funktionalität eines \ac{ldap} beschrieben.
+In dieser Bachelor-Thesis wird zunächst KitaNet sowie die hier vorliegende Hardwareumgebung und das Einsatzszenario erläutert werden. 
+Hier werden auch Hinderungsgründe genannt, die eine Umsetzung der in dieser Thesis beschriebenen Lösung in den Produktivbetrieb der Kita behindern könnten. In diesem Kapitel wird auch die Funktionalität des \ac{ldap} beschrieben.
 
-Das nächste Kapitel behandelt zunächst die Funktionsweise eines \ac{smtp}-Servers. Im Anschluss werden die Anforderungen und Nutzungsszenarien des Mailservers für KitaNet festgelegt. Die Anforderungen umfassen dabei zum Einen Punkte wie die Zusammenarbeit mit einem Nutzerverzeichnis, verbunden mit einer möglichen Automation des Anlegens von Mail-Nutzern, werden aber zum Anderen auch nichtfunktionale Aspekte, wie den zu erwartenden Pflegeaufwand oder die finanzielle Belastung durch etwaige Lizenzkosten, beachten. \textbf{Hinweis auf RE einarbeiten!}
+Das nächste Kapitel behandelt zunächst die Funktionsweise eines \ac{smtp}-Servers. Im Anschluss werden die Anforderungen und Nutzungsszenarien des Mailservers für KitaNet festgelegt. 
+Die Anforderungen umfassen dabei zum Einen Punkte wie die Zusammenarbeit mit einem Nutzerverzeichnis, verbunden mit einer möglichen Automation des Anlegens von Mail-Nutzern, werden aber zum Anderen auch nichtfunktionale Aspekte, wie den zu erwartenden Pflegeaufwand oder die finanzielle Belastung durch etwaige Lizenzkosten, beachten. 
 
-Die benannten Nutzungsszenarien bilden die Grundlage zur Formulierung von Tests, die die Funktionalität und Praxistauglichkeit der späteren Installation sicherstellen werden. Die Beschreibung dieser Tests bildet den Abschluss  dieses Kapitels.
+Kapitel 4 beschäftigt sich mit den Anforderungen, die an das fertige Produkt gestellt werden. Hierzu werden zunächst die theoretischen Grundlagen des \textit{Requirement Engineering} erläutert, die dann die Grundlage bei der Formulierung der Anforderungen bilden. Die Abnahmetests, werden die Funktionalität und Praxistauglichkeit der späteren Installation sicherstellen. Die Beschreibung dieser Tests bildet den Abschluss  dieses Kapitels.
 
-Anschließend werden die zur Wahl stehenden Softwarepakete \textit{postfix} und \textit{Exim} vorgestellt. Die im vorherigen Kapitel formulierten Anforderungen werden mit dem Funktionsumfang der Softwarepakete abgeglichen. Aufgrund der Ergebnisse dieses Abgleichs erfolgt die Entscheidung. 
+Anschließend werden die zur Wahl stehenden Softwarepakete \textit{postfix} und \textit{Exim} vorgestellt. Die im vorherigen Kapitel formulierten Anforderungen werden mit dem Funktionsumfang der Softwarepakete abgeglichen. Aufgrund dieses Vergleichs beider Softwarepakete erfolgt im Kapitel 6 die Entscheidung zugunsten eines Kandidaten. 
 
-Dessen Installation bildet das nächste Kapitel. Es wird dargestellt, ob und welche Anpassungen durchzuführen sind, um den \ac{smtp}-Server in die vorliegende Umgebung zu integrieren. Auch die Anbindung an das \ac{ldap} wird beschrieben.
-Die Dokumentation der durchgeführten Tests schließt das Kapitel ab. An dieser Stelle soll auch kritisch hinterfragt werden, ob die im Vorfeld formulierten Tests ausreichend spezifisch waren oder Anpassungen an diesen vorzunehmen waren.
+Dessen Installation bildet das siebte Kapitel. Es wird dargestellt, ob und welche Anpassungen durchzuführen sind, um den \ac{smtp}-Server in die vorliegende Umgebung zu integrieren. Dies schließt die Anbindung an OpenLDAP mit ein. 
+An den Installationsprozess schließt sich die Dokumentation der Tests an.
 
-Ein persönliches Fazit schließt diese Bachelor-Thesis ab.
+Ein fachliches und persönliches Fazit schließt diese Bachelor-Thesis ab.
 
 \textit{Erstmalige Fachbegriffe oder Eigennamen} werden \textit{kursiv} dargestellt und in diesem Kontext erläutert.  \\ \textquote{Zitate werden mit französischen Anführungszeichen gekennzeichnet}. \\ \verb+Code oder ähnliches+ wiederum werden immer in einer \verb+Monospace-Schriftart+ ausgegeben, um ihn vom umliegenden Text zu separieren. \\ Abkürzungen und Akronyme wie \zb \ac{nas} werden bei der ersten Erwähnung kursiv ausgeschrieben und mit der Abkürzung benannt. Diese findet sich dann auch im Abkürzungsverzeichnis. Im weiteren Text erscheinen Sie nur noch abgekürzt. 
 
@@ -54,70 +68,86 @@ Die \ac{kita} betreut ca. 170 Kinder im Alter von einem bis sechs Jahren. Hierf�
 
 Für die Umsetzung der Idee eines sozialen Netzwerkes konnten die Studenten unter anderem von dem Umstand profitieren, dass jede Gruppe der Kita mit Notebooks ausgestattet ist, über welche die Kinder Lernspiele spielen, aber auch unter Betreuung der Erzieher erste Erfahrungen mit dem Internet sammeln.
 
-Die technische Umgebung in der Kita, sowie die Umsetzung des sozialen Netzwerks werden nun genauer beschrieben. Auch werden hier Unterschiede zur Testumgebung dieser Bachelor-Arbeit aufgezeigt.
+Die technische Umgebung in der Kita, sowie die Umsetzung des sozialen Netzwerks werden nun genauer beschrieben. Auch werden hier Unterschiede zur Testumgebung dieser Bachelor-Arbeit aufgezeigt, da die in der \ac{kita} vorliegende Umgebung auf einem separaten Server nachgestellt werden, um den Produktivbetrieb in der \ac{kita} nicht zu gefährden.
 
 \section{Hardware}
-%Beschreibt den technischen Aufbau von KitaNet in der Kita selbst.
-%Abweichungen vom Aufbau für Studienprojekt werden erläutert. Was weicht ab?
-%Verhindert die für dieses Bachelorarbeit eingesetzte Hardware eine Umsetzung in der Kita?
+
 In der \ac{kita} wurde im Rahmen einer Elterninitiative ein lokales Netzwerk bestehend aus fünf WLAN-Routern installiert. Dieses \ac{lan} vernetzt nicht nur die vier Gebäudeteile der Kita miteinander, es stellt zugleich die telefonische Erreichbarkeit der einzelnen Gruppen sicher. Dieses Netzwerk wurde in der Vergangenheit unter anderem dazu genutzt, Dokumente am zentralen Netzwerkdrucker im Büro der Leitung auszudrucken.
 
 Die Studierenden entschieden sich zur Umsetzung des Projektes KitaNet für die im Anschluss näher erläuterte Software HumHub.
-Einer der Vorteile war, dass diese kostenlos auf einem privaten Server installiert werden konnte. Die Installation erfolgte auf einem \ac{nas} der Firma \textit{QNAP}, genauer einem QNAP TS-253B \citep[vgl.][]{qnap}. Im von der Verwaltungssoftware des \ac{nas} bereitgestellten \textit{VM-Manager} wurde ein virtueller Ubuntu-Server erstellt, auf dem die Software Humhub installiert wurde.
+Einer der Vorteile war, dass diese kostenlos auf einem privaten Server installiert werden konnte. 
 
-Im Vergleich zum Produktivaufbau ergibt sich hier der erste Unterschied zum Versuchsaufbau für diese Arbeit. Anstatt einen Ubuntu-Server als virtuelle Maschine in einem \ac{nas} aufzusetzen, wird hier der Server auf echter Hardware betrieben. 
+Die Installation erfolgte auf einem \ac{nas} der Firma \textit{QNAP}, genauer einem QNAP TS-253B \citep[vgl.][]{qnap}. 
+Im von der Verwaltungssoftware des \ac{nas} bereitgestellten \textit{VM-Manager} wurde ein virtueller Ubuntu-Server erstellt, auf dem die Software Humhub installiert wurde.
+
+Im Vergleich zum Produktivaufbau ergibt sich hier der erste Unterschied zum Versuchsaufbau für diese Arbeit.
+Anstatt einen Ubuntu-Server als virtuelle Maschine in einem \ac{nas} aufzusetzen, wird hier der Server auf echter Hardware betrieben. 
 
 Die Nutzung einer \ac{vm} im Rahmen des Projektes war damit begründet, dass die Softwareinstallation auf dem NAS selbst nur in einem engen Rahmen möglich war. Die Nutzung einer Ubuntu-VM ermöglichte es den Studenten, die Installation in einer standardisierten Umgebung vornehmen zu können, ohne etwaige Besonderheiten des QNAP-Betriebssystems berücksichtigen zu müssen.
 
-Im Rahmen dieser Bachelorarbeit wird, wie eingangs beschrieben, die Produktivumgebung bestmöglich nachgebildet. Hierfür dient ein Fujitsu Esprimo C5730 E als Hardware, auf der Ubuntu 20.04 LTS als Betriebssystem installiert wurde. Nach Ansicht des Autors hat die verwendete Hardware keine nennenswerte Auswirkung auf die Funktionalität des beschriebenen Versuchsaufbaus. \\ Einzige zu beachtende Besonderheit ist, dass das später beschriebene \ac{ldap} in der Produktivumgebung nicht auf der \ac{vm} sondern auf dem \ac{nas} selbst ausgeführt wird. Hier ist dann die Konfiguration für eine Übernahme ins Produktivsystem entsprechend anzupassen.
+Im Rahmen dieser Bachelorarbeit wird, wie eingangs beschrieben, die Produktivumgebung bestmöglich nachgebildet. 
+Hierfür dient ein Fujitsu Esprimo C5730 E als Hardware, auf der Ubuntu 20.04 LTS als Betriebssystem installiert wurde. 
+Nach Ansicht des Autors hat die verwendete Hardware keine nennenswerte Auswirkung auf die Funktionalität des beschriebenen Versuchsaufbaus. \\ 
+Einzige zu beachtende Besonderheit ist, dass der später beschriebene \ac{ldap}-Server in der Produktivumgebung nicht auf der \ac{vm} sondern auf dem \ac{nas} selbst ausgeführt wird. Hier ist dann die Konfiguration für eine Übernahme ins Produktivsystem entsprechend anzupassen.
 
 Wie bereits erwähnt, kommt innerhalb der \ac{vm} die Software HumHub zum Einsatz. Der Umfang und die Funktionen dieser Software wird nun kurz erläutert.
 
 \section{HumHub}
 
-Bei ihren Recherchen für die Umsetzung des IT-Projektes stießen die Studenten auf die Social-Network-Software HumHub. Die Software ist quelloffen und wird von der HumHub GmbH \& Co.KG aus München vertrieben. Die Möglichkeit, die Software kostenlos für nicht kommerzielle Zwecke installieren und betreiben zu können, gab letztlich den Ausschlag für Entscheidung  \textquote{HumHub ist eine freie und sehr flexible Social Networking Software, die auf eigenen Servern gehosted werden kann} \citep{humhubmain}.
+Bei ihren Recherchen für die Umsetzung des IT-Projektes stießen die Studenten auf die Social-Network-Software HumHub. Die Software ist quelloffen und wird von der HumHub GmbH \& Co.KG aus München vertrieben. 
+Die Möglichkeit, die Software kostenlos für nicht kommerzielle Zwecke installieren und betreiben zu können, gab letztlich den Ausschlag für die Entscheidung.
+\textquote{HumHub ist eine freie und sehr flexible Social Networking Software, die auf eigenen Servern gehosted werden kann} \citep{humhubmain}.
 
 Die Grundfunktionen von HumHub und die Möglichkeit der Erweiterung der Grundfunktionen soll im Weiteren betrachtet werden.
 
 \subsection{Spaces}
 
 Spaces geben HumHub seine Grundstruktur. \textquote{A space serves as an independent area within your network with an own set of members, permissions, settings and modules} \citep{spaces}. 
-Eine Nutzerin kann Mitglied mehrerer Spaces sein und innerhalb der Spaces verschiedene Rollen einnehmen. Diese reichen von \textit{Besitzer} des Spaces, der nahezu volle Kontrolle über sämtliche Nutzer und Beiträge innerhalb des jeweiligen Spaces hat, über den \textit{Moderator}, der Beiträge verwalten kann, bis hin zum normalen Mitglied, das Beiträge erstellen kann, wenn dies vom Besitzer erlaubt wurde.  
+Eine Nutzerin kann Mitglied mehrerer Spaces sein und innerhalb der Spaces verschiedene Rollen einnehmen. 
+Diese reichen von \textit{Besitzer} des Spaces, der nahezu volle Kontrolle über sämtliche Nutzer und Beiträge innerhalb des jeweiligen Spaces hat, über den \textit{Moderator}, der Beiträge verwalten kann, bis hin zum normalen Mitglied, das Beiträge erstellen kann, wenn dies vom Besitzer erlaubt wurde.  
 
-Zentraler Sammelpunkt für Beiträge ist der \textit{Stream}, dessen Inhalt sich je nach Kontext verändert. Betrachtet ein Nutzer seine Startseite, werden ihm sämtliche Beiträge aus all seinen Spaces angezeigt. Befindet er sich in einem Space, sind nur dort erstellte Beiträge sichtbar.
+Zentraler Sammelpunkt für Beiträge ist der \textit{Stream}, dessen Inhalt sich je nach Kontext verändert. Betrachtet ein Nutzer seine Startseite, werden ihm sämtliche Beiträge aus all seinen Spaces angezeigt. 
+Befindet er sich in einem Space, sind nur dort erstellte Beiträge sichtbar.
 
-Mit den Spaces bietet Humhub die Möglichkeit, Gruppenstrukturen abzubilden. Jedoch kann in den Gruppen nicht viel mehr getan werden, als Bilder oder Texte zu erstellen und diese zu kommentieren.
+Mit den Spaces bietet Humhub die Möglichkeit, Gruppenstrukturen abzubilden. 
+Jedoch kann in den Gruppen nicht viel mehr getan werden, als Bilder oder Texte zu erstellen und diese zu kommentieren.
 Sein volles Potential kann Humhub mit den Möglichkeiten entfalten, \textit{Module} zur Funktionserweiterung nachzuladen.
 
 \subsection{Module}
 
-\textquote{The feature set of your HumHub network can be extended by installing additional modules} \citep[][]{modules}. Zur Erweiterung der Funktionalität stehen diverse Module wie Kalender, Dateiablage, Abstimmungen oder ein Wiki zur Verfügung.
-Module können für einzelne Spaces aktiviert werden, um den Bedürfnissen des jeweiligen Kontext gerecht zu werden \citep[vgl.][ff.]{modules}. Ein Space, der zur Organisation des Sommerfestes der Kita eingerichtet wurde, benötigt \zb in der Regel keinen Kalender, sehr wohl aber eine Dateiablagestruktur.
+\textquote{The feature set of your HumHub network can be extended by installing additional modules} \citep[][]{modules}. 
+Zur Erweiterung der Funktionalität stehen diverse Module wie Kalender, Dateiablage, Abstimmungen oder ein Wiki zur Verfügung.
+Module können für einzelne Spaces aktiviert werden, um den Bedürfnissen des jeweiligen Kontext gerecht zu werden \citep[vgl.][f.]{modules}. Ein Space, der zur Organisation des Sommerfestes der Kita eingerichtet wurde, benötigt \zb in der Regel keinen Kalender, sehr wohl aber eine Dateiablagestruktur.
 So wird der einzelne Space nicht mit unnötigen Features überladen, die vom Zweck der Umgebung ablenken würden. 
 
 Die Module werden zum Teil von HumHub selbst bereit gestellt, es besteht jedoch auch die Möglichkeit für Entwickler, eigene Erweiterungen zu schreiben.
 
 Besondere Erwähnung sollte die Erweiterung \textit{Ankündigungen} erhalten. 
-Eine Ankündigung wird im Stream des Spaces grundsätzlich wie eine einfache Mitteilung (ein \textit{Post}) angezeigt. Einzige Besonderheit ist, dass die Nutzer diesen Post mit einem Klick zur Kenntnis nehmen können. Diese Kenntnisnahme kann dann vom Ersteller des Beitrags oder einem Moderator \zb als Excel-Datei exportiert werden  \citep[Quellcode unter][]{announcement}. Da dieser Mitteilung auch Dateien angehängt werden können, konnten die Studenten die Forderung der Leitung nach Protokollierung der Einsichtnahme von Dokumenten Rechnung tragen.
+Eine Ankündigung wird im Stream des Spaces grundsätzlich wie eine einfache Mitteilung (ein \textit{Post}) angezeigt. 
+Einzige Besonderheit ist, dass die Nutzer diesen Post mit einem Klick zur Kenntnis nehmen können. 
+Diese Kenntnisnahme kann dann vom Ersteller des Beitrags oder einem Moderator \zb als Excel-Datei exportiert werden  \citep[Quellcode unter][]{announcement}. 
+Da dieser Mitteilung auch Dateien angehängt werden können, konnten die Studenten die Forderung der Leitung nach Protokollierung der Einsichtnahme von Dokumenten Rechnung tragen.
 
 
 \section{OpenLDAP}
 
-Zum Anlegen der Benutzer innerhalb des KitaNet wurde die Benutzerverwaltung des QNAP-NAS auf Basis von \textit{OpenLDAP} genutzt. Die Funktionsweise von OpenLDAP wird daher ebenfalls kurz erläutert.
+Zum Anlegen der Benutzer innerhalb des KitaNet wurde die Benutzerverwaltung des QNAP-NAS auf Basis des \acf{ldap} genutzt. Im Rahmen dieser Bachelorarbeit wird die quelloffene \ac{ldap}-Implementation \textit{OpenLDAP} verwendet. Die Funktionsweise von OpenLDAP wird daher ebenfalls kurz erläutert.
 
 \subsection{Funktionsweise und Datenmodell}
 
 \ac{ldap} beschreibt  ein Protokoll, welches die zentrale Ressourcenverwaltung innerhalb eines Netzwerkes über eine Datenbank abwickelt.
 \textquote{Verzeichnisdienste wie \textquote{OpenLDAP} ermöglichen es Ihnen, die Verwaltung der Ressourcen zentral zu steuern und an mehreren Stellen zu replizieren} \citep[][611]{Deimeke2019}. OpenLDAP stelle eine quelloffene Implementation dieses Standards nach \ac{rfc}4519 dar.
 
-Die Ressourcen innerhalb des \ac{ldap}-Kontextes stellen sowohl Nutzer als auch Geräte dar. Das \ac{ldap} bildet ihre Attribute, wie Namen oder Gruppenzugehörigkeiten, aber auch ihre Beziehung zu- und untereinander dar. Dies wird im weiteren noch näher erläutert. 
-\ac{ldap} besteht aus einer Datenbank, beinhaltet aber zugleich auch ein passendes Netzwerkprotokoll, um mit der Datenbank interagieren zu können \citep[vgl.][3]{Gietz}.
+Die Ressourcen innerhalb des \ac{ldap}-Kontextes können sowohl Nutzer als auch Geräte darstellen. OpenLDAP bildet ihre Attribute, wie Namen oder Gruppenzugehörigkeiten, aber auch ihre Beziehung zu- und untereinander dar. Dies wird im weiteren noch näher erläutert. 
+\ac{ldap} beschreibt gleichzeitig eine Datenbank sowie ein passendes Netzwerkprotokoll, um mit der Datenbank interagieren zu können \citep[vgl.][3]{Gietz}.
 
-Deimeke \ua führen weiter aus, dass der Vorteil des Einsatzes eines \ac{ldap} darin besteht, dass jeder Nutzer nur noch ein Konto besitzt, dessen Passwort dann zentral verwaltet und geändert werden kann. \textquote{Um diese zentrale Verwaltung der Ressourcen realisieren zu können, wurde das \textit{Lightweight Directory Access Protocol} (LDAP) entwickelt} \citep[][611]{Deimeke2019}.
+Deimeke \ua führen weiter aus, dass der Vorteil des Einsatzes von \ac{ldap} darin besteht, dass jeder Nutzer nur noch ein Konto besitzt, dessen Passwort dann zentral verwaltet und geändert werden kann. 
+\textquote{Um diese zentrale Verwaltung der Ressourcen realisieren zu können, wurde das \textit{Lightweight Directory Access Protocol} (LDAP) entwickelt} \citep[][611]{Deimeke2019}.
 
 Dienste auf dem Server können auf OpenLDAP zugreifen, und die Login-Informationen und Berechtigungen für die hinterlegten Nutzer auslesen.
 
-Innerhalb des \ac{ldap} werden die Daten zu den einzelnen Ressourcen innerhalb einer Hierarchie, dem \ac{dit} abgelegt \citep[vgl.][7]{rfc4512}. Zentraler Inhalt des \ac{dit} bilden Objekte. Diese sind die zu verwaltenden Ressourcen \citep[vgl.][614]{Deimeke2019}. 
+Innerhalb des \ac{ldap} werden die Daten zu den einzelnen Ressourcen innerhalb einer Hierarchie, dem \ac{dit} abgelegt \citep[vgl.][7]{rfc4512}. 
+Zentraler Inhalt des \ac{dit} bilden Objekte. Diese sind die zu verwaltenden Ressourcen \citep[vgl.][614]{Deimeke2019}. 
 \textquote{Ein Objekt kann sowohl ein Container sein, in dem weitere Objekte verwaltet werden, als auch ein Benutzer oder eine Gruppe sein. Eines ist bei allen Objekten aber immer gleich: Alle Objekte haben Eigenschaften, die \textit{Attribute}} \citep[][614]{Deimeke2019}. 
 
 Eines dieser Attribute ist \zb die \textit{mail}, welche den e-Mail-Adresse des Nutzers repräsentiert \citep[][18]{rfc4519}.
@@ -125,9 +155,9 @@ Eines dieser Attribute ist \zb die \textit{mail}, welche den e-Mail-Adresse des 
 
 Innerhalb der Baumstruktur des \ac{dit} bilden die Nutzer die Blätter. Davon abgegrenzt werden die Äste. Diese werden von Containerobjekten gebildet, welche man auch als \ac{ou} bezeichnet \citep[vgl.][614]{Deimeke2019}.
 
-Angesprochen werden diese Objekte über seinen \ac{dn}, einen für jedes Objekt eindeutigen Namen, vergleichbar mit dem in Dateisystemen geläufigen Prinzip von Dateipfad und Dateinamen (\zb \verb+C:/Ordner/Datei.txt+) \citep[vgl.][613]{Deimeke2019}. 
+Angesprochen werden diese Objekte über ihren \ac{dn}, einen für jedes Objekt eindeutigen Namen, vergleichbar mit dem in Dateisystemen geläufigen Prinzip von Dateipfad und Dateinamen (\zb \verb+C:/Ordner/Datei.txt+) \citep[vgl.][613]{Deimeke2019}. 
 
-Die Mitgliedschaft der Blatt-Objekte in Gruppen kann über Suchanfragen an \ac{ldap} ausgelesen werden. Beispielsweise gibt die Suchanfrage\\ \verb+ldapsearch -x  "(mail=administrator@kitanet.local)"+ in der Konsole eines Servers den Eintrag der \ac{ldap}-Datenbank zurück, der den Mail-Adresse \textit{administrator@kitanet.local} besitzt (vgl. \autoref{ldapabfrage}).
+Die Mitgliedschaft der Blatt-Objekte in Gruppen kann über Suchanfragen an \ac{ldap} ausgelesen werden. Beispielsweise gibt die Suchanfrage\\ \verb+ldapsearch -x  "(mail=administrator@kitanet.local)"+ in der Konsole eines Servers den Eintrag der \ac{ldap}-Datenbank zurück, der den Mail-Adresse \textit{administrator@kitanet.local} besitzt (vgl. \autoref{ldapabfrage}). Der \ac{dn} des hier gezeigten Objektes lautet \verb+uniqueIdentifier=administrator,ou=people,dc=kitanet+ (vgl. \autoref{ldapabfrage} Z. 2).
 
 Wie HumHub \bzw KitaNet nun mit dem \ac{ldap} zusammenarbeiten, wird im nächsten Abschnitt an ausgewählten Beispielen erläutert.
 
@@ -142,7 +172,7 @@ Innerhalb von HumHub kann die \ac{ldap}-Anbindung über das Webinterface konfigu
   \label{fig:LDAP Kitanet Teil 1}
 \end{figure}
 
-In der Zeile \textit{Benutzername} ist ein Beispiel für eine \ac{dn} zu sehen. Für den Login im LDAP wird der Nutzer mit dem Attribut \textit{uid} \textit{kitanet}, Mitglied in der \ac{ou} \textit{services} in dem \ac{dc} \textit{kitanet} verwendet.
+In der Zeile \textit{Benutzername} ist ein Beispiel für eine \ac{dn} zu sehen. Für den Login in OpenLDAP wird der Nutzer mit dem Attribut \textit{uid} \textit{kitanet}, Mitglied in der \ac{ou} \textit{services} in dem \ac{dc} \textit{kitanet} verwendet.
 
 \begin{figure}[H]
   \centering
@@ -151,15 +181,16 @@ In der Zeile \textit{Benutzername} ist ein Beispiel für eine \ac{dn} zu sehen. 
   \label{fig:LDAP Kitanet Teil 2}
 \end{figure}
 
-Im unteren Teil der Einstellungen wird zunächst der \textit{Basis DN} festgelegt. Dieser legt fest in welchem Pfad des LDAP nach neuen Nutzern gesucht werden soll. Im hier vorliegenden Fall werden zunächst alle Objekte erfasst werden, sie sich in der \ac{dn} \textit{kitanet} befinden.
+Im unteren Teil der Einstellungen wird zunächst der \textit{Basis DN} festgelegt. Dieser legt fest in welchem Pfad innerhalb von OpenLDAP nach neuen Nutzern gesucht werden soll. Im hier vorliegenden Fall werden zunächst alle Objekte erfasst werden, sie sich in der \ac{dn} \textit{kitanet} befinden.
 
-Der \textit{Anmelde-Filter} legt fest, welches Attribut gegen den beim Login eingegebenen Nutzernamen geprüft wird. Dies steht auch in direkter Verbindung zu den Feldern \textit{Benutzernamen Attribut} und \textit{ID Attribut} die auch beide aus dem Attribut \textit{uniqueIdentifier} ihre Informationen beziehen. 
+Der \textit{Anmelde-Filter} legt fest, welches Attribut gegen den beim Login eingegebenen Nutzernamen geprüft wird. 
+Dies steht auch in direkter Verbindung zu den Feldern \textit{Benutzernamen Attribut} und \textit{ID Attribut} die auch beide aus dem Attribut \textit{uniqueIdentifier} ihre Informationen beziehen. 
 
 Das Feld \textit{Benutzer Filer} legt fest, dass nur solche Objekte in Kitanet erfasst werden die ein Attribut namens \textit{objectClass} mit dem Wert \textit{person} und gleichzeitig das Attribut \textit{mailEnabled} mit dem Wert \textit{TRUE} besitzen.
 
 Wichtig für die hier vorliegende Problemstellung ist noch die Verknüpfung der E-Mail-Adresse des Humhub-Nutzers mit dem LDAP-Attribut \textit{mail}. 
 
-Das Auslesen des \ac{ldap} führt somit zu nachfolgender Nutzerliste.
+Das Auslesen von OpenLDAP führt somit zu nachfolgender Nutzerliste.
 
 \begin{figure}[h]
   \centering
@@ -168,7 +199,7 @@ Das Auslesen des \ac{ldap} führt somit zu nachfolgender Nutzerliste.
   \label{fig:Nutzerliste}
 \end{figure}
 
-Das \ac{ldap} wird periodisch über einen sogenannten \textit{Cronjob} ausgelesen. Neue Nutzer werden entsprechend den oben dargestellten Kriterien angelegt und können sich ab diesem Moment mit dem in \ac{ldap} vergebenen Kennwort anmelden.
+Das \ac{ldap} wird periodisch über einen sogenannten \textit{Cronjob} ausgelesen. Bei einem Cronjob handelt es sich um eine zyklische Aufgabe, die \zb stündlich vom \textit{Cron-Daemon} automatisch ausgeführt wird \citep{cronjob}. Neue Nutzer werden entsprechend den oben dargestellten Kriterien angelegt und können sich ab diesem Moment mit dem in \ac{ldap} vergebenen Kennwort anmelden.
 
 Dies schließt die Beschreibung des \textit{IST-Zustand} von Kitanet und der Testumgebung ab. Im folgenden werden nun die Grundlagen zum E-Mail-Versand dargestellt.
 
@@ -683,13 +714,27 @@ Es bleibt festzustellen, dass das E-Mail-System in seiner jetzigen Ausgestaltung
 
 \textquote{E-Mail ist ein wesentlich komplexeres Thema, als viele Einsteiger in diese Materie vermuten} \citep[][1109]{Kofler2020}. 
 Hätte der Autor gewusst, was auf ihn zukommt, hätte er vermutlich ein anderes Thema gewählt. 
+Schon der Titel spiegelt den Lernfortschritt wider. 
+So konnte Humhub mit der Domain \verb+@kitanet+ nicht umgehen, da die Mail-Adresse nicht als gültig anerkannt wurde. 
+Dies war dann der Grund für das zusätzliche \verb+.local+.
 Im Nachhinein betrachtet waren es viele Wochen des Lesens und Zweifelns aber letztendlich doch des Lernens und des Erfolgs.
 Das Gefühl, wenn das Terminal auf einmal \verb+250 OK+ meldet, nachdem man zwanzig Mal eine Konfigurationsdatei umgeschrieben und den Postfix-Service neu gestartet hat, entschädigt für vieles.
 
-Das ursprüngliche Ziel des Projektes, die Änderung von Kennwörtern in OpenLDAP zur Anmeldung in Kitanet, konnte leider nicht umgesetzt werden. 
+Wie kann die Implementation eines E-Mail-Servers innerhalb des Kitanet gelingen? Dies war die in \autoref{sec:Frage} formulierte Fragestellung dieser Bachelor-Thesis. 
+Die Implementierung eines zusätzlichen \ac{ldap}-Schemas, die Installation von Postfix, Dovecot, Cyrus SASL und Roundcube und wochenlange Recherchen brachten die Antwort. \textquote{Ja!}
+Die Nutzer werden nun per Mail über neue Einträge in Kitanet informiert. Auch eine tägliche Zusammenfassung stellt die Plattform  auf Wunsch zur Verfügung.
+
+Ursprünglich wurde dieses Projekt vom Autor ins Auge gefasst, um den Nutzern eine Möglichkeit zu geben, selbst Ihre vergessenen Zugangspasswörter für KitaNet grundzustellen.
+Dies stellte sich aber leider als nicht umsetzbar heraus. 
 Dies lag jedoch nicht an der Implementation des Mail-Systems, sondern ist der Tatsache geschuldet, dass Humhub keine Mechanik mitbringt, Daten in OpenLDAP zu ändern. 
 Die LDAP-Anbindung wird lediglich zum Auslesen der Benutzerdaten genutzt. 
 Auch dies wurde dem Autor erst während dem Erstellen der Arbeit bewusst.
 
-Ob unter diesen Voraussetzungen eine Installation von Postfix, Dovecot, Cyrus SASL und Roundcube auf dem System der Kita Schloss-Ardeck erfolgt, bleibt abzuwarten.
+Jedoch besteht nun die Möglichkeit, die Kommunikation in der Kita zu öffnen. 
+Denkbar wäre, dass zukünftig die Erzieherinnen selbst für Eltern per dienstlicher Mail-Adresse erreichbar wären. 
+Das hier vorgestellte Paket bietet grundsätzlich die Möglichkeit zur Kommunikation mit der Außenwelt.
+Natürlich kann dies dann nicht unter der Domain \verb+@kitanet.local+ erfolgen. 
+Aber die Grundlagen wurden geschaffen.
+
+Ob eine Umsetzung der hier vorgestellten Lösung in der Kita Schloss-Ardeck durchgeführt werden wird, bleibt abzuwarten.
 Für den Fall, dass das Team die Funktionalität wünscht, ist die hier vorgestellte Lösung auf jeden Fall bereit.
