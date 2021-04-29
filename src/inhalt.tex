@@ -653,7 +653,7 @@ Im weiteren Verlauf wird nun Postfix auf dem System installiert und in den Verbu
 \markboth{Installation und Tests}{}
 
 Die Installation und Einrichtung von Postfix, Dovecot und Roundcube brachte kleinere und größere Probleme zu Tage. 
-So lief zum Beispiel die Installation von Roundcube nicht fehlerfrei, wenn der SMTP-Server keine Authentifikationsmöglichkeiten \citep[vgl. hierzu][]{rfc5248} bereitstellte. 
+So lief zum Beispiel die Installation von Roundcube nicht fehlerfrei, wenn der SMTP-Server keine Authentifikationsmöglichkeiten \citep[vgl. hierzu][]{rfc4954} bereitstellte. 
 Dies führte zu einer vorher nicht geplanten Installation von \textit{Cyrus SASL}, einem Dienst der einen \ac{sasl} bereitstellt. 
 
 Der Autor sah ursprünglich keine Notwendigkeit, Postfix gegen das Versenden von von Mails durch Unberechtigte abzusichern, da weder der Server noch das Netzwerk an sich vom Internet aus erreichbar sind. 
@@ -686,7 +686,7 @@ Hier werden grundlegende Einstellungen wie die Festlegung des Hostnamens vorgeno
 
 Die Zeilen 31-41 regeln die Zustellung von E-Mails an die in LDAP hinterlegten Empfänger via Dovecot. Hierzu werden auch die  Dateien \verb+virtual_ldap_recipients+ und \verb+virtual_ldap_aliases+ eingebunden (vgl. \autoref{postfix/main.cf} Z. 39-41).
 
-Zeile 47 aktiviert die Authentifikation nach \ac{rfc} 4954 via Cyrus SASL \textbf{CITITATION NEEDED}.
+Zeile 47 aktiviert die Authentifikation nach \ac{rfc} 4954 via Cyrus SASL \citep[vgl.][3]{rfc4954}.
 In den Zeilen 49 ff. wird festgelegt, wie sich Postfix während einem SMTP-Dialog verhalten soll.
 So lehnt Postfix \zb gemäß Z. 52 E-Mails ab, welche keinen \ac{fqdn} als Empfänger haben \citep[vgl.][]{postfixfqdn}. 
 Der \ac{fqdn} des hier eingerichteten Mailserver \verb+mail.kitanet.local+ wäre \zb \verb+kitanet.local+ \citep[vgl.][]{fqdn}. 
