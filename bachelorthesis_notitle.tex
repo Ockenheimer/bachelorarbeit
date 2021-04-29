@@ -1,0 +1,62 @@
+\documentclass[12pt,a4paper,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[nohyperlinks, printonlyused]{acronym}
+
+% Hauptdatei des Projektes. Von hier aus werden die anderen Seiten eingebunden
+\input{src/konfiguration_notitle.tex}
+
+\input{src/pdfa.tex}
+
+\begin{document}
+
+
+%\input{src/titelseite.tex}
+
+\pagenumbering{roman}
+\setcounter{page}{2}
+
+\input{src/abstract.tex}
+
+
+
+\newpage
+\tableofcontents
+\newpage
+\input{src/acronym.tex}
+\newpage
+\setcounter{tocdepth}{3}
+
+
+% Abstand nach Absätzen
+\setlength{\parskip}{0.3cm}
+
+
+
+% falls man lieber den kompletten Inhalt in einer Datei haben möchte, folgende Zeile auskommentieren und die Chapter-Zeilen (nächster Abschnitt) kommentieren
+\input{src/inhalt.tex}
+
+
+\newpage
+
+% nocite lässt alle Werke anzeigen, auch solche die nicht verlinkt sind.
+%\nocite{*}
+\printbibliography[heading=none]
+
+\newpage
+
+% Rudi will kein Abbildungsverzeichnis
+\listoffigures
+%\listoftables
+%\listlistoflistings
+\newpage
+%\cleardoublepage
+\input{src/appendix.tex}
+
+\clearpage
+
+%\input{src/selbstaendigkeit.tex}
+
+\end{document}
+
