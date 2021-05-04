@@ -9,10 +9,10 @@
 \section{Kontext und Forschungsfrage}
 \label{sec:Frage}
 Im Rahmen des Studiums der Sozialinformatik wurde in der \ac{kita} \textit{Schloss Ardeck} in Gau-Algesheim vom Autoren dieser Bachelor-Thesis ein lokales soziales Netzwerk als Kommunikations- und Dokumentenmanagementsystem eingeführt. 
-In dem \textit{KitaNet} genannten System können durch die Leitung und Mitarbeitenden der Einrichtung beispielsweise Elternbriefe ausgetauscht und erarbeitet werden oder Terminabsprachen und Diskussionen geführt werden, auch wenn die Kolleginnen aufgrund von Schichtdiensten nicht immer direkten Kontakt haben. \\ 
+In dem \textit{KitaNet} genannten System können durch die Leitung und Mitarbeitenden der Einrichtung beispielsweise Elternbriefe ausgetauscht und erarbeitet werden oder Terminabsprachen und Diskussionen geführt werden, auch wenn die Kolleginnen aufgrund ungünstiger Verteilung von Früh- und Spätdiensten nicht immer direkten Kontakt haben. \\ 
 Das Projekt wurde innerhalb von zwei Jahren realisiert und in der \ac{kita} implementiert.
 
-Technisch besteht KitaNet aus einer \ac{vm} auf einem \ac{nas}-System der Firma QNAP. 
+Technisch besteht KitaNet aus einem \ac{nas}-System der Firma QNAP auf dem eine \ac{vm} betrieben wird.
 Auf der \ac{vm} läuft die auf der Skriptsprache \ac{php} basierende Software \textit{HumHub}. 
 Diese arbeitet mit einer durch QNAP bereitgestellten Implementierung einer \ac{ldap}-Datenbank zur Benutzerverwaltung zusammen. 
 Dies war notwendig, um der Leitung der Kita eine Möglichkeit zu bieten, Nutzerpasswörter grundzustellen und neue Nutzer anzulegen.
@@ -31,18 +31,18 @@ In dieser Bachelor-Thesis wird zunächst KitaNet sowie die hier vorliegende Hard
 In diesem Kapitel wird auch die Funktionalität des \ac{ldap} beschrieben.
 
 Das nächste Kapitel behandelt zunächst die Funktionsweise eines \ac{smtp}-Servers. Im Anschluss werden die Anforderungen und Nutzungsszenarien des Mailservers für KitaNet festgelegt. 
-Die Anforderungen umfassen dabei zum einen Punkte wie die Zusammenarbeit mit einem Nutzerverzeichnis, verbunden mit einer möglichen Automation des Anlegens von Mail-Nutzern, werden aber zum anderen auch nichtfunktionale Aspekte, wie den zu erwartenden Pflegeaufwand oder die finanzielle Belastung durch etwaige Lizenzkosten, beachten. 
+Die Anforderungen umfassen dabei zum einen Punkte, wie die Zusammenarbeit mit einem Nutzerverzeichnis, verbunden mit einer möglichen Automation des Anlegens von Mail-Nutzern, werden aber zum anderen auch nichtfunktionale Aspekte, wie den zu erwartenden Pflegeaufwand oder die finanzielle Belastung durch etwaige Lizenzkosten, beachten. 
 
 \autoref{sec:Anforderung} beschäftigt sich mit den Anforderungen, die an das fertige Produkt gestellt werden. Hierzu werden zunächst die theoretischen Grundlagen des \ac{re} erläutert, die dann die Grundlage für die Formulierung der Anforderungen bilden. Abnahmetests werden die Funktionalität und Praxistauglichkeit der späteren Installation sicherstellen. Die Formulierung dieser Tests bildet den Abschluss  dieses Kapitels.
 
 Anschließend werden die zur Wahl stehenden Softwarepakete \textit{postfix} und \textit{Exim} vorgestellt. Die im vorherigen Kapitel formulierten Anforderungen werden mit dem Funktionsumfang der Softwarepakete abgeglichen. Aufgrund dieses Vergleichs beider Softwarepakete erfolgt im \autoref{sec:Entscheidung} die Entscheidung zugunsten eines Kandidaten. 
 
-Dessen Installation bildet das siebte Kapitel. Es wird dargestellt, ob und welche Anpassungen vorzunehmen sind, um den \ac{smtp}-Server in die vorliegende Umgebung zu integrieren. Dies schließt die Nutzung einer \ac{ldap}-Datenbank mit ein. 
+Die Installation der gewählten Software bildet das siebte Kapitel. Es wird dargestellt, ob und welche Anpassungen vorzunehmen sind, um den \ac{smtp}-Server in die vorliegende Umgebung zu integrieren. Dies schließt die Nutzung einer \ac{ldap}-Datenbank mit ein. 
 An den Installationsprozess schließt sich die Dokumentation der Tests an.
 
 Ein fachliches und persönliches Fazit schließt diese Bachelor-Thesis ab.
 
-\textit{Erstmalige Fachbegriffe oder Eigennamen} werden \textit{kursiv} dargestellt und in diesem Kontext erläutert.  \\ \textquote{Zitate werden mit französischen Anführungszeichen gekennzeichnet}. \\ \verb+Code oder ähnliches+ wiederum werden immer in einer \verb+Monospace-Schriftart+ ausgegeben, um ihn vom umliegenden Text zu separieren. \\ Abkürzungen und Akronyme wie \zb \ac{nas} werden bei der ersten Erwähnung kursiv ausgeschrieben und mit der Abkürzung benannt. Diese findet sich dann auch im Abkürzungsverzeichnis. Im weiteren Text erscheinen Sie in der Regel nur noch abgekürzt. Hiervon kann abgewichen werden, wenn die Langschreibweise dem besseren Verständnis zuträglich ist.
+\textit{Erstmalige Fachbegriffe oder Eigennamen} werden \textit{kursiv} dargestellt und in diesem Kontext erläutert.  \\ \textquote{Zitate werden mit französischen Anführungszeichen gekennzeichnet}. \\ \verb+Code oder ähnliches+ wiederum werden immer in einer \verb+Monospace-Schriftart+ ausgegeben, um ihn vom umliegenden Text zu separieren. \\ Abkürzungen und Akronyme wie \zb \ac{nas} werden bei der ersten Erwähnung kursiv ausgeschrieben und mit der Abkürzung benannt. Diese findet sich dann auch im Abkürzungsverzeichnis wieder. Im weiteren Text erscheinen Sie in der Regel nur noch abgekürzt. Hiervon kann abgewichen werden, wenn die Langschreibweise dem besseren Verständnis zuträglich ist.
 
 \section{Methodik}
 
@@ -76,7 +76,7 @@ Die Studierenden entschieden sich zur Umsetzung des Projektes KitaNet für die i
 Einer der Vorteile war, dass diese kostenlos auf einem privaten Server installiert werden konnte. 
 
 Die Installation erfolgte auf einem \ac{nas} der Firma \textit{QNAP}, genauer einem QNAP TS-253B \citep[vgl.][]{qnap}. 
-Im von der Verwaltungssoftware des \ac{nas} bereitgestellten \textit{VM-Manager} wurde ein virtueller Ubuntu-Server erstellt, auf dem die Software Humhub installiert wurde.
+Im von der Verwaltungssoftware des \ac{nas} bereitgestellten \textit{VM-Manager} wurde ein virtueller Ubuntu-Server erstellt, auf dem die Software HumHub installiert wurde.
 
 Im Vergleich zum Produktivaufbau ergibt sich hier der erste Unterschied zum Versuchsaufbau für diese Arbeit.
 Anstatt einen Ubuntu-Server als virtuelle Maschine in einem \ac{nas} aufzusetzen, wird hier der Server auf echter Hardware betrieben. 
@@ -108,9 +108,9 @@ Diese reichen von \textit{Besitzer} des Spaces, der nahezu volle Kontrolle über
 Zentraler Sammelpunkt für Beiträge ist der \textit{Stream}, dessen Inhalt sich je nach Kontext verändert. Betrachtet ein Nutzer seine Startseite, werden ihm sämtliche Beiträge aus all seinen Spaces angezeigt. 
 Befindet er sich in einem Space, sind nur dort erstellte Beiträge sichtbar.
 
-Mit den Spaces bietet Humhub die Möglichkeit, Gruppenstrukturen abzubilden. 
+Mit den Spaces bietet HumHub die Möglichkeit, Gruppenstrukturen abzubilden. 
 Jedoch kann in den Gruppen nicht viel mehr getan werden, als Bilder oder Texte zu erstellen und diese zu kommentieren.
-Sein volles Potential kann Humhub mit den Möglichkeiten entfalten, \textit{Module} zur Funktionserweiterung nachzuladen.
+Sein volles Potential kann HumHub mit den Möglichkeiten entfalten, \textit{Module} zur Funktionserweiterung nachzuladen.
 
 \subsection{Module}
 
@@ -138,7 +138,7 @@ Zum Anlegen der Benutzer innerhalb des KitaNet wurde die Benutzerverwaltung des 
 \ac{ldap} beschreibt  ein Protokoll, welches die zentrale Ressourcenverwaltung innerhalb eines Netzwerkes über eine Datenbank abwickelt.
 \textquote{Verzeichnisdienste wie \textquote{OpenLDAP} ermöglichen es Ihnen, die Verwaltung der Ressourcen zentral zu steuern und an mehreren Stellen zu replizieren} \citep[][611]{Deimeke2019}. OpenLDAP stelle eine quelloffene Implementation dieses Standards nach \ac{rfc}4519 dar.
 
-Die Ressourcen innerhalb des \ac{ldap}-Kontextes können sowohl Nutzer als auch Geräte darstellen. OpenLDAP bildet ihre Attribute, wie Namen oder Gruppenzugehörigkeiten, aber auch ihre Beziehung zu- und untereinander ab. Dies wird im weiteren noch näher erläutert. 
+Die Ressourcen innerhalb des \ac{ldap}-Kontextes können sowohl Nutzer als auch Geräte darstellen. OpenLDAP bildet ihre Attribute, wie Namen oder Gruppenzugehörigkeiten, aber auch ihre Beziehung zu- und untereinander ab. Dies wird im Weiteren noch näher erläutert. 
 \ac{ldap} beschreibt gleichzeitig eine Datenbank sowie ein passendes Netzwerkprotokoll, um mit der Datenbank interagieren zu können \citep[vgl.][3]{Gietz}.
 
 Deimeke \ua führen weiter aus, dass der Vorteil des Einsatzes von \ac{ldap} darin besteht, dass jeder Nutzer nur noch ein Konto besitzt, dessen Passwort dann zentral verwaltet und geändert werden kann. 
@@ -157,7 +157,7 @@ Innerhalb der Baumstruktur des \ac{dit} bilden die Nutzer die Blätter. Davon ab
 
 Angesprochen werden diese Objekte über ihren \ac{dn}, einen für jedes Objekt eindeutigen Namen, vergleichbar mit dem in Dateisystemen geläufigen Prinzip von Dateipfad und Dateinamen (\zb \verb+C:/Ordner/Datei.txt+) \citep[vgl.][613]{Deimeke2019}. 
 
-Die Mitgliedschaft der Blatt-Objekte in Gruppen kann über Suchanfragen an \ac{ldap} ausgelesen werden. Beispielsweise gibt die Suchanfrage\\ \verb+ldapsearch -x  "(mail=administrator@kitanet.local.local)"+ in der Konsole eines Servers den Eintrag der \ac{ldap}-Datenbank zurück, der die Mail-Adresse \textit{administrator@kitanet.local.local} besitzt (vgl. \autoref{ldapabfrage}). Der \ac{dn} des hier gezeigten Objektes lautet \\ \verb+uniqueIdentifier=administrator,ou=people,dc=kitanet+ (vgl. \autoref{ldapabfrage} Z. 2).
+Die Mitgliedschaft der Blatt-Objekte in Gruppen kann über Suchanfragen an \ac{ldap} ausgelesen werden. Beispielsweise gibt die Suchanfrage\\ \verb+ldapsearch -x "(mail=administrator@kitanet.local)"+ in der Konsole eines Servers den Eintrag der \ac{ldap}-Datenbank zurück, der die Mail-Adresse \textit{administrator@kitanet.local} besitzt (vgl. \autoref{ldapabfrage}). Der \ac{dn} des hier gezeigten Objektes lautet \\ \verb+uniqueIdentifier=administrator,ou=people,dc=kitanet+ (vgl. \autoref{ldapabfrage} Z. 2).
 
 Wie HumHub \bzw KitaNet nun mit dem \ac{ldap} zusammenarbeitet, wird im nächsten Abschnitt an ausgewählten Beispielen erläutert.
 
@@ -168,8 +168,8 @@ Innerhalb von HumHub kann die \ac{ldap}-Anbindung über das Webinterface konfigu
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{res/ldapkitanet1.png}
-  \caption{Teil 1 der LDAP-Konfiguration für Kitanet (Eigene Abbildung)}
-  \label{fig:LDAP Kitanet Teil 1}
+  \caption{Teil 1 der LDAP-Konfiguration für KitaNet (Eigene Abbildung)}
+  \label{fig:LDAP KitaNet Teil 1}
 \end{figure}
 
 In der Zeile \textit{Benutzername} ist ein Beispiel für eine \ac{dn} zu sehen. Für den Login in OpenLDAP wird der Nutzer mit dem Attribut \textit{uid} \textbf{\textit{kitanet}}, Mitglied in der \ac{ou} \textbf{\textit{services}} in dem \ac{dc} \textbf{\textit{kitanet}} verwendet.
@@ -177,18 +177,18 @@ In der Zeile \textit{Benutzername} ist ein Beispiel für eine \ac{dn} zu sehen. 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{res/ldapkitanet2.png}
-  \caption{Teil 2 der LDAP-Konfiguration für Kitanet (Eigene Abbildung)}
-  \label{fig:LDAP Kitanet Teil 2}
+  \caption{Teil 2 der LDAP-Konfiguration für KitaNet (Eigene Abbildung)}
+  \label{fig:LDAP KitaNet Teil 2}
 \end{figure}
 
-Im unteren Teil der Einstellungen wird zunächst der \textit{Basis DN} festgelegt. Dieser legt fest in welchem Pfad innerhalb von OpenLDAP nach neuen Nutzern gesucht werden soll. Im hier vorliegenden Fall werden zunächst alle Objekte erfasst werden, sie sich in der \ac{dn} \textbf{\textit{kitanet}} befinden.
+Im unteren Teil der Einstellungen wird zunächst der \textit{Basis DN} festgelegt. Dieser legt fest in welchem Pfad innerhalb von OpenLDAP nach neuen Nutzern gesucht werden soll. Im hier vorliegenden Fall werden zunächst alle Objekte erfasst werden, die sich in der \ac{dn} \textbf{\textit{kitanet}} befinden.
 
 Der \textit{Anmelde-Filter} legt fest, welches Attribut gegen den beim Login eingegebenen Nutzernamen geprüft wird. 
 Dies steht auch in direkter Verbindung zu den Feldern \textit{Benutzernamen Attribut} und \textit{ID Attribut}, die auch beide aus dem Attribut \textit{uniqueIdentifier} ihre Informationen beziehen. 
 
-Das Feld \textit{Benutzer Filer} legt fest, dass nur solche Objekte in Kitanet erfasst werden die ein Attribut namens \textit{objectClass} mit dem Wert \textbf{\textit{person}} und gleichzeitig das Attribut \textit{mailEnabled} mit dem Wert \textbf{\textit{TRUE}} besitzen.
+Das Feld \textit{Benutzer Filer} legt fest, dass nur solche Objekte in KitaNet erfasst werden die ein Attribut namens \textit{objectClass} mit dem Wert \textbf{\textit{person}} und gleichzeitig das Attribut \textit{mailEnabled} mit dem Wert \textbf{\textit{TRUE}} besitzen.
 
-Wichtig für die hier vorliegende Problemstellung ist noch die Verknüpfung der E-Mail-Adresse des Humhub-Nutzers mit dem LDAP-Attribut \textit{mail}. 
+Wichtig für die hier vorliegende Problemstellung ist noch die Verknüpfung der E-Mail-Adresse des HumHub-Nutzers mit dem LDAP-Attribut \textit{mail}. 
 
 Das Auslesen von OpenLDAP führt somit zu nachfolgender Nutzerliste.
 
@@ -201,7 +201,7 @@ Das Auslesen von OpenLDAP führt somit zu nachfolgender Nutzerliste.
 
 OpenLDAP wird periodisch über einen sogenannten \textit{Cronjob} ausgelesen. Bei einem Cronjob handelt es sich um eine zyklische Aufgabe, die \zb stündlich vom \textit{Cron-Daemon} automatisch ausgeführt wird \citep{cronjob}. Neue Nutzer werden entsprechend den oben dargestellten Kriterien angelegt und können sich ab diesem Moment mit dem in OpenLDAP vergebenen Kennwort anmelden.
 
-Dies schließt die Beschreibung des IST-Zustand von Kitanet und der Testumgebung ab. In \autoref{sec:Der Standard} werden nun die Grundlagen zum E-Mail-Versand dargestellt.
+Dies schließt die Beschreibung des IST-Zustand von KitaNet und der Testumgebung ab. In \autoref{sec:Der Standard} werden nun die Grundlagen zum E-Mail-Versand dargestellt.
 
 \chapter{Der Standard \textit{SMTP}}
 \markboth{Der Standard \textit{SMTP}}{}
@@ -235,7 +235,7 @@ Mit Code 250 \textquote{Requested mail action okay, completed} \citep[][38]{rfc8
 Der Client meldet anschließend \\
 \verb+C: MAIL FROM: <admin@kitanet.local>+ welches vom Host mit einem \\
 \verb+H: 250 OK+ bestätigt wird.\\
-Der Client verwendet den Befehl MAIL um die E-Mail-Transaktion zu starten. Er teilt dem Host mit, welchen Pfad das Datenpaket bisher genommen hat, bzw. welchen Weg eine eventuelle Antwort des Hosts nehmen muss um beim ursprünglichen Absender der Nachricht anzukommen. Postel spricht hier vom \textquote{reverse-path}. \textquote{When the list of hosts is present, it is a „reverse“ source route and indicates that the mail was relayed through each host on the list (the first host in the list was the most recent relay)}\citep[vgl.][20]{rfc821}.
+Der Client verwendet den Befehl MAIL um die E-Mail-Transaktion zu starten. Er teilt dem Host mit, welchen Pfad das Datenpaket bisher genommen hat, bzw. welchen Weg eine eventuelle Antwort des Hosts nehmen muss um beim ursprünglichen Absender der Nachricht anzukommen. Postel spricht hier vom \textquote{reverse-path}. \textquote{When the list of hosts is present, it is a „reverse“ source route and indicates that the mail was relayed through each host on the list (the first host in the list was the most recent relay)} \citep[vgl.][20]{rfc821}.
 
 Mit dem \ac{smtp}-Befehl\\
 \verb+C: RCPT TO: <user@example.org>+ \\ 
@@ -261,14 +261,14 @@ Zum Beenden der Verbindung sendet der Client das Kommando \\
 \verb+C: QUIT+, welches vom Host mit \\
 \verb+H: 221 bye+ bestätigt wird. 
 
-Hier wurde nur ein sehr vereinfachter Dialog zwischen Host und Client dargestellt. Postel stattete die Spezifikation mit weiteren, heute teils obsoleten, Optionen aus, wie z.B. der Möglichkeit Mails an ein Terminal zu verschicken, statt in ein Postfach \citep[vgl.][11]{rfc821} oder notwendigen Funktionalitäten wie dem Befehl EXPAND (EXPN) um die Teilnehmer einer Mailingliste anzeigen zu können \citep[vgl.][8]{rfc821}.
+Hier wurde nur ein sehr vereinfachter Dialog zwischen Host und Client dargestellt. Postel stattete die Spezifikation mit weiteren, heute teils obsoleten, Optionen aus, wie z.B. der Möglichkeit Mails an ein Terminal zu verschicken statt in ein Postfach \citep[vgl.][11]{rfc821} oder notwendigen Funktionalitäten wie dem Befehl EXPAND (EXPN) um die Teilnehmer einer Mailingliste anzeigen zu können \citep[vgl.][8]{rfc821}.
 \citereset
 
 Auch muss der Host in der Lage sein, Verarbeitungsfehler mitzuteilen oder dem Client zu signalisieren, dass er den Empfänger nicht kennt. Der Umfang der gesamten Spezifikation würde hier den Rahmen sprengen, es sei insoweit auf \cite[][S. 37 ff.]{rfc821} verwiesen. Hier stellt Postel die möglichen Antworten für die SMTP-Kommandos dar.
 
-Für die Kommunikation zwischen dem letzten SMTP-Server und dem \ac{mda} \citep[vgl.][28]{Heinlein2004} der die Mail letztendlich im lokalen Postfach ablegt, wurde das \ac{lmtp} entwickelt. \textquote{Es ist aber nicht dazu gedacht, SMTP/ESMTP zu ersetzen, es soll auch nicht gegenüber anderen Mailservern eingesetzt werden. Es soll allein für die lokale Kommunikation zum MDA eingesetzt werden und einen erheblichen Performancegewinn in Hochleistungsumgebungen bringen} \citep[][39]{Heinlein2004}. Im in dieser Bachelorarbeit eingesetzten Umfeld wird als \ac{mda} die IMAP-Software Dovecot genutzt \citep[vgl.][]{dovecotlmtp}. In ABgrenzung zum \ac{mda} wird der \ac{smtp}-Server, der den Transport der Daten zwischen Sender und Empfänger verwaltet, wird auch als \ac{mta} bezeichnet \citep[vgl.][28]{Heinlein2004}.
+Für die Kommunikation zwischen dem letzten SMTP-Server und dem \ac{mda} \citep[vgl.][28]{Heinlein2004} der die Mail letztendlich im lokalen Postfach ablegt, wurde das \ac{lmtp} entwickelt. \textquote{Es ist aber nicht dazu gedacht, SMTP/ESMTP zu ersetzen, es soll auch nicht gegenüber anderen Mailservern eingesetzt werden. Es soll allein für die lokale Kommunikation zum MDA eingesetzt werden und einen erheblichen Performancegewinn in Hochleistungsumgebungen bringen} \citep[][39]{Heinlein2004}. Im in dieser Bachelorarbeit eingesetzten Umfeld wird als \ac{mda} die IMAP-Software Dovecot genutzt \citep[vgl.][]{dovecotlmtp}. In Abgrenzung zum \ac{mda} wird der \ac{smtp}-Server, der den Transport der Daten zwischen Sender und Empfänger verwaltet, auch als \ac{mta} bezeichnet \citep[vgl.][28]{Heinlein2004}.
 
-SMTP in seiner Urform ist ein ASCII-basiertes System, also nur für die Weitergabe von Text spezifiziert. \textquote{The mail data may contain any of the 128 ASCII character codes} \citep[][21]{rfc821}. Entwicklungen wie \ac{mime} \citep[vgl.][]{rfc1521} lösten zwar das Problem der Datei-Anhänge, aber es entstand der Eindruck, der Veränderungs- und Erweiterungsdruck auf SMTP könnte die hohe Qualität des Standards gefährden. Man erkannte den Bedarf für einen Standard für Erweiterung von SMTP. So entstand der \ac{rfc} 1869.
+SMTP in seiner Urform ist ein ASCII-basiertes System, also nur für die Weitergabe von Text spezifiziert. \textquote{The mail data may contain any of the 128 ASCII character codes} \citep[][21]{rfc821}. Entwicklungen wie \ac{mime} \citep[vgl.][]{rfc1521} lösten zwar das Problem der Datei-Anhänge, aber es entstand der Eindruck, der Veränderungs- und Erweiterungsdruck auf SMTP könnte die hohe Qualität des Standards gefährden. Man erkannte den Bedarf für einen Standard zur Erweiterung von SMTP. So entstand der \ac{rfc} 1869.
 
 \section{Enhanced SMTP}
 
@@ -283,9 +283,9 @@ Klensin u.a. führen in \ac{rfc} 1869 drei neue Faktoren in \ac{smtp} ein, um Er
 	\item{Den SMTP-Befehl \verb+EHLO+}\\
 	Der Client, der \ac{esmtp} unterstützt soll den Dialog nicht mit dem Befehl \verb+HELO+, sondern mit \verb+EHLO+ (Extended HELO) einleiten, um damit zu prüfen, ob auch der SMTP-Host \ac{esmtp} unterstützt. Hierdurch ergab sich auch die Notwendigkeit, \ac{rfc} 821 zu erweitern, da als initialer Befehl nunmehr \verb+HELO+ und \verb+EHLO+ zugelassen sein mussten. Unterstützt der Host \ac{esmtp} nicht, sendet er auf den Befehl \verb+EHLO+ eine Fehlermeldung. Dies signalisiert dem Client, dass er mit dem Host nur ohne Erweiterungen sprechen kann \citep[vgl.][S. 3 ff.]{rfc1869}.
 	\item{Zentrale Registrierung}\\
-	Erweiterungen für \ac{esmtp} müssen zentral registriert und verwaltet werden. Hierfür sehen Klensin u.a. ein Zentralregister bei der \ac{iana} vor und schlagen zugleich die ersten Befehle vor \citep[vgl.][7]{rfc1869}. Hierbei handelt es sich um die von Postel 1982 eingeführten Befehle \verb+SEND+, \verb+SOML+, \verb+SAML+, \verb+EXPN+, \verb+HELP,+ und \verb+TURN+ \citep[für die Befehle vgl.][S. 23 ff.]{rfc821}.
+	Erweiterungen für \ac{esmtp} müssen zentral registriert und verwaltet werden. Hierfür sehen Klensin u.a. ein Zentralregister bei der \ac{iana} vor und schlagen zugleich die ersten Befehle vor \citep[vgl.][7]{rfc1869}. Hierbei handelt es sich um die von Postel 1982 eingeführten Befehle \verb+SEND+, \verb+SOML+, \verb+SAML+, \verb+EXPN+, \verb+HELP+ und \verb+TURN+ \citep[für die Befehle vgl.][S. 23 ff.]{rfc821}.
 	\item{erweiterte Parameter für \verb+MAIL FROM+ und \verb+RCPT TO+}\\
-	Hier nehmen Klensin u.a. Bezug auf die bereits absehbaren Erweiterungen zu \ac{smtp}. \textquote{It is recognized that several of the extensions plannes for SMTP will make use of additional parameters associated with the MAIL FROM and RCPT TO command} \citep[][7]{rfc1869}. Im weiteren erläutern Sie die erforderliche Syntax für Befehle innerhalb von \verb+MAIL FROM+ und \verb+RCPT TO+ und betonen erneut die Notwendigkeit der Registrierung der Erweiterungen bei der \ac{iana}.
+	Hier nehmen Klensin u.a. Bezug auf die bereits absehbaren Erweiterungen zu \ac{smtp}. \textquote{It is recognized that several of the extensions plannes for SMTP will make use of additional parameters associated with the MAIL FROM and RCPT TO command} \citep[][7]{rfc1869}. Im Weiteren erläutern Sie die erforderliche Syntax für Befehle innerhalb von \verb+MAIL FROM+ und \verb+RCPT TO+ und betonen erneut die Notwendigkeit der Registrierung der Erweiterungen bei der \ac{iana}.
 \end{itemize}
 
 Durch die Erweiterungen und deren Registrierung entwickelte sich \ac{esmtp} zu einer sinnvollen Ergänzung. Dies mündete schließlich in \ac{rfc} 2821 und somit der Übernahme des Systems in den Standard selbst \citep[vgl. u.a.][S. 7 ff]{rfc2821}.
@@ -306,7 +306,7 @@ Das Formulieren von Anforderungen zu Beginn eines Projektes ist, wie im Folgende
 
 Die Erwartungen eines Kunden zu einem fertigen Produkt werden zu lassen, ist die zentrale Aufgabe der Entwicklungsabteilung. Ein wichtiger Schritt steht hier bereits am Anfang des Projekts: Das Formulieren der Anforderungen.
 \textquote{Die Anforderungen an ein neues Softwareprodukt zu ermitteln, zu spezifizieren, zu analysieren, zu validieren und daraus eine fachliche Lösung abzuleiten bzw. ein Produktmodell zu entwickeln, gehört mit zu den anspruchsvollsten Aufgaben innerhalb der Softwaretechnik} \citep[][434]{Balzert2010}. 
-Balzert verwendet hierbei den, wie er ausführt, allgemein gebräuchlichen Begriff des \ac{re} \citep[vgl.][434]{Balzert2010}, der auch in dieser Arbeit Verwendung findet. Andere hier zitierte Publikationen verwendete synonyme Begriffe sind \zb das \textit{Anforderungsmanagement}.
+Balzert verwendet hierbei den, wie er ausführt, allgemein gebräuchlichen Begriff des \ac{re} \citep[vgl.][434]{Balzert2010}, der auch in dieser Arbeit Verwendung findet. Andere in dieser Bachelor-Thesis verwendete Publikationen verwendete synonyme Begriffe sind \zb das \textit{Anforderungsmanagement}.
 \textquote{Anforderungen sorgen dafür, dass sowohl der Kunde als auch Ihre Organisation das Produkt bekommt, das sie wirklich wünschen und benötigen} \citep[][6]{Grande2014}.
 
 \textquote{Erst die Anforderungen geben Ihrem Projekt das Fundament, um gezielt das Ist der Lösung mit dem Soll der Anforderungen zu vergleichen und auf diese Weise nachweisbar das Projektziel zu erfüllen} \citep[Fahney und Hermann in][10]{Herrmann2013}.
@@ -342,20 +342,20 @@ Auch Balzert bringt dies auf den Punkt:
 
 Für die Formulierung von Anforderungen nennt er neun Regeln. Zunächst führt er sieben Regeln nach \cite[][S. 100 ff.]{Pohl2007} an:
 \begin{itemize}
-\item Die Anforderungen sollen kurz und prägnant formuliert sein 
-\item Der Akteur soll klar benannt werden
-\item klar überprüfbare Ziele formulieren
+\item Die Anforderungen sollen kurz und prägnant formuliert sein. 
+\item Der Akteur soll klar benannt werden.
+\item Die Anforderung soll klar überprüfbare Ziele formulieren
 \item Sofern dies nicht möglich ist, sollen die Ziele soweit zerteilt werden, dass die entstehenden Teilziele überprüft werden können.
 \item Es soll ferner beschrieben werden, welchen Nutzen das Ziel verfolgt, im Beispiel ist die Verkürzung der Bearbeitungszeit genannt.
-\item Die Begründung des Ziels soll die Identifikation weiterer Ziele erleichtert werden 
-\item jedoch soll bei der Formulierung darauf geachtet werden, kein Lösungsansatz anzugeben. 
+\item Die Anforderung soll begründet werden, um die Identifikation weiterer Ziele zu erleichtern. 
+\item Jedoch soll bei der Formulierung darauf geachtet werden, kein Lösungsansatz anzugeben. 
 \end{itemize}
 Des weiteren ergänzt Balzert nach \cite[][S. 100 f.]{Rupp2007}, dass es wichtig sei:
 \begin{itemize}
 \item einschränkende Rahmenbedingungen mit zu benennen 
 \item die Ziele realistisch zu formulieren 
 \end{itemize}
-\citep[vgl.][S. 457 ff.]{Balzert2010}
+\citep[für den gesamten Abschnitt vgl.][S. 457 ff.]{Balzert2010}
 
 
 Zudem beschreibt Balzert verschiedene Rahmenbedingungen, die die Auswahl und Entwicklung von Software beeinflussen. \textquote{Eine \textbf{Rahmenbedingung} \textit{(constraint)} [Hervorhebungen im Original]  - auch Restriktion genannt - legt organisatorische und/oder technische Restriktionen für das Softwaresystem und/oder den Entwicklungsprozess fest}\citep[][459]{Balzert2010}.
@@ -378,11 +378,12 @@ Bisher wurden nur die \textit{funktionalen Anforderungen} beschrieben. Aber was 
 Während die funktionalen Anforderungen beschreiben \textit{was} ein Produkt leisten muss, beschreiben nicht-funktionale Anforderungen \textit{wie} diese Leistung erbracht werden soll \citep[vgl.][30]{Partsch2010}.
 
 \textquote{\textbf{Nicht-funktionale Anforderungen} [Hervorhebung im Original] lassen sich qualitativ unterscheiden in \\
-- Qualitätsattribute der gewünschten Funktionen \\ 
+- Qualitätsattribute der gewünschten Funktionen, \\ 
 - Anforderungen an das implementierte System als Ganzes, \\ 
-- Vorgaben für die Durchführung des Systemerstellung \\ 
+- Vorgaben für die Durchführung der Systemerstellung \\ 
 - Anforderungen an Prüfung, Einführung, Betreuung und Betrieb} \citep[][S. 27 f.]{Partsch2010}.
-Hierunter fallen somit sämtliche Aspekte, die nicht direkt einer Anforderung zuzuordnen sind, sondern das Produkt als ganzes betreffen \citep[vgl.][463]{Balzert2010}. Balzert nennt in diesem Zusammenhang \textquote{\ua Genauigkeit, Verfügbarkeit, Nebenläufigkeit, Konsumierbarkeit (eine Obermenge der Benutzbarkeit),[...], Zuverlässigkeit, Sicherheit, Service-Anforderungen, Support [...]} \citep[][463]{Balzert2010}. 
+Hierunter fallen somit sämtliche Aspekte, die nicht direkt einer Anforderung zuzuordnen sind, sondern das Produkt als Ganzes betreffen \citep[vgl.][463]{Balzert2010}. 
+Balzert nennt in diesem Zusammenhang \textquote{\ua Genauigkeit, Verfügbarkeit, Nebenläufigkeit, Konsumierbarkeit (eine Obermenge der Benutzbarkeit),[...], Zuverlässigkeit, Sicherheit, Service-Anforderungen, Support [...]} \citep[][463]{Balzert2010}. 
 Partsch gibt im weiteren zu Bedenken, dass nichtfunktionale Anforderungen zumeist \textquote{wenn überhaupt, dann meist nicht präzise formuliert [werden]} \citep[][30]{Partsch2010}. Er begründet dies mit der Aussage bezüglich der Anforderung \textquote{(„Das weiß man ja“)} \citep[][30]{Partsch2010}.
 
 
@@ -391,7 +392,7 @@ Partsch gibt im weiteren zu Bedenken, dass nichtfunktionale Anforderungen zumeis
 \section{Anforderungsdokument nach dem IEEE}
 Das \ac{ieee} ist eine der Institutionen, die sich mit der Standardisierung technischer Vorgänge beschäftigen. Ähnlich den bereits erwähnten \ac{rfc}, die unter der Schirmherrschaft der \ac{ietf} verwaltet werden, gibt das \ac{ieee} Standardisierungsvorschriften heraus. Eine dieser Schriften, die \ac{ieee} Std 830-1998, beschreibt die empfohlene Vorgehensweise bei der Spezifikation von Software Anforderungen (\ac{srs}).
 
-Zudem gibt das \ac{ieee} gibt seinen Mitgliedern neben diesen Vorschriften auch ein Muster für \ac{srs} an die Hand. Da im Rahmen dieser Arbeit ebenfalls ein solches Anforderungsdokument erstellt wird, wird der Inhalt im Folgenden kurz erläutert \citep[vgl.][S. 11 ff.]{ieee1998}.
+Zudem gibt das \ac{ieee} seinen Mitgliedern neben diesen Vorschriften auch ein Muster für \ac{srs} an die Hand. Da im Rahmen dieser Arbeit ebenfalls ein solches Anforderungsdokument erstellt wird, wird der Inhalt im Folgenden kurz erläutert \citep[vgl.][S. 11 ff.]{ieee1998}.
 \begin{itemize}
 	\item \textbf{Einführung} \citep[vgl.][S. 11 - 12]{ieee1998}
 	\begin{itemize}
@@ -476,11 +477,11 @@ Zunächst werden die Anforderungen im Freitext formuliert, bevor Sie anschließe
 
 Wie in Kapitel 2 beschrieben, arbeitet der Server mit dem Betriebssystem Ubuntu 20.04 LTS. Auf dem Server ist ferner OpenLDAP installiert, dass die Informationen über die Nutzer verwaltet. OpenLDAP ist insoweit auch für den SMTP-Server von Bedeutung, als dass dieser den Nutzern die Möglichkeit geben soll, sich beim SMTP-Server anzumelden um Mails zu versenden oder abzuholen. Der Abgleich und die Registrierung neuer Nutzer muss automatisch stattfinden.
 Bereits entschieden wurde die Frage nach dem zu verwendenden Mail-Client. 
-Da nicht abzusehen war, wie sich die technische Ausstattung der \ac{kita}, gerade inm Hinblick auf eventuell neu anzuschaffende Tablets, weiterentwickelt, sollte ein Webmail-Client verwendet werden, der keine zusätzlichen Ressourcen auf dem Endgerät verbraucht. Die Wahl fiel hier auf den Webmail-Client \textit{Roundcube} \citep[vgl.][]{roundcubemain}. 
+Da nicht abzusehen war, wie sich die technische Ausstattung der \ac{kita}, gerade im Hinblick auf eventuell neu anzuschaffende Tablets, weiterentwickelt, sollte ein Webmail-Client verwendet werden, der keine zusätzlichen Ressourcen auf dem Endgerät verbraucht. Die Wahl fiel hier auf den Webmail-Client \textit{Roundcube} \citep[vgl.][]{roundcubemain}. 
 
 Wie eingangs bereits erwähnt befindet sich die \ac{kita} in Trägerschaft der Stadt Gau-Algesheim. Bereits bei der Anschaffung der Hardware für \textit{KitaNet} mussten die Studenten Wert auf eine kostengünstige Anschaffung und geringe laufende Kosten legen. Auch bei der Auswahl der SMTP-Server-Software soll daher eine kostengünstige Lösung gefunden werden.
 
-Technische Unterstützung erhält die  \ac{kita} grundsätzlich über die Verbandsgemeindeverwaltung Gau-Algesheim. Da die zwei dort beschäftigen Administratoren aber für alle Kindertagesstätten der Verbandsgemeinde zuständig sind, muss die Software wartungsarm angelegt sein. Im Störungsfall soll eine detaillierte Dokumentation die Fehlersuche vereinfachen.
+Technische Unterstützung erhält die  \ac{kita} grundsätzlich über die Verbandsgemeindeverwaltung Gau-Algesheim. Da die zwei dort beschäftigten Administratoren aber für alle Kindertagesstätten der Verbandsgemeinde zuständig sind, muss die Software wartungsarm angelegt sein. Im Störungsfall soll eine detaillierte Dokumentation die Fehlersuche vereinfachen.
 
 Über das System sollen interne E-Mails ausgetauscht werden. Ein Mail-Verkehr mit dem Internet ist zunächst nicht geplant, sollte aber grundsätzlich möglich sein.
 Da E-Mail ein asynchrones Kommunikationsmittel darstellt \citep[vgl.][10]{Duerscheid2003}, ist die Übertragungsgeschwindigkeit nach Meinung des Autors nicht von übermäßiger Bedeutung. 
@@ -494,10 +495,10 @@ Anforderungen an ein Produkt sind nie gleichwertig zueinander.
 \textquote{Some requirements are non-negotiable. If they are not met, the product is of no use} \citep[][83]{Hull2010}. Wie die Priorisierung der Anforderungen gestaltet werden kann, wird nun kurz dargestellt.
 
 Hull u.a. schlagen vor, Anforderungen mit verschiedenen \textbf{Werten} auszustatten. Sie beschreiben in einem Beispiel die Werte M (mandatory limit), D (desired value) und B (best value) \citep[vgl.][83]{Hull2010}. \textquote{These three values can be held in separate attributes, or represented within the text in a labelled form, such as „The system shall support [M:50, D:100, B:200] simultaneous users“} \citep[][83]{Hull2010}.
-Diese Methode gibt einzelnen Anforderungen eine gewisse Flexibilität, indem die Grenze für das Erreichen des Zieles klarer herausgestellt ist. Im genannten Beispiel sind 50 gleichzeitige Nutzer die Mindestgrenze, 100 Nutzer sind erstrebenswert, bestenfalls sind 200 gleichzeitige Nutzer möglich. Unterstützt die Lösung nun nur 99 Nutzer, \textquote{then it is most likely still of some value to the customer} \citep[][83]{Hull2010}.\\
+Diese Methode gibt einzelnen Anforderungen eine gewisse Flexibilität, indem die Grenze für das Erreichen des Zieles klarer herausgestellt ist. Im von Hull \ua genannten Beispiel sind 50 gleichzeitige Nutzer die Mindestgrenze, 100 Nutzer sind erstrebenswert, bestenfalls sind 200 gleichzeitige Nutzer möglich. Unterstützt die Lösung nun nur 99 Nutzer, \textquote{then it is most likely still of some value to the customer} \citep[][83]{Hull2010}.\\
 Eine Aussage über die Wertigkeit der Anforderungen zueinander wird hier jedoch nicht getroffen. 
 
-In besagtem Standard schlägt das \ac{ieee} vor, die Anforderungen nach ihrer \textbf{Notwendigkeit} einzuordnen. \textquote{Another way to rank requirements is to distinguish classes of requirements as essential, conditional, and optional} \citep[][7]{ieee1998}. Balzert steht dieser Einordnung kritisch gegenüber. \textquote{Erfahrungen haben gezeigt, dass die Verwendung dieser Ausprägungen dazu führt, dass die meisten Anforderungen mit \textbf{essenziel} [Hervorhebung im Original] gekennzeichnet werden, während optionale Anforderungen nur selten vorkommen} \citep[][543]{Balzert2010}.
+In besagtem Standard schlägt das \ac{ieee} vor, die Anforderungen nach ihrer \textbf{Notwendigkeit} einzuordnen. \textquote{Another way to rank requirements is to distinguish classes of requirements as essential, conditional, and optional} \citep[][7]{ieee1998}. Balzert steht dieser Einordnung kritisch gegenüber. \textquote{Erfahrungen haben gezeigt, dass die Verwendung dieser Ausprägungen dazu führt, dass die meisten Anforderungen mit \textbf{essenziell} [Hervorhebung im Original] gekennzeichnet werden, während optionale Anforderungen nur selten vorkommen} \citep[][543]{Balzert2010}.
 
 Als Alternative schlägt Balzert die Verwendung des \textbf{Kano-Modells} vor. Dieses Modell bezieht sich auf die \textit{Theory of Attractive Quality} des japanischen Professors Noriaki Kano, dessen Studien einen Zusammenhang zwischen der Erfüllung von Qualitätsmerkmalen einerseits und der Kundenzufriedenheit andererseits aufzeigen \citep[vgl.][77]{Hoelzing2008}. \textquote{Durch eine Kundenbefragung im Rahmen einer Produktentwicklung werden nur geringfügige Mängel an den bisher angebotenen Modellen festgestellt. Daraus wird die Annahme abgeleitet, dass der Schlüssel zum Erfolg in eher latenten, nicht explizit artikulierten oder bewussten Kundenbedürfnissen liegt} \citep[][78]{Hoelzing2008}. \\
 Hölzing beschreibt im Weiteren, wie Kano fünf Qualitätsattribute herausarbeitet \citep[vgl.][82]{Hoelzing2008}. Drei dieser fünf Eigenschaften bespricht dann auch Balzert.
@@ -514,7 +515,7 @@ Die Entwicklung der Kundenzufriedenheit im Verhältnis zum Erfüllungsgrad der j
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{res/kano.png}
-  \caption{Die Entwicklung der Kundenzufriedenheit im Kano-Modell \citep[][545]{Balzert2010})}
+  \caption{Die Entwicklung der Kundenzufriedenheit im Kano-Modell \citep[][545]{Balzert2010}}
   \label{fig:Kanomodell}
 \end{figure}
 
@@ -548,7 +549,7 @@ Sommerville gibt im weiteren zu Bedenken, dass zum Testen einer Anforderung unte
 	\item Eine E-Mail wird geschrieben\\
 	Die Anforderung an die Software mit der höchsten Priorität ist das Versenden von E-Mails als Kernaufgabe des Systems. Der Test wird  in der Form abgewandelt, dass eine Mail an einen nicht existenten Nutzer versendet wird.
 	\item Ein Nutzer wird neu aufgenommen\\
-	Eine weitere Anforderung stellt die Zusammenarbeit mit dem bereits im System verankerten OpenLDAP dar. Hier muss getestet werden, ob ein neuer Nutzer zeitnah und ohne Zutun eines Administrators als Mail-Empfänger verfügbar ist. Eine Abwandlung dieses Test stellt das Löschen des Nutzers dar.
+	Eine weitere Anforderung stellt die Zusammenarbeit mit dem bereits im System verankerten OpenLDAP dar. Hier muss getestet werden, ob ein neuer Nutzer zeitnah und ohne Zutun eines Administrators als Mail-Empfänger verfügbar ist. Eine Abwandlung dieses Tests stellt das Löschen des Nutzers dar.
 	\item Das System wird neu gestartet \\
 	Die Anforderung \textit{Zuverlässigkeit} (vgl. \autoref{sec:zuverl}) formuliert die Forderung, dass das System nach einem Serverneustart automatisch wieder startet. Hierbei werden zwei Szenarien abgebildet, nämlich der kontrollierte Neustart und der Neustart nach Stromausfall.
 \end{itemize}
@@ -599,7 +600,7 @@ Gemäß Deimeke handelt es sich bei Dovecot um den \textquote{Shooting-Star unte
 So nimmt auch die Dokumentation von Dovecot regelmäßig Bezug auf Postfix \citep[vgl. z.B.][]{DovecotPostfix}.
 
 Die Dokumentation von Postfix ist öffentlich einsehbar \citep[vgl.][]{postfixdoku}. Leider ist nicht ersichtlich, wie gut die umfangreiche Dokumentation gepflegt wurde, das einzige auffindbare Datum befand sich im Abschnitt \textit{Work in Progress} und gab das letzte Update mit \textquote{November 2013} an \citep[vgl.][]{postfixwip}. Jedoch wird die Software permanent weiterentwickelt. \\
-Zum Zeitpunkt der Erstellung dieser Arbeit trägt der \textit{stable release} von Postfix die Versionsnummer 3.5.10, der \textit{Postfix 3.6 experimental release} wurde zuletzt mit am 11.04.2021 aktualisiert \citep[vgl.][]{postfixsource}. \\
+Zum Zeitpunkt der Erstellung dieser Arbeit trägt der \textit{stable release} von Postfix die Versionsnummer 3.5.10, der \textit{Postfix 3.6 experimental release} wurde zuletzt am 11.04.2021 aktualisiert \citep[vgl.][]{postfixsource}. \\
 Dass die Dokumentation dennoch dauerhaft gepflegt wird schließt der Autor beispielsweise aus der Tatsache, dass die im \textit{changelog} zu Version 3.5 angekündigte Unterstützung für mehrere \textit{relayhosts} \citep[vgl.][]{postfixcl35} im entsprechenden Abschnitt der Dokumentation vermerkt sind \citep[vgl.][]{postfixrelayhost}.
 
 \textquote{Unter Portierung versteht man das Übertragen [eines Programms (Anm. d. Autors)] auf ein anderes System} \citep[][26]{Habelitz2016}.
@@ -639,7 +640,7 @@ Nachdem nun beide Pakete vorgestellt wurden, wird nun in \autoref{sec:Entscheidu
 
 Die Auswahl einer Software für den Einsatz im beruflichen Umfeld hat eine hohe Tragweite. Trifft man die falsche Wahl, kann man sich auf Jahre hinweg Ärger und Mehrarbeit einhandeln, da der Support mehr Mühe macht, als die fehlende Recherche zu Beginn Zeit gespart hat.
 
-Sowohl Exim als auch Postfix stellen jede für sich brauchbare Lösungen zur Implementation eines SMTP-Servers im Umfeld von KitaNet dar. 
+Sowohl Exim als auch Postfix stellen, jede für sich, brauchbare Lösungen zur Implementation eines SMTP-Servers im Umfeld von KitaNet dar. 
 
 Die Wahl des Autors fällt hier auf Postfix, da diese Software die bessere und detailliertere Dokumentation für das momentan eingesetzte Betriebssystem Ubuntu liefert. Ein Großteil der recherchierten Fachliteratur nimmt auch Bezug auf das Zusammenspiel von Postfix als \ac{smtp}- und Dovecot als \ac{imap}-Server.
 Die Möglichkeiten der Recherche in der Dokumentation oder in den Foren von Ubuntu-Hersteller Canonical übersteigen den Support von Exim bei Weitem.
@@ -647,7 +648,7 @@ Die Möglichkeiten der Recherche in der Dokumentation oder in den Foren von Ubun
 So ergab eine Stichproben-Suche nach dem Suchbegriff \verb+exim+ auf der deutschsprachigen Supporthomepage \verb+Ubuntuusers.de+ ca. 200 Treffer \citep[vgl.][]{googleexim}, während die Suche nach \verb+postfix+ ungefähr 1.240 Ergebnisse lieferte \citep[vgl.][]{googlepostfix}.
 Somit fiel die Wahl nicht zuletzt auf Postfix, da gerade für die mit der Wartung beauftragten lokalen Administratoren deutschsprachige Hilfeseiten essenziell wichtig sind.
 
-Im weiteren Verlauf wird nun Postfix auf dem System installiert und in den Verbund aus Kitanet, OpenLDAP und Dovecot eingebettet.
+Im weiteren Verlauf wird nun Postfix auf dem System installiert und in den Verbund aus KitaNet, OpenLDAP und Dovecot eingebettet.
 
 \chapter{Installation und Tests}
 \markboth{Installation und Tests}{}
@@ -658,19 +659,19 @@ Dies führte zu einer vorher nicht geplanten Installation von \textit{Cyrus SASL
 
 Der Autor sah ursprünglich keine Notwendigkeit, Postfix gegen das Versenden von von Mails durch Unberechtigte abzusichern, da weder der Server noch das Netzwerk an sich vom Internet aus erreichbar sind. 
 Somit wurde dieser Aspekt in der Planung nicht in Betracht gezogen. 
-Die zusätzliche Installation und Implementation von Cyrus SASL verlief dann aber problemlos, was auch dem modularen Aufbau von Postfix zu verdanken ist \citep[zu Postfix und Cyrus SASL vgl][S. 210 ff.]{Heinlein2004}.
+Die zusätzliche Installation und Implementation von Cyrus SASL verlief dann aber problemlos, was auch dem modularen Aufbau von Postfix zu verdanken ist \citep[zu Postfix und Cyrus SASL vgl.][S. 210 ff.]{Heinlein2004}.
 
 Der folgende Abschnitt stellt einen idealisierten Installations- und Konfigurationsablauf dar, in dem die erwähnten Probleme bereits gelöst werden.
 
 \section{Einrichtung und Anbindung SMTP an LDAP}
 
 Die Installation der Umgebung begann mit der Umkonfiguration von OpenLDAP. \textquote{Wenn Sie eigene Attribute benötigen, sollten Sie immer eine eigene Objektklasse in einem eigenen Schema erzeugen} \citep[][615]{Deimeke2019}. 
-Nach diversen Recherchen sah der Autor die Notwendigkeit zusätzliche Attribute eingeführt, um den Speicherort für das Postfach oder zusätzlicher Mailadressen für den Nutzer zu hinterlegen. 
+Nach diversen Recherchen sah der Autor die Notwendigkeit zusätzliche Attribute einzuführen, um den Speicherort für das Postfach oder zusätzliche Mailadressen für den Nutzer zu hinterlegen. 
 Fündig wurde der Autor bei dem \textit{postfix-book.schema} welches in einer früheren Ausgabe von \cite{Heinlein2004} näher besprochen wurde \citep[vgl.][]{pfschema}. Die hier verwendete Veröffentlichung stellt eine Kopie des Schemas dar, das Original ist zum Zeitpunkt der Erstellung dieser Bachelorarbeit nicht mehr öffentlich zugänglich.
 
-Dieses Schema führt die objectClass \textit{PostfixBookMailAccount} ein, die unter anderem auch die Attribute \textit{uniqueIdentifier} und \textit{mailEnabled} (welche bereits im Kapitel 2 genutzt wurden) ein. Darüber hinaus bietet die objectClass weitere E-Mail bezogene Attribute wie \zb \textit{mailAlias}.  
+Dieses Schema führt die objectClass \textit{PostfixBookMailAccount} ein, die unter anderem auch die Attribute \textit{uniqueIdentifier} und \textit{mailEnabled} (welche bereits im Kapitel 2 erwähnt wurden) ein. Darüber hinaus bietet die objectClass weitere E-Mail bezogene Attribute wie \zb \textit{mailAlias}.  
 
-Nachdem laden des Schemas in OpenLDAP, wurden unter der neu angelegten \ac{ou} \textit{services} Konten für die benötigten Dienste \textit{kitanet}, \textit{postfix}, \textit{dovecot}, \textit{saslauth} und \textit{roundcube} angelegt. 
+Nach dem Laden des Schemas in OpenLDAP, wurden unter der neu angelegten \ac{ou} \textit{services} Konten für die benötigten Dienste \textit{kitanet}, \textit{postfix}, \textit{dovecot}, \textit{saslauth} und \textit{roundcube} angelegt. 
 Über diese Konten werden die Abfragen in OpenLDAP durch die jeweiligen Dienste durchgeführt. 
 
 Angelegt wurde auch der Nutzer \textit{ldaptest1}. Die Attribute dieses Nutzers sind im Anhang in \autoref{ldapabfrage} dargestellt.
@@ -689,7 +690,7 @@ Die Zeilen 31-41 regeln die Zustellung von E-Mails an die in LDAP hinterlegten E
 Zeile 47 aktiviert die Authentifikation nach \ac{rfc} 4954 via Cyrus SASL \citep[vgl.][3]{rfc4954}.
 In den Zeilen 49 ff. wird festgelegt, wie sich Postfix während einem SMTP-Dialog verhalten soll.
 So lehnt Postfix \zb gemäß Z. 52 E-Mails ab, welche keinen \ac{fqdn} als Empfänger haben \citep[vgl.][]{postfixfqdn}. 
-Der \ac{fqdn} des hier eingerichteten Mailserver \verb+mail.kitanet.local+ wäre \zb \verb+kitanet.local+ \citep[vgl.][]{fqdn}. 
+Der \ac{fqdn} des hier eingerichteten Mailservers \verb+mail.kitanet.local+ wäre \zb \verb+kitanet.local+ \citep[vgl.][]{fqdn}. 
 Somit würde in diesem Beispiel eine E-Mail mit dem hypothetischen Empfänger \verb+test@kitanet.local+ nicht angenommen werden.
 
 \autoref{postfix/recipients.cf} zeigt die Konfiguration für eine Abfrage im LDAP zur Ermittlung der Empfänger über die Datei \verb+virtual_ldap_recipients+.
@@ -698,7 +699,7 @@ Die LDAP-Abfrage aus Zeile 14 übergibt die Variable \%s (die Mailadresse des Em
 Wird der Empfänger nicht gefunden, prüft Postfix ob die Adresse als mailAlias bei einem Nutzer erfasst wurde. Hierzu dient die Datei \verb+virtual_ldap_aliases+ (vgl. \autoref{postfix/aliases.cf}). 
 Diese Datei unterscheidet sich nur in dem abgefragten Attribut in Zeile 14. 
 Hier wird das Attribut \textit{mailAlias} abgefragt. 
-Im Beispiel von \autoref{ldapabfrage} würde eine Anfrage nach der Adresse \verb+postmaster@kitanet.local.local+ die \textit{primäre} Mail-Adresse des Empfängers, nämlich \verb+administrator@kitanet.local.local+ zurückgeben. 
+Im Beispiel von \autoref{ldapabfrage} würde eine Anfrage nach der Adresse \verb+postmaster@kitanet.local+ die \textit{primäre} Mail-Adresse des Empfängers, nämlich \verb+administrator@kitanet.local+ zurückgeben. 
 Postfix kann dann die E-Mail in das korrekte Postfach ablegen.
 
 Cyrus SASL wurde wie oben erläutert innerhalb des Systems installiert. 
@@ -709,12 +710,12 @@ Die Passwörter werden daher unverschlüsselt (\verb+PLAIN LOGIN+) übermittelt 
 
 Dovecot und Roundcube wurden ebenfalls entsprechend der jeweiligen Dokumentation installiert. Auch sie greifen über eigene Zugänge auf OpenLDAP zu, um die Nutzer zu verwalten. Die Authentifikation wird hier ebenfalls über Cyrus SASL durchgeführt.
 
-Nach Installation von Roundcube und Anmeldung eines bereits in Kitanet aktiven Nutzers wartete bereits die erste Mail auf den Autor.
+Nach Installation von Roundcube und Anmeldung eines bereits unter KitaNet aktiven Nutzers, wartete bereits die erste Mail auf den Autor.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.72\textwidth]{res/erste Mail.png}
-  \caption{Die erste E-Mail im Posteingang (Eigene Darstellung)}
+  \includegraphics[width=0.65\textwidth]{res/erste Mail.png}
+  \caption{Die erste E-Mail im Posteingang (Eigene Abbildung)}
   \label{fig:Mail}
 \end{figure}
 
@@ -736,18 +737,18 @@ Es bleibt festzustellen, dass das E-Mail-System in seiner jetzigen Ausgestaltung
 Hätte der Autor gewusst, was auf ihn zukommt, hätte er vermutlich ein anderes Thema gewählt. 
 
 Schon der Titel spiegelt den Lernfortschritt wider. 
-So konnte Humhub mit der Domain \verb+@kitanet+ nicht umgehen, da die Mail-Adresse nicht als gültig anerkannt wurde. 
+So konnte HumHub mit der Domain \verb+@kitanet+ nicht umgehen, da die Mail-Adresse nicht als gültig anerkannt wurde. 
 Dies war dann der Grund für das zusätzliche \verb+.local+.
-Im Nachhinein betrachtet waren es viele Wochen des Lesens und Zweifelns aber letztendlich doch des Lernens und des Erfolgs.
+Im Nachhinein betrachtet waren es viele Wochen des Lesens und Zweifelns, aber letztendlich doch des Lernens und des Erfolgs.
 Das Gefühl, wenn das Terminal auf einmal \verb+250 OK+ meldet, nachdem man zwanzig Mal eine Konfigurationsdatei umgeschrieben und den Postfix-Server neu gestartet hat, entschädigt für vieles.
 
-Wie kann die Implementation eines E-Mail-Servers innerhalb des Kitanet gelingen? Dies war die in \autoref{sec:Frage} formulierte Fragestellung dieser Bachelor-Thesis. 
+Kann die Implementation eines E-Mail-Servers innerhalb des KitaNet gelingen? Dies war die in \autoref{sec:Frage} formulierte Fragestellung dieser Bachelor-Thesis. 
 Die Implementierung eines zusätzlichen \ac{ldap}-Schemas, die Installation von Postfix, Dovecot, Cyrus SASL und Roundcube und wochenlange Recherchen brachten die Antwort. \textquote{Ja!}
-Die Nutzer werden nun umgehend per Mail über neue Einträge in Kitanet informiert. Auch eine tägliche Zusammenfassung stellt die Plattform  auf Wunsch zur Verfügung.
+Die Nutzer werden nun umgehend per Mail über neue Einträge in KitaNet informiert. Auch eine tägliche Zusammenfassung stellt die Plattform  auf Wunsch zur Verfügung.
 
 Ursprünglich wurde dieses Projekt vom Autor ins Auge gefasst, um den Nutzern eine Möglichkeit zu geben, selbst Ihre vergessenen Zugangspasswörter für KitaNet grundzustellen.
 Dies stellte sich aber leider als nicht umsetzbar heraus. 
-Dies lag jedoch nicht an der Implementation des Mail-Systems, sondern ist der Tatsache geschuldet, dass Humhub keine Mechanik mitbringt, Daten in OpenLDAP zu ändern. 
+Dies lag jedoch nicht an der Implementation des Mail-Systems, sondern ist der Tatsache geschuldet, dass HumHub keine Mechanik mitbringt, Daten in OpenLDAP zu ändern. 
 Die LDAP-Anbindung wird lediglich zum Auslesen der Benutzerdaten genutzt. 
 Auch dies wurde dem Autor erst während dem Erstellen der Arbeit bewusst.
 

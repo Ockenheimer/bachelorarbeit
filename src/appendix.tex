@@ -9,7 +9,7 @@
 
 \section{Einführung}
 \subsection{Zweck des Dokuments}
-Dieses Dokument definiert die Anforderungen an das Projekt "Einführung eines SMTP-Servers". 
+Dieses Dokument definiert die Anforderungen an das Projekt \"Einführung eines SMTP-Servers". 
 Dieses Dokument richtet sich an Entwickler die mit diesem Projekt betraut sind.
 
 \subsection{Umfang}
@@ -96,7 +96,7 @@ Das System muss (E)\ac{smtp}- und \ac{lmtp}-Befehle entgegennehmen und verarbeit
 Auslösung: \\
 Kontaktaufnahme durch Zugriff anderer Programme auf Port 25\\
 Reaktion:\\
-Prozess Einleitung des (E)SMTP-Protokolls MAIL gem. S.4 RFC 821 \\
+Einleitung des (E)SMTP-Protokolls MAIL gem. S.4 RFC 821 \\
 \textbf{Mit Funktion verbundene Anforderungen} \\
 Versenden und Empfangen von E-Mails werden ermöglicht.\\
 \subsubsection*{Abgleich LDAP}
@@ -104,7 +104,7 @@ Versenden und Empfangen von E-Mails werden ermöglicht.\\
 Das System soll einen aktuellen Datenbestand über im LDAP angelegte Empfänger besitzen.\\
 \textbf{Auslösung/Reaktion der Funktion} \\
 Auslösung:\\
-Automatisierte Anstoß zur Aktualisierung der Daten.\\
+Automatisierter Anstoß zur Aktualisierung der Daten.\\
 Reaktion:\\
 Aufnahme neuer Empfänger, Löschung von nicht existenten Adressen.\\
 \textbf{Mit Funktion verbundene Anforderungen}\\
@@ -120,11 +120,11 @@ Das System muss mit dem \ac{imap}-Client Dovecot zusammenarbeiten.
 \textbf{Zuverlässigkeit} \\
 Das System muss nach einem Neustart des Servers ohne Nutzerzutun automatisch starten.\\
 \textbf{Verfügbarkeit} \\
-Das System soll jederzeit zur Verfügung stehen\\
+Das System soll jederzeit zur Verfügung stehen.\\
 \textbf{Sicherheit} \\
 Das System soll einen unberechtigten Zugriff Dritter auf die verarbeiteten E-Mails verhindern.\\
 \textbf{Wartbarkeit} \\
-Das System soll, ohne Veränderung der Systemumgebung, Wartungsfrei sein.\\
+Das System soll, ohne Veränderung der Systemumgebung, wartungsfrei sein.\\
 Das System soll über eine detaillierte Dokumentation verfügen.\\
 \textbf{Portierbarkeit} \\
 Das System soll grundsätzlich auf andere Plattformen portierbar sein.\\
@@ -155,7 +155,7 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	\item Priorität:\\
 	unbedingt erforderlich
 	\item Details:\\
-	Stellt sicher, dass Mails über den Server versendet werden können (Grundfunktionalität System)
+	Stellt sicher, dass Mails über den Server versendet werden können (Grundfunktionalität System).
 	\item Soll-Ergebnis:\\
 	E-Mail geht in Postfach des Empfängers ein.
 	\item Ist-Ergebnis:\\
@@ -191,7 +191,7 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	\item Soll-Ergebnis:\\
 	Sender erhält SMTP-Fehlermeldung 550 oder äquivalente Rückmeldung des Servers \citep[vgl.][16]{rfc821}.
 	\item Ist-Ergebnis:\\
-	Roundcube meldet Fehler \textit{SMTP-Fehler 550 - 5.1.1. recipient address rejected. User unkown in virtual table}
+	Roundcube meldet Fehler \textit{SMTP-Fehler 550 - 5.1.1. recipient address rejected. User unkown in virtual table}.
 	\item Bestanden:\\
 	Ja
 	\item Aus welcher Phase stammt der Fehler:\\
@@ -258,7 +258,7 @@ Löschen eines Benutzers via LDAP und Versenden einer Test-Mail
 	\item Priorität:\\
 	hoch
 	\item Details:\\
-	Löschen alter Nutzer verringert Speicherbedarf auf den Servern
+	Löschen alter Nutzer verringert Speicherbedarf auf den Servern.
 	\item Soll-Ergebnis:\\
 	Sender erhält SMTP-Fehlermeldung 550 oder äquivalente Rückmeldung des Servers \citep[vgl.][16]{rfc821}.
 	\item Ist-Ergebnis:\\
@@ -268,7 +268,7 @@ Löschen eines Benutzers via LDAP und Versenden einer Test-Mail
 	\item Aus welcher Phase stammt der Fehler:\\
 	Kein Fehler
 	\item Kommentar:\\
-	Löschung zeigt sofortige Wirkung 
+	Löschung zeigt sofortige Wirkung. 
 	\item Tester:\\
 	M. Schäfer
 	\item Datum/Uhrzeit:\\
