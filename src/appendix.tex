@@ -4,16 +4,17 @@
 
 
 \chapter{Anforderungsdokument}
-\markboth{A. Ein Anhang}{}
+\markboth{Anforderungsdokument}{}
 \label{ch:Anhang}
 
 \section{Einführung}
 \subsection{Zweck des Dokuments}
-Dieses Dokument definiert die Anforderungen an das Projekt \"Einführung eines SMTP-Servers". 
-Dieses Dokument richtet sich an Entwickler die mit diesem Projekt betraut sind.
+Dieses Dokument definiert die Anforderungen an das Projekt \textquote{Einführung eines SMTP-Servers}. 
+Es richtet sich an Entwickler, die mit diesem Projekt betraut sind.
 
 \subsection{Umfang}
-Die zu installierende Software soll einen SMTP-Server bereitstellen, um E-Mail-Kommunikation innerhalb des Netzwerks der Einrichtung zu ermöglichen (vgl. RFC 821). Der Mailverkehr wird zunächst nur innerhalb des eigenen Netzwerks gewährleistet. Eine Öffnung nach außen ist zukünftig angestrebt, aber zunächst nicht Teil des Projekts.
+Die zu installierende Software soll einen SMTP-Server bereitstellen, um \\
+E-Mail-Kommunikation innerhalb des Netzwerks der Einrichtung zu ermöglichen (vgl. RFC 821). Der Mailverkehr wird zunächst nur innerhalb des eigenen Netzwerks gewährleistet. Eine Öffnung nach außen ist zukünftig angestrebt, aber zunächst nicht Teil des Projekts.
 
 \subsection{Definitionen, Akronyme, Abkürzungen}
 \label{ch:Definition}
@@ -25,7 +26,7 @@ Eine Liste von Abkürzungen, die in diesem Dokument verwendet werden.
 	\item SMTP - Simple Mail Transfer Protocol
 \end{itemize}
 
-Die Anforderungen werden in drei Stufen der Notwendigkeit unterschieden und entsprechend priorisiert. Die Zugehörigkeit der Anforderung zu den Stufen werden mit der Formulierung der Anforderung angezeigt.\\
+Die Anforderungen werden in drei Stufen der Notwendigkeit unterschieden und entsprechend priorisiert. Die Zugehörigkeit der Anforderung zu der jeweiligen Stufe wird mit der Formulierung der Anforderung angezeigt.\\
 Anforderungen beginnend mit:
 \begin{itemize}
 	\item \textit{Das System muss} oder \textit{Das System darf keine} gehören zur höchsten Stufe.
@@ -53,24 +54,24 @@ Sie dienen als Entscheidungsgrundlage für die anzuschaffende Software.
 \section{Produktübersicht}
 \subsection{Produktperspektive}
 Das finale System bildet eine virtuelle Maschine (im weiteren \textit{der Server}) innerhalb eines QNAP-NAS mit 4GB Arbeitsspeicher.
-Auf dem Server wird als Betriebssystem Ubuntu 20.04 LTS eingesetzt. Auf diesem System wird ebenfalls folgende relevante Software eingesetzt:
+Auf dem Server wird als Betriebssystem Ubuntu 20.04 LTS eingesetzt. Auf diesem System werden neben der auszuwählenden Software die folgenden relevanten Programme eingesetzt:
 \begin{itemize}
 	\item Open-LDAP ver. 2.4.49
 	\item Apache2 ver. 2.4.41
 	\item Dovecot ver. 2.3.7.2
 	\item PHP ver. 7.4
 \end{itemize} 
-Der Server ist für Laptops innerhalb des Netzwerks erreichbar. Ein direkter Zugriff zur Hardware ist grds. nicht vorhanden.
-
+Der Server ist für Laptops innerhalb des Netzwerks erreichbar. Ein direkter Zugriff zur Hardware ist grds. nicht vorhanden.\\
+\\
 Die Software ist erreichbar über Port 25 des Servers.  
 
 \subsection{Produktfunktionen}
-Die Software verwaltet die Entgegennahme und Auslieferung von Datenpaketen mit dem IMAP-Client Dovecot.
-Zur Ermittlung bekannter Mail-Adressen gleicht die Software ihren Bestand mit dem lokalen \ac{ldap} ab.
+Die Software verwaltet die Entgegennahme und Auslieferung von Datenpaketen über den IMAP-Client Dovecot.
+Zur Ermittlung bekannter Mail-Adressen gleicht sie ihren Bestand mit dem lokalen \ac{ldap} ab.
 Die Software besitzt den vollen Funktionsumfang von \ac{smtp} (vgl. RFC 2821).
 
 \subsection{Nutzereigenschaften}
-Der Nutzer hat keine direkte Interaktion mit der Software. Kontakt besteht ausschließlich mittelbar und automatisiert über den IMAP-Client Dovecot
+Der Nutzer hat keine direkte Interaktion mit der Software. Kontakt besteht ausschließlich mittelbar und automatisiert über den IMAP-Client Dovecot.
 \subsection{Einschränkungen}
 Die Software teilt sich den vorhandenen Arbeitsspeicher mit einer per PHP realisierten Webseite und einem LDAP-Server. Somit darf die durchschnittliche RAM-Belegung nicht größer als 512 MB sein.
 \subsection{Annahmen und Abhängigkeiten}
@@ -87,18 +88,18 @@ Nicht vorgesehen.
 \subsubsection*{Softwareschnittstellen}
 Nicht vorgesehen.
 \subsubsection*{Kommunikationsschnittstellen}
-Erreichbarkeit über Port 25 zum Austausch von \ac{lmtp}-Befehlen mit IMAP-Client auf dem selben System. Die Öffnung des Ports nach außen soll für zukünftigen Austausch von \ac{smtp}-Befehlen mit entfernten \ac{smtp}-Servern vorgesehen werden.
+Erreichbarkeit über Port 25 zum Austausch von \ac{lmtp}-Befehlen mit IMAP-Client auf demselben System. Die Öffnung des Ports nach außen soll für zukünftigen Austausch von \ac{smtp}-Befehlen mit entfernten \ac{smtp}-Servern vorgesehen werden.
 \subsection{Funktionen}
 \subsubsection*{(E)SMTP-Kommunikation}
 \textbf{Zweck der Funktion} \\
 Das System muss (E)\ac{smtp}- und \ac{lmtp}-Befehle entgegennehmen und verarbeiten. \\
 \textbf{Auslösung/Reaktion der Funktion} \\
 Auslösung: \\
-Kontaktaufnahme durch Zugriff anderer Programme auf Port 25\\
+Kontaktaufnahme durch Zugriff anderer Programme auf Port 25.\\
 Reaktion:\\
-Einleitung des (E)SMTP-Protokolls MAIL gem. S.4 RFC 821 \\
+Einleitung des (E)SMTP-Protokolls MAIL gem. S.4 RFC 821. \\
 \textbf{Mit Funktion verbundene Anforderungen} \\
-Versenden und Empfangen von E-Mails werden ermöglicht.\\
+Versenden und Empfangen von E-Mails wird ermöglicht.\\
 \subsubsection*{Abgleich LDAP}
 \textbf{Zweck der Funktion} \\
 Das System soll einen aktuellen Datenbestand über im LDAP angelegte Empfänger besitzen.\\
@@ -106,13 +107,13 @@ Das System soll einen aktuellen Datenbestand über im LDAP angelegte Empfänger 
 Auslösung:\\
 Automatisierter Anstoß zur Aktualisierung der Daten.\\
 Reaktion:\\
-Aufnahme neuer Empfänger, Löschung von nicht existenten Adressen.\\
+Aufnahme neuer Empfänger, Löschung  nicht existenter Adressen.\\
 \textbf{Mit Funktion verbundene Anforderungen}\\
 Es werden nur Mails von Empfängern verarbeitet, die in der Datenbank des LDAP erfasst sind.\\
 \subsection{Leistungsanforderung}
-Das System soll Mails so schnell wie möglich, jedoch in maximal 15 Sekunden beim Empfänger abliefern. Eine Echtzeit-Verarbeitung ist nicht notwendig.\\
-Das System soll 100\% der Mails beim jeweiligen Empfänger abliefern.\\
-Das System soll Mails mit Dateianhängen bis zu 25 MB verarbeiten können.\\
+- Das System soll Mails so schnell wie möglich, jedoch in maximal 15 Sekunden beim Empfänger abliefern. Eine Echtzeit-Verarbeitung ist nicht notwendig.\\
+- Das System soll 100\% der Mails beim jeweiligen Empfänger abliefern.\\
+- Das System soll Mails mit Dateianhängen bis zu 25 MB verarbeiten können.\\
 \subsection{Design-Einschränkungen}
 Das System muss mit dem \ac{imap}-Client Dovecot zusammenarbeiten.
 \subsection{Softwaresystem-Eigenschaften}
@@ -124,36 +125,37 @@ Das System soll jederzeit zur Verfügung stehen.\\
 \textbf{Sicherheit} \\
 Das System soll einen unberechtigten Zugriff Dritter auf die verarbeiteten E-Mails verhindern.\\
 \textbf{Wartbarkeit} \\
-Das System soll, ohne Veränderung der Systemumgebung, wartungsfrei sein.\\
-Das System soll über eine detaillierte Dokumentation verfügen.\\
+- Das System soll, ohne Veränderung der Systemumgebung, wartungsfrei sein.\\
+- Das System soll über eine detaillierte Dokumentation verfügen.\\
 \textbf{Portierbarkeit} \\
 Das System soll grundsätzlich auf andere Plattformen portierbar sein.\\
 
 \subsection{andere Anforderungen}
 \subsubsection*{Anschaffungskosten}
-Das System darf keine Anschaffungskosten auslösen.
+Das System darf keine Anschaffungskosten erzeugen.
 \subsubsection*{Betriebskosten}
-Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslösen.
+Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. hervorrufen.
 
 
 \chapter{Testfälle}
+\markboth{Testfälle}{}
 \label{ch:Testfaelle}
 
-\section{Testreihe 1 Versenden einer Mail}
+\section{Testreihe 1: Versenden einer Mail}
 \subsection{Testfall 1.1}
 \begin{itemize}
 	\item Testgegenstand:\\
-	Versenden einer E-Mail an einen existierenden Empfänger
+	Versenden einer E-Mail an einen existierenden Empfänger.
 	\item Testkonfiguration:\\
-	System ohne Last\\
-	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
-	Mail-Empfänger \verb+testnutzer@kitanet.local+ in System angelegt
+	- System ist ohne Last.\\
+	- Mail-Sender \verb+mail@kitanet.local+ ist in System angelegt.\\
+	- Mail-Empfänger \verb+testnutzer@kitanet.local+ ist in System angelegt.
 	\item Testbeschreibung:\\
 	Versenden einer E-Mail über Roundcube mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+testnutzer@kitanet.local+
 	\item Bezug:\\
 	Anforderung \textit{(E)SMTP-Kommunikation}
 	\item Priorität:\\
-	unbedingt erforderlich
+	Unbedingt erforderlich
 	\item Details:\\
 	Stellt sicher, dass Mails über den Server versendet werden können (Grundfunktionalität System).
 	\item Soll-Ergebnis:\\
@@ -175,19 +177,19 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 \subsection{Testfall 1.2}
 \begin{itemize}
 	\item Testgegenstand:\\
-	Versenden einer E-Mail an einen nicht existierenden Empfänger
+	Versenden einer E-Mail an einen nicht existierenden Empfänger.
 	\item Testkonfiguration:\\
-	System ohne Last\\
-	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
-	Mail-Empfänger \verb+foobar@kitanet.local+ nicht in System angelegt
+	- System ist ohne Last.\\
+	- Mail-Sender \verb+mail@kitanet.local+ ist in System angelegt.\\
+	- Mail-Empfänger \verb+foobar@kitanet.local+ ist nicht in System angelegt.
 	\item Testbeschreibung:\\
-	Versenden einer E-Mail über Roundcube mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+foobar@kitanet.local+
+	Versenden einer E-Mail über Roundcube mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+foobar@kitanet.local+.
 	\item Bezug:\\
 	Anforderung \textit{(E)SMTP-Kommunikation}
 	\item Priorität:\\
-	nachgeordnet
+	Nachgeordnet
 	\item Details:\\
-	Test provoziert SMTP-Fehlermeldung 550
+	Test provoziert SMTP-Fehlermeldung 550.
 	\item Soll-Ergebnis:\\
 	Sender erhält SMTP-Fehlermeldung 550 oder äquivalente Rückmeldung des Servers \citep[vgl.][16]{rfc821}.
 	\item Ist-Ergebnis:\\
@@ -197,34 +199,34 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	\item Aus welcher Phase stammt der Fehler:\\
 	Kein Fehler
 	\item Kommentar:\\
-	Erwartet wurde Fehlermeldung per Mail von SMTP-Server\\
-	Roundcube prüft selbstständig Gültigkeit des Empfängers
+	- Erwartet wurde Fehlermeldung per Mail von SMTP-Server.\\
+	- Roundcube prüft selbstständig Gültigkeit des Empfängers.
 	\item Tester:\\
 	M. Schäfer
 	\item Datum/Uhrzeit:\\
 	24.04.2021 21:25 Uhr
 \end{itemize}
 
-\section{Testreihe 2 LDAP-Anbindung}
+\section{Testreihe 2: LDAP-Anbindung}
 \subsection{Testfall 2.1}
 \begin{itemize}
 	\item Testgegenstand:\\
-	Anlegen eines Benutzers via LDAP und Versenden einer Test-Mail
+	Anlegen eines Benutzers via LDAP und Versenden einer Test-Mail.
 	\item Testkonfiguration:\\
-	ruhendes System\\
-	Mail-Sender \verb+mail@kitanet.local+ in System angelegt\\
-	Mail-Empfänger \verb+ldap-test3@kitanet.local+ nicht in System angelegt
+	- System ist ohne Last.\\
+	- Mail-Sender \verb+mail@kitanet.local+ ist in System angelegt.\\
+	- Mail-Empfänger \verb+ldap-test3@kitanet.local+ ist nicht in System angelegt.
 	\item Testbeschreibung:\\
-	Nutzer mit LDAP-Attribute \verb+mail = ldap-test3@kitanet.local+ wird im System angelegt\\
-	Wartezeit bis Datenaustausch zwischen LDAP und SMTP-Server stattgefunden hat. (ggf. manuelles Anstoßen des Cronjobs)\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet+ \\ an \verb+ldap-test3@kitanet.local+
+	- Nutzer mit LDAP-Attribute \verb+mail = ldap-test3@kitanet.local+ wird im System angelegt.\\
+	- Wartezeit, bis Datenaustausch zwischen LDAP und SMTP-Server stattgefunden hat (ggf. manuelles Anstoßen des Cronjobs).\\
+	- Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet+ \\ an \verb+ldap-test3@kitanet.local+.
 	\item Bezug:\\
 	Anforderung \textit{LDAP-Anbindung}
 	\item Priorität:\\
-	hoch
+	Hoch
 	\item Details:\\
-	Neue Benutzer sollen E-Mail-Funktionalität ohne Eingreifen des Administrators nutzen können.\\
-	Manuelles Auslösen des Cronjobs erspart Wartezeit.
+	- Neue Benutzer sollen E-Mail-Funktionalität ohne Eingreifen des Administrators nutzen können.\\
+	- Manuelles Auslösen des Cronjobs erspart Wartezeit.
 	\item Soll-Ergebnis:\\
 	E-Mail geht in Postfach des Empfängers ein.
 	\item Ist-Ergebnis:\\
@@ -234,7 +236,7 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 	\item Aus welcher Phase stammt der Fehler:\\
 	Kein Fehler	
 	\item Kommentar:\\
-	keine Wartezeit, Anstoß Cronjob unnötig. Nutzer sofort erreichbar.
+	Keine Wartezeit, Anstoß Cronjob unnötig. Nutzer sofort erreichbar.
 	\item Tester:\\
 	M. Schäfer
 	\item Datum/Uhrzeit:\\
@@ -244,19 +246,19 @@ Das System darf keine laufenden Betriebskosten durch Lizenzierung o.ä. auslöse
 \subsection{Testfall 2.2}
 \begin{itemize}
 	\item Testgegenstand:\\
-Löschen eines Benutzers via LDAP und Versenden einer Test-Mail
+	Löschen eines Benutzers via LDAP und Versenden einer Test-Mail.
 	\item Testkonfiguration:\\
-	Testfall 2.1 wurde erfolgreich durchgeführt\\
-	System ruht\\
-	Keine Änderung der Konfiguration
+	- Testfall 2.1 wurde erfolgreich durchgeführt\\
+	- System ist ohne Last\\
+	- Keine Änderung der Konfiguration
 	\item Testbeschreibung:\\
-	Löschung des Nutzers mit LDAP-Attribut: \verb+mail = ldap-test3@kitanet.local+\\
-	Wartezeit bis Datenaustausch zwischen LDAP und SMTP-Server stattgefunden hat. (ggf. manuelles Anstoßen des Cronjobs)\\
-	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+ldap-test3@kitanet.local+
+	- Löschung des Nutzers mit LDAP-Attribut: \verb+mail = ldap-test3@kitanet.local+.\\
+	- Wartezeit, bis Datenaustausch zwischen LDAP und SMTP-Server stattgefunden hat (ggf. manuelles Anstoßen des Cronjobs).\\
+	Versenden einer E-Mail über Dovecot-Client mit Nutzer \verb+mail@kitanet.local+ \\ an \verb+ldap-test3@kitanet.local+.
 	\item Bezug:\\
 	Anforderung \textit{LDAP-Anbindung}
 	\item Priorität:\\
-	hoch
+	Hoch
 	\item Details:\\
 	Löschen alter Nutzer verringert Speicherbedarf auf den Servern.
 	\item Soll-Ergebnis:\\
@@ -277,25 +279,25 @@ Löschen eines Benutzers via LDAP und Versenden einer Test-Mail
 
 
 
-\section{Systemausfall und Neustart}
+\section{Testreihe 3: Systemausfall und Neustart}
 \subsection{Testfall 3.1}
 \begin{itemize}
 	\item Testgegenstand:\\
 Kontrollierter Neustart des Systems
 	\item Testkonfiguration:\\
-	System ruht
+	System ist ohne Last.
 	\item Testbeschreibung:\\
-	Verbindung zu Server via \verb+SSH+
-	Befehl zum Neustart wird erteilt (\verb+sudo reboot+)
-	Nachdem Weboberfläche von \textit{KitaNet} wieder erreichbar ist, wird Testfall 1.1 wiederholt.
+	- Verbindung zu Server via \verb+SSH+. \\
+	- Befehl zum Neustart wird erteilt (\verb+sudo reboot+). \\
+	- Nachdem Weboberfläche von \textit{KitaNet} wieder erreichbar ist, wird Testfall 1.1 wiederholt.
 	\item Bezug:\\
 	Anforderung \textit{Zuverlässigkeit}
 	\item Priorität:\\
-	unbedingt erforderlich
+	Unbedingt erforderlich
 	\item Details:\\
 	Aufwand für Wiederinbetriebnahme des Systems soll so gering wie möglich gehalten werden. SMTP-Software soll selbstständig starten.
 	\item Soll-Ergebnis:\\
-	Wiederholung von Testfall 1.1 wird erfolgreich durchgeführt
+	Wiederholung von Testfall 1.1 wird erfolgreich durchgeführt.
 	\item Ist-Ergebnis:\\
 	Mail geht in Postfach des Empfängers ein.
 	\item Bestanden:\\
@@ -303,7 +305,7 @@ Kontrollierter Neustart des Systems
 	\item Aus welcher Phase stammt der Fehler:\\
 	Kein Fehler
 	\item Kommentar:\\
-	Server nach 36 Sekunden wieder erreichbar.
+	Server nach 36 Sekunden wieder erreichbar.\\
 	Webseite erst nach ca. 1:30 Minuten erreichbar.
 	\item Tester:\\
 	M. Schäfer
@@ -314,22 +316,22 @@ Kontrollierter Neustart des Systems
 \subsection{Testfall 3.2}
 \begin{itemize}
 	\item Testgegenstand:\\
-Neustart des Systems nach unkontrollierter Abschaltung
+Neustart des Systems nach unkontrollierter Abschaltung.
 	\item Testkonfiguration:\\
 	System ruht
 	\item Testbeschreibung:\\
-	Trennung des Systems von Stromzufuhr (Stromstecker raus)\\
-	Wiederverbindung mit Stromzufuhr\\
-	Manueller Neustart des Systems\\
-	Nachdem Weboberfläche von \textit{KitaNet} wieder erreichbar ist, wird Testfall 1.1 wiederholt.
+	- Trennung des Systems von Stromzufuhr (Stromstecker raus).\\
+	- Wiederverbindung mit Stromzufuhr.\\
+	- Manueller Neustart des Systems.\\
+	- Nachdem Weboberfläche von \textit{KitaNet} wieder erreichbar ist, wird Testfall 1.1 wiederholt.
 	\item Bezug:\\
 	Anforderung \textit{Zuverlässigkeit}
 	\item Priorität:\\
-	unbedingt erforderlich
+	Unbedingt erforderlich
 	\item Details:\\
-	System muss nach Stromausfall ohne Eingriff eines Administrators wieder eigenständig  funktionieren.
+	System muss nach Stromausfall ohne Eingriff eines Administrators wieder eigenständig funktionieren.
 	\item Soll-Ergebnis:\\
-	Wiederholung von Testfall 1.1 wird erfolgreich durchgeführt
+	Wiederholung von Testfall 1.1 wird erfolgreich durchgeführt.
 	\item Ist-Ergebnis:\\
 	Mail geht in Postfach des Empfängers ein.
 	\item Bestanden:\\
@@ -347,6 +349,8 @@ Neustart des Systems nach unkontrollierter Abschaltung
 
 
 \chapter{Dateien und Datenbankeinträge aus Kitanet}
+\markboth{Dateien und Datenbankeinträge}{}
+
 \begin{lstlisting}[caption={Ergebnis der LDAP-Abfrage für den Nutzer 'administrator'}, label={ldapabfrage}]
 Enter LDAP Password:
 dn: uniqueIdentifier=administrator,ou=people,dc=kitanet
@@ -372,7 +376,9 @@ mail: administrator@kitanet.local
 mailHomeDirectory: /srv/vmail/administrator@kitanet.local
 mailStorageDirectory: maildir:/srv/vmail/administrator@kitanet.local/Maildir
 \end{lstlisting}
+
 \newpage
+
 \begin{lstlisting}[caption={/etc/postfix/main.cf}, label={postfix/main.cf}]
 ### Base Settings
 # Listen on all interfaces
@@ -502,6 +508,7 @@ mailStorageDirectory: maildir:/srv/vmail/administrator@kitanet.local/Maildir
 # which attribute should be returned
 	result_attribute = mail
 \end{lstlisting}
+
 \begin{lstlisting}[caption={/etc/postfix/sasl/smtpd.conf}, label={postfix/sasl}]
 log_level: 3
 pwcheck_method: saslauthd
